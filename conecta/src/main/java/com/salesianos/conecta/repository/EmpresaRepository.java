@@ -1,4 +1,4 @@
-package com.salesianos.conecta.repos;
+package com.salesianos.conecta.repository;
 
 import com.salesianos.conecta.model.Empresa;
 import org.springframework.data.jpa.repository.JpaRepository;
