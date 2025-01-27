@@ -17,7 +17,8 @@ import java.util.Set;
 @Entity
 @Table(name = "curso")
 public class Curso {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
 
     private String nombre;
@@ -26,6 +27,11 @@ public class Curso {
 
     @ManyToMany(mappedBy = "cursos", fetch = FetchType.LAZY)
     private Set<Profesor> profesores = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "titulo_id",
+    foreignKey = @ForeignKey(name = "fk_titulo_curso"))
+    private Titulo titulo;
 
 
     //helpers
@@ -40,7 +46,6 @@ public class Curso {
         p.getCursos().remove(this);
     }
      */
-
 
 
     @Override
@@ -58,4 +63,5 @@ public class Curso {
     public final int hashCode() {
         return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
     }
+
 }

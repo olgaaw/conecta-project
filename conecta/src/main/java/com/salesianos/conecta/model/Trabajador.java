@@ -17,14 +17,14 @@ import java.util.Objects;
 @SuperBuilder
 @ToString(callSuper = true)
 @Entity
-public class Trabajador extends Persona{
+public class Trabajador extends Persona {
     private String area;
 
     private String puesto;
 
     @ManyToOne
     @JoinColumn(name = "empresa_id",
-                foreignKey = @ForeignKey(name = "fk_empresa_trabajador"))
+            foreignKey = @ForeignKey(name = "fk_empresa_trabajador"))
     private Empresa empresa;
 
 
