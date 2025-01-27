@@ -23,17 +23,17 @@ public class Demanda {
 
     private String requisitos;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "empresa_id",
             foreignKey = @ForeignKey(name = "fk_empresa_id"))
     private Empresa empresa;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "convocatoria_id",
             foreignKey = @ForeignKey(name = "fk_convocatoria_id"))
     private Convocatoria convocatoria;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "curso_id",
             foreignKey = @ForeignKey(name = "fk_curso_id"))
     private Curso curso;

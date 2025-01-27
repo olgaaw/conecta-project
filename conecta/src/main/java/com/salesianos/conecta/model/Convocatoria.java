@@ -1,9 +1,6 @@
 package com.salesianos.conecta.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -26,7 +23,7 @@ public class Convocatoria {
 
     private String nombre;
 
-    @OneToMany(mappedBy = "convocatoria")
+    @OneToMany(mappedBy = "convocatoria", fetch = FetchType.LAZY)
     @Builder.Default
     @ToString.Exclude
     private List<Demanda>demandas = new ArrayList<>();

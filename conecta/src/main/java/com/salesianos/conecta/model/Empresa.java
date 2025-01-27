@@ -27,17 +27,17 @@ public class Empresa {
 
     private String nombre;
 
-    @OneToMany(mappedBy = "empresa")
+    @OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
     @Builder.Default
     @ToString.Exclude
     private List<Trabajador> trabajadores = new ArrayList<>();
 
-    @OneToMany(mappedBy = "empresa")
+    @OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
     @Builder.Default
     @ToString.Exclude
     private List<Demanda> demandas = new ArrayList<>();
 
-    @ManyToMany (fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(
             joinColumns = @JoinColumn(name="empresa_id"),
             inverseJoinColumns = @JoinColumn(name="familiaProfesional_id")

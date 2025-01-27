@@ -27,12 +27,12 @@ public class Titulo {
 
     private String grado;
 
-    @OneToMany(mappedBy = "titulo")
+    @OneToMany(mappedBy = "titulo", fetch = FetchType.LAZY)
     @Builder.Default
     @ToString.Exclude
     private List<Curso> cursos = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "familiaProfesional_id",
             foreignKey = @ForeignKey(name = "fk_familiaProfesional_id"))
     private FamiliaProfesional familiaProfesional;
