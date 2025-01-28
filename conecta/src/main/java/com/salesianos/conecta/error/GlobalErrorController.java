@@ -12,8 +12,8 @@ import java.net.URI;
     public class GlobalErrorController
             extends ResponseEntityExceptionHandler {
 
-        @ExceptionHandler(ProfesorNotFoundException.class)
-        public ProblemDetail handleProductNotFound(ProfesorNotFoundException ex) {
+        @ExceptionHandler(ContactoNotFoundException.class)
+        public ProblemDetail handleProductNotFound(ContactoNotFoundException ex) {
             ProblemDetail result = ProblemDetail
                     .forStatusAndDetail(HttpStatus.NOT_FOUND,
                             ex.getMessage());

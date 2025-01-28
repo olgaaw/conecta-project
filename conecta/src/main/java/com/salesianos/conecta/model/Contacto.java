@@ -14,23 +14,39 @@ import java.util.Date;
 @Entity
 @Table(name = "contacto")
 public class Contacto {
-    @Id
-    @GeneratedValue
-    private Long id;
+
+    @EmbeddedId
+    private ContactoPK contactoPK = new ContactoPK();
+
+    @ManyToOne
+    @MapsId("profesor_id")
+    @JoinColumn(name = "profesor_id",
+            foreignKey = @ForeignKey(name = "fk_profesor_contacto"))
+    private Profesor profesor;
+
+    @ManyToOne
+    @MapsId("trabajador_id")
+    @JoinColumn(name = "trabajador_id",
+            foreignKey = @ForeignKey(name = "fk_trabajador_contacto"))
+    private Trabajador trabajador;
 
     private Date fecha;
     private String canal;
     private String resumen;
 
-    @ManyToOne
-    @JoinColumn(name = "profesor_id",
-                foreignKey = @ForeignKey(name = "fk_profesor_contacto"))
-    private Profesor profesor;
+    // Helpers
 
-    @ManyToOne
-    @JoinColumn(name = "trabajador_id",
-                foreignKey = @ForeignKey(name = "fk_trabajador_contacto"))
-    private Trabajador trabajador;
+    public void addToProfesor(Profesor p) {
+        p.getContactos().add(this);
+        this.profesor = p;
+    }
+
+    public void removeFromProfesor(Profesor p) {
+        p.getContactos().remove(this);
+        this.profesor = null;
+    }
+
+
 
 
 
