@@ -71,6 +71,18 @@ public class Empresa {
         d.setEmpresa(null);
     }
 
+    // Métodos helpers de Familia profesional
+
+    public void addFamiliaProfesional(FamiliaProfesional f) {
+        this.getFamiliasProfesionales().add(f);
+        f.getEmpresas().add(this);
+    }
+
+    public void removeFamiliaProfesional(FamiliaProfesional f) {
+        f.getEmpresas().remove(this);
+        this.getFamiliasProfesionales().remove(f);
+    }
+
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;
