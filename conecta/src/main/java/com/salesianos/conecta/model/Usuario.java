@@ -1,6 +1,8 @@
 package com.salesianos.conecta.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import lombok.extern.java.Log;
 import org.hibernate.proxy.HibernateProxy;
@@ -19,10 +21,13 @@ public class Usuario {
     @Id @GeneratedValue
     private Long id;
 
+    @NotNull(message = "El usuario no puede estar vacio")
     private String username;
 
+    @NotNull(message = "La contraseña no puede estar vacio")
     private String password;
 
+    @NotNull(message = "El rol no puede estar vacio")
     private String role;
 
     @OneToOne

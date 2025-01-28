@@ -18,7 +18,7 @@ import java.util.Set;
 @Entity
 public class Profesor extends Persona{
 
-    @OneToOne(mappedBy = "profesor", fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "profesor", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @ToString.Exclude
     private Usuario usuario;
 
