@@ -18,7 +18,7 @@ import java.util.Set;
 @Entity
 public class Profesor extends Persona{
 
-    @OneToMany(mappedBy = "profesor", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "profesor", fetch = FetchType.EAGER)
     @ToString.Exclude
     private Usuario usuario;
 

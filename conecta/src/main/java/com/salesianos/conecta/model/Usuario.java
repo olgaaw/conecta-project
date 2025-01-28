@@ -25,6 +25,7 @@ public class Usuario {
 
     private String role;
 
+    @OneToOne
     @JoinColumn(name = "profesor_id")
     @ToString.Exclude
     private Profesor profesor;

@@ -18,7 +18,7 @@ public abstract class Persona {
 
     protected String nombre;
 
-    protected String appelidos;
+    protected String apellidos;
 
     protected String email;
 
