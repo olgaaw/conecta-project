@@ -20,7 +20,7 @@ public class GlobalErrorController
         extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ProfesorNotFoundException.class)
-    public ProblemDetail handleProductNotFound(ProfesorNotFoundException ex) {
+    public ProblemDetail handleProfesorNotFound(ProfesorNotFoundException ex) {
         ProblemDetail result = ProblemDetail
                 .forStatusAndDetail(HttpStatus.NOT_FOUND,
                         ex.getMessage());
@@ -33,7 +33,7 @@ public class GlobalErrorController
     }
 
     @ExceptionHandler(UsuarioNotFoundException.class)
-    public ProblemDetail handleProductNotFound(UsuarioNotFoundException ex) {
+    public ProblemDetail handleUsuarioNotFound(UsuarioNotFoundException ex) {
         ProblemDetail result = ProblemDetail
                 .forStatusAndDetail(HttpStatus.NOT_FOUND,
                         ex.getMessage());

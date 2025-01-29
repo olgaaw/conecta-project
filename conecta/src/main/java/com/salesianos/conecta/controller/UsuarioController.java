@@ -17,17 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/usuario/")
 public class UsuarioController {
     private final UsuarioService usuarioService;
-
-    @GetMapping
-    public ResponseEntity<ListGetUsuarioDto> getAll() {
-        return ResponseEntity.ok(ListGetUsuarioDto.of(usuarioService.findAll()));
-    }
-
-    @GetMapping("{id}")
-    public ResponseEntity<GetUsuarioDto> getById(@PathVariable Long id) {
-        return ResponseEntity.ok(GetUsuarioDto.of(usuarioService.findById(id)));
-    }
-
+    
     @PostMapping
     public ResponseEntity<Usuario> create(@Valid @RequestBody CreateUsuarioDto dto
     ) {

@@ -30,10 +30,8 @@ public class UsuarioService {
     }
 
     public Usuario save(Usuario usuario) {
-        if (usuario.getProfesor() != null && usuario.getProfesor().getId() == null) {
-            Profesor savedProfesor = profesorRepository.save(usuario.getProfesor());
-            usuario.setProfesor(savedProfesor);
-        }
+        Profesor savedProfesor = profesorRepository.save(usuario.getProfesor());
+        usuario.setProfesor(savedProfesor);
 
         return usuarioRepository.save(Usuario.builder()
                         .username(usuario.getUsername())

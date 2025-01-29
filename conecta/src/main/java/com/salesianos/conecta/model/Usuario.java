@@ -18,15 +18,19 @@ import java.util.Objects;
 @Entity
 @Table(name = "usuario")
 public class Usuario {
+    @Column
     @Id @GeneratedValue
     private Long id;
 
+    @Column
     @NotNull(message = "El usuario no puede estar vacio")
     private String username;
 
+    @Column
     @NotNull(message = "La contraseña no puede estar vacio")
     private String password;
 
+    @Column
     @NotNull(message = "El rol no puede estar vacio")
     private String role;
 
