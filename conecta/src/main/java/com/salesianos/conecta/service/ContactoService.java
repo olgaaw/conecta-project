@@ -1,5 +1,6 @@
 package com.salesianos.conecta.service;
 
+import com.salesianos.conecta.error.ContactoNotFoundException;
 import com.salesianos.conecta.model.Contacto;
 import com.salesianos.conecta.model.ContactoPK;
 import com.salesianos.conecta.repository.ContactoRepository;
@@ -18,14 +19,14 @@ public class ContactoService {
     public List<Contacto> findAll() {
         List<Contacto> result = contactoRepository.findAll();
         if (result.isEmpty()) {
-            throw new EntityNotFoundException("No existen contactos con esos criterios de búsqueda");
+            throw new ContactoNotFoundException("No existen contactos con esos criterios de búsqueda");
         }
 
         return result;
     }
 
     public Contacto findById(ContactoPK id) {
-        return contactoRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No existe ningún contacto con el id"+id));
+        return contactoRepository.findById(id).orElseThrow(() -> new ContactoNotFoundException("No existe ningún contacto con el id"+id));
     }
 
     public Contacto save(Contacto contacto) {
@@ -44,7 +45,7 @@ public class ContactoService {
                     old.setResumen(contacto.getResumen());
                     return contactoRepository.save(contacto);
 
-                }).orElseThrow(() -> new EntityNotFoundException("No existe profesor con el id"+id));
+                }).orElseThrow(() -> new ContactoNotFoundException("No existe contacto con el id"+id));
     }
 
     public void delete(ContactoPK id) {

@@ -101,10 +101,6 @@ public class DataSeed {
         contacto.addToProfesor(p);
         contactoRepository.save(contacto2);
 
-        System.out.println(contacto.getContactoPK());
-        System.out.println(contacto2.getContactoPK());
-
-
 
     }
 
