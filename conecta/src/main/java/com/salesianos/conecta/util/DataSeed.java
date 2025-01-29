@@ -65,7 +65,7 @@ public class DataSeed {
 
         trabajadorRepository.save(t2);
 
-
+        /*
         Profesor p = Profesor.builder()
                 .nombre("Paco")
                 .apellidos("Perez")
@@ -99,7 +99,7 @@ public class DataSeed {
                 .build();
 
         contacto.addToProfesor(p);
-        contactoRepository.save(contacto2);
+        contactoRepository.save(contacto2); */
 
 
     }
