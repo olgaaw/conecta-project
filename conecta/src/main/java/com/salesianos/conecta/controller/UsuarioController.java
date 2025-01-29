@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/usuario/")
 public class UsuarioController {
     private final UsuarioService usuarioService;
-    
+
     @PostMapping
     public ResponseEntity<Usuario> create(@Valid @RequestBody CreateUsuarioDto dto
     ) {
