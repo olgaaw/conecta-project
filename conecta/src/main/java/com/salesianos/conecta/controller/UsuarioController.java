@@ -18,6 +18,11 @@ import org.springframework.web.bind.annotation.*;
 public class UsuarioController {
     private final UsuarioService usuarioService;
 
+    @GetMapping
+    public ListGetUsuarioDto getAll() {
+        return ListGetUsuarioDto.of(usuarioService.findAll());
+    }
+
     @PostMapping
     public ResponseEntity<Usuario> create(@Valid @RequestBody CreateUsuarioDto dto
     ) {
