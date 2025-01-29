@@ -23,6 +23,11 @@ public class UsuarioController {
         return ListGetUsuarioDto.of(usuarioService.findAll());
     }
 
+    @GetMapping("{id}")
+    public GetUsuarioDto getById(@PathVariable Long id) {
+        return GetUsuarioDto.of(usuarioService.findById(id));
+    }
+
     @PostMapping
     public ResponseEntity<Usuario> create(@Valid @RequestBody CreateUsuarioDto dto
     ) {
