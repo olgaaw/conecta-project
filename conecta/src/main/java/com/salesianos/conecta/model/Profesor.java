@@ -16,7 +16,7 @@ import java.util.*;
 @Entity
 public class Profesor extends Persona{
 
-    @OneToOne(mappedBy = "profesor", fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "profesor", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @ToString.Exclude
     private Usuario usuario;
 
@@ -48,9 +48,6 @@ public class Profesor extends Persona{
 
     
     
-    
-
-
 
     @Override
     public final boolean equals(Object o) {

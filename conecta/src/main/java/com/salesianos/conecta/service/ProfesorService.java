@@ -1,5 +1,6 @@
 package com.salesianos.conecta.service;
 
+import com.salesianos.conecta.error.ProfesorNotFoundException;
 import com.salesianos.conecta.model.Profesor;
 import com.salesianos.conecta.repository.CursoRepository;
 import com.salesianos.conecta.repository.ProfesorRepository;
@@ -13,19 +14,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProfesorService {
     private final ProfesorRepository profesorRepository;
-    private final CursoRepository cursoRepository;
 
     public List<Profesor> findAll() {
         List<Profesor> result = profesorRepository.findAll();
         if (result.isEmpty()) {
-            throw new EntityNotFoundException("No existen profesores con esos criterios de búsqueda");
+            throw new ProfesorNotFoundException();
         }
 
         return result;
     }
 
     public Profesor findById(Long id) {
-        return profesorRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No existe ningún profesor con el id"+id));
+        return profesorRepository.findById(id).orElseThrow(() -> new ProfesorNotFoundException(id));
     }
 
     public Profesor save(Profesor profesor) {
@@ -49,7 +49,7 @@ public class ProfesorService {
 
                     return profesorRepository.save(profesor);
 
-                }).orElseThrow(() -> new EntityNotFoundException("No existe profesor con el id"+id));
+                }).orElseThrow(() -> new ProfesorNotFoundException(id));
     }
 
     public void delete(Long id) {
