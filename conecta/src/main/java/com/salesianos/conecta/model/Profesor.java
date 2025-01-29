@@ -5,9 +5,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.proxy.HibernateProxy;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
@@ -30,6 +28,11 @@ public class Profesor extends Persona{
     @Builder.Default
     private Set<Curso> cursos = new HashSet<>();
 
+    @OneToMany(mappedBy = "profesor", fetch = FetchType.LAZY)
+    @Builder.Default
+    @ToString.Exclude
+    private List<Contacto> contactos = new ArrayList<>();
+
 
     //helpers
     public void addCurso(Curso c) {
@@ -41,6 +44,11 @@ public class Profesor extends Persona{
        this.cursos.remove(c);
        c.getProfesores().remove(this);
     }
+
+
+    
+    
+    
 
 
 
