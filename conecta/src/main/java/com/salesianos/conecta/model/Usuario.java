@@ -34,7 +34,7 @@ public class Usuario {
     @NotNull(message = "El rol no puede estar vacio")
     private String role;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "profesor_id")
     @ToString.Exclude
     private Profesor profesor;

@@ -35,7 +35,6 @@ public class Curso {
 
 
     //helpers
-    /*
     public void addProfesor(Profesor p) {
         this.profesores.add(p);
         p.getCursos().add(this);
@@ -45,7 +44,6 @@ public class Curso {
         this.profesores.remove(p);
         p.getCursos().remove(this);
     }
-     */
 
 
     @Override

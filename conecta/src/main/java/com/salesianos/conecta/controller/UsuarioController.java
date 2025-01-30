@@ -23,7 +23,7 @@ public class UsuarioController {
         return ListGetUsuarioDto.of(usuarioService.findAll());
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public GetUsuarioDto getById(@PathVariable Long id) {
         return GetUsuarioDto.of(usuarioService.findById(id));
     }
@@ -32,6 +32,13 @@ public class UsuarioController {
     public ResponseEntity<Usuario> create(@Valid @RequestBody CreateUsuarioDto dto
     ) {
         return ResponseEntity.status(201).body(usuarioService.save(dto.toUsuario()));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable Long id) {
+        usuarioService.delete(id);
+        return ResponseEntity.noContent().build();
+
     }
 
 
