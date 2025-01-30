@@ -39,14 +39,35 @@ VALUES (1, 51);
 INSERT INTO profesor_cursos (curso_id, profesor_id)
 VALUES (51, 1);
 
-INSERT INTO empresa (id, cif, direccion, coordenadas, nombre)
-VALUES (nextval('empresa_id'), '12345ABC', 'Calle Tarso, 7', '-123.0943, 98.7653', 'Fini Golosinas S.L.');
+-- Insertar Familias Profesionales
+INSERT INTO familia_profesional (id, nombre) VALUES (nextval('familia_profesional_seq'),'Tecnología');
+INSERT INTO familia_profesional (id, nombre) VALUES (nextval('familia_profesional_seq'),'Salud');
 
-INSERT INTO empresa (id, cif, direccion, coordenadas, nombre)
-VALUES (nextval('empresa_id'), '6547TRG', 'Calle Albareda, 9', '-129.0943, 91.7653', 'RKPJ S.L.');
+-- Insertar Empresas
+INSERT INTO empresa (id, cif, direccion, coordenadas, nombre) VALUES (nextval('empresa_seq'),'A12345678', 'Calle Falsa 123', '40.416775,-3.703790', 'Empresa de Tecnología S.A.');
+INSERT INTO empresa (id, cif, direccion, coordenadas, nombre) VALUES (nextval('empresa_seq'),'B87654321', 'Avenida Siempre Viva 742', '40.416775,-3.703790', 'Salud y Vida S.L.');
 
-INSERT INTO trabajador(id, nombre, apellidos, email, telefono, area, puesto)
-VALUES (nextval('trabajador_id'), 'David', 'Sevillano Dominguez', 'dvd.sevi@gmail.com', 65479023, 'Desarrollo', 'Mobile');
+-- Insertar Familias Profesionales en la tabla intermedia
+INSERT INTO empresa_familias_profesionales (empresa_id, familia_profesional_id) VALUES (1, 1); -- Empresa de Tecnología con Tecnología
+INSERT INTO empresa_familias_profesionales (empresa_id, familia_profesional_id) VALUES (51, 51); -- Salud y Vida con Salud
 
-INSERT INTO contacto(profesor_id, trabajador_id, fecha, canal, resumen)
-VALUES (1, 1, '2025-01-17', 'email', 'Aceptación del convenio de practicas');
+INSERT INTO demanda (id, requisitos, empresa_id, cantidad_Alumnos) VALUES (nextval('demanda_seq'),'Necesito un software de gestión de proyectos.', 1, 151); -- Demanda para Empresa de Tecnología
+INSERT INTO demanda (id, requisitos, empresa_id, cantidad_Alumnos) VALUES (nextval('demanda_seq'),'Requiero servicios de consultoría en salud.', 51, 1); -- Demanda para Salud y Vida
+INSERT INTO demanda (id, requisitos, empresa_id, cantidad_Alumnos) VALUES (nextval('demanda_seq'),'Busco un proveedor de hardware.', 51, 51); -- Otra demanda para Empresa de Tecnología
+INSERT INTO demanda (id, requisitos, empresa_id, cantidad_Alumnos) VALUES (nextval('demanda_seq'),'Solicito formación en primeros auxilios.', 51, 201); -- Otra demanda para Salud y Vida
+
+INSERT INTO trabajador(id, nombre, apellidos, email, telefono, area, puesto, empresa_id)
+VALUES (nextval('trabajador_seq'), 'David', 'Sevillano Dominguez', 'dvd.sevi@gmail.com', 65479023, 'Desarrollo', 'Mobile', 1);
+
+INSERT INTO trabajador(id, nombre, apellidos, email, telefono, area, puesto, empresa_id)
+VALUES (nextval('trabajador_seq'), 'Olga', 'Valor Wu', 'ovaolowu@gmail.com', 666789547, 'Diseño', 'ux/ui designer', 51);
+
+INSERT INTO contacto(profesor_id, trabajador_id, fecha, canal, resumen, deleted)
+VALUES (1, 1, '2025-01-17', 'email', 'Aceptación del convenio de practicas', false);
+
+INSERT INTO contacto(profesor_id, trabajador_id, fecha, canal, resumen, deleted)
+VALUES (1, 51, '2025-01-15', 'llamada', 'Cerrada fecha inicio de practicas primero daw', false);
+
+
+
+
