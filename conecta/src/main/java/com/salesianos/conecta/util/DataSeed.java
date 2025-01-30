@@ -25,6 +25,8 @@ public class DataSeed {
     public void init(){
 
 
+
+/*
         Empresa e = Empresa.builder()
                 .cif("121234123")
                 .nombre("Manolo SL")
@@ -130,9 +132,6 @@ public class DataSeed {
         contacto.addToProfesor(p);
         contactoRepository.save(contacto2); */
 
-        System.out.println(e);
-        System.out.println(e2);
-        System.out.println(f);
     }
 
 

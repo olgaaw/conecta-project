@@ -5,11 +5,12 @@ import com.salesianos.conecta.model.FamiliaProfesional;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public record GetEmpresaDto (
         String nombre,
         String direccion,
-        Set<FamiliaProfesional> familiaProfesionales,
+        Set<GetFamiliasProfesionalesDto> familiaProfesionales,
         int demandas
 ){
 
@@ -17,7 +18,10 @@ public record GetEmpresaDto (
         return new GetEmpresaDto(
                 empresa.getNombre(),
                 empresa.getDireccion(),
-                empresa.getFamiliasProfesionales(),
+                empresa.getFamiliasProfesionales().stream()
+                                .map(GetFamiliasProfesionalesDto::of)
+                                .collect(Collectors.toSet()),
+
                 empresa.getDemandas().size()
         );
     }
