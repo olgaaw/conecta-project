@@ -50,6 +50,19 @@ public class GlobalErrorController
 
     }
 
+    @ExceptionHandler(EmpresaNotFoundException.class)
+    public ProblemDetail handleEmpresaNotFound(EmpresaNotFoundException ex) {
+        ProblemDetail result = ProblemDetail
+                .forStatusAndDetail(HttpStatus.NOT_FOUND,
+                        ex.getMessage());
+        result.setTitle("Empresa no encontrada");
+        result.setType(URI.create("https://www.salesianos-triana.edu/errors/empresa-not-found"));
+        result.setProperty("author", "David");
+
+        return result;
+
+    }
+
 
 
 }
