@@ -15,10 +15,11 @@ import java.util.*;
 @ToString(callSuper = true)
 @Entity
 public class Profesor extends Persona{
-
+    /*
     @OneToOne(mappedBy = "profesor", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private Usuario usuario;
+     */
 
     @ManyToMany
     @JoinTable(

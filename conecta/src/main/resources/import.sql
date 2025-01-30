@@ -38,3 +38,15 @@ VALUES (1, 51);
 
 INSERT INTO profesor_cursos (curso_id, profesor_id)
 VALUES (51, 1);
+
+INSERT INTO empresa (id, cif, direccion, coordenadas, nombre)
+VALUES (nextval('empresa_id'), '12345ABC', 'Calle Tarso, 7', '-123.0943, 98.7653', 'Fini Golosinas S.L.');
+
+INSERT INTO empresa (id, cif, direccion, coordenadas, nombre)
+VALUES (nextval('empresa_id'), '6547TRG', 'Calle Albareda, 9', '-129.0943, 91.7653', 'RKPJ S.L.');
+
+INSERT INTO trabajador(id, nombre, apellidos, email, telefono, area, puesto)
+VALUES (nextval('trabajador_id'), 'David', 'Sevillano Dominguez', 'dvd.sevi@gmail.com', 65479023, 'Desarrollo', 'Mobile');
+
+INSERT INTO contacto(profesor_id, trabajador_id, fecha, canal, resumen)
+VALUES (1, 1, '2025-01-17', 'email', 'Aceptación del convenio de practicas');

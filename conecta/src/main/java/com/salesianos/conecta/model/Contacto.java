@@ -3,6 +3,7 @@ package com.salesianos.conecta.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -30,7 +31,7 @@ public class Contacto {
             foreignKey = @ForeignKey(name = "fk_trabajador_contacto"))
     private Trabajador trabajador;
 
-    private Date fecha;
+    private LocalDate fecha;
     private String canal;
     private String resumen;
 
