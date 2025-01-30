@@ -5,6 +5,7 @@ import com.salesianos.conecta.service.EmpresaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,11 +19,16 @@ public class EmpresaController {
     private final EmpresaService empresaService;
 
     @GetMapping
-    public ResponseEntity<List<GetEmpresaDto>> getAll(){
-        return ResponseEntity.ok(empresaService.findAll()
+    public List<GetEmpresaDto> getAll(){
+        return empresaService.findAll()
                 .stream()
                 .map(GetEmpresaDto::of)
-                .toList());
+                .toList();
+    }
+
+    @GetMapping("{id}")
+    public GetEmpresaDto getById(@PathVariable Long id){
+        return GetEmpresaDto.of(empresaService.findById(id));
     }
 
 }
