@@ -14,4 +14,8 @@ public record GetFamiliasProfesionalesDto(
 
     }
 
+    public FamiliaProfesional toFamiliaProfesional() {
+        return new FamiliaProfesional(this.nombre); // Asegúrate de que el constructor de FamiliaProfesional acepte un String
+    }
+
 }
