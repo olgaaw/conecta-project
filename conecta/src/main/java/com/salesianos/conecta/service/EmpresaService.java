@@ -1,5 +1,6 @@
 package com.salesianos.conecta.service;
 
+import com.salesianos.conecta.error.EmpresaNotFoundException;
 import com.salesianos.conecta.model.Empresa;
 import com.salesianos.conecta.repository.EmpresaRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -19,14 +20,14 @@ public class EmpresaService {
         List<Empresa> result = empresaRepository.findAll();
 
         if(result.isEmpty()){
-            throw new EntityNotFoundException("No se han encontrado empresas con esos criterios de busqueda");
+            throw new EmpresaNotFoundException();
         }
         return result;
     }
 
     public Empresa findById(Long id){
         return empresaRepository.findById(id)
-                .orElseThrow(()-> new EntityNotFoundException("No se ha encontrado una empresa con el id: " + id));
+                .orElseThrow(()-> new EmpresaNotFoundException(id));
     }
 
     public Empresa save(Empresa empresa){
@@ -47,7 +48,7 @@ public class EmpresaService {
                     old.setNombre(empresa.getNombre());
                     return empresaRepository.save(old);
                 })
-                .orElseThrow(() -> new EntityNotFoundException("No hay empresa con ID: "+ id));
+                .orElseThrow(() -> new EmpresaNotFoundException(id));
 
     }
 

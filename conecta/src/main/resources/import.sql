@@ -38,3 +38,8 @@ VALUES (1, 51);
 
 INSERT INTO profesor_cursos (curso_id, profesor_id)
 VALUES (51, 1);
+
+
+
+
+
