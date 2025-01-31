@@ -31,4 +31,10 @@ public class DemandaController {
         return GetDemandaDto.of(demandaService.findById(id));
     }
 
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id){
+        demandaService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }
