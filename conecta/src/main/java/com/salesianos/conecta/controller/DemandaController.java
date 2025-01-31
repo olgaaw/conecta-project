@@ -1,6 +1,5 @@
 package com.salesianos.conecta.controller;
 
-import com.salesianos.conecta.dto.CreateEmpresaDto;
 import com.salesianos.conecta.dto.GetDemandaDto;
 import com.salesianos.conecta.dto.GetEmpresaDto;
 import com.salesianos.conecta.model.Empresa;
@@ -26,22 +25,10 @@ public class DemandaController {
                 .map(GetDemandaDto::of)
                 .toList();
     }
-/*
+
     @GetMapping("{id}")
-    public GetEmpresaDto getById(@PathVariable Long id){
-        return GetEmpresaDto.of(demandaService.findById(id));
+    public GetDemandaDto getById(@PathVariable Long id){
+        return GetDemandaDto.of(demandaService.findById(id));
     }
 
-    @PostMapping
-    public ResponseEntity<Empresa> create(@RequestBody CreateEmpresaDto dto
-    ) {
-        return ResponseEntity.status(201).body(demandaService.save(dto));
-    }
-
-    @DeleteMapping("{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id){
-        demandaService.delete(id);
-        return ResponseEntity.noContent().build();
-    }
-*/
 }
