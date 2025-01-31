@@ -51,10 +51,10 @@ INSERT INTO empresa (cif, direccion, coordenadas, nombre) VALUES ('B87654321', '
 INSERT INTO empresa_familias_profesionales (empresa_id, familia_profesional_id) VALUES (1, 1); -- Empresa de Tecnología con Tecnología
 INSERT INTO empresa_familias_profesionales (empresa_id, familia_profesional_id) VALUES (2, 2); -- Salud y Vida con Salud
 
-INSERT INTO demanda (requisitos, empresa_id, cantidad_Alumnos) VALUES ('Necesito un software de gestión de proyectos.', 1, 3); -- Demanda para Empresa de Tecnología
-INSERT INTO demanda (requisitos, empresa_id, cantidad_Alumnos) VALUES ('Requiero servicios de consultoría en salud.', 2, 1); -- Demanda para Salud y Vida
-INSERT INTO demanda (requisitos, empresa_id, cantidad_Alumnos) VALUES ('Busco un proveedor de hardware.', 2, 2); -- Otra demanda para Empresa de Tecnología
-INSERT INTO demanda (requisitos, empresa_id, cantidad_Alumnos) VALUES ('Solicito formación en primeros auxilios.', 2, 4); -- Otra demanda para Salud y Vida
+INSERT INTO demanda (requisitos, empresa_id, cantidad_Alumnos, curso_id) VALUES ('Necesito un software de gestión de proyectos.', 1, 3, 1); -- Demanda para Empresa de Tecnología
+INSERT INTO demanda (requisitos, empresa_id, cantidad_Alumnos, curso_id) VALUES ('Requiero servicios de consultoría en salud.', 2, 1, 1); -- Demanda para Salud y Vida
+INSERT INTO demanda (requisitos, empresa_id, cantidad_Alumnos, curso_id) VALUES ('Busco un proveedor de hardware.', 2, 2, 1); -- Otra demanda para Empresa de Tecnología
+INSERT INTO demanda (requisitos, empresa_id, cantidad_Alumnos, curso_id) VALUES ('Solicito formación en primeros auxilios.', 2, 4, 51); -- Otra demanda para Salud y Vida
 
 
 

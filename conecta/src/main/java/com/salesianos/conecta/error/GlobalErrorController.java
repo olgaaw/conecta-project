@@ -63,6 +63,19 @@ public class GlobalErrorController
 
     }
 
+    @ExceptionHandler(DemandaNotFoundException.class)
+    public ProblemDetail handleDemandaNotFound(DemandaNotFoundException ex) {
+        ProblemDetail result = ProblemDetail
+                .forStatusAndDetail(HttpStatus.NOT_FOUND,
+                        ex.getMessage());
+        result.setTitle("Demanda no encontrada");
+        result.setType(URI.create("https://www.salesianos-triana.edu/errors/demanda-not-found"));
+        result.setProperty("author", "David");
+
+        return result;
+
+    }
+
 
 
 }
