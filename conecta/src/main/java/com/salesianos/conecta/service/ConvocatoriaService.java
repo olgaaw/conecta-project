@@ -28,12 +28,13 @@ public class ConvocatoriaService {
         return result;
 
     }
-/*
+
     public Convocatoria findById(Long id){
         return convocatoriaRepository.findById(id)
                 .orElseThrow(() -> new ConvocatoriaNotFoundException(id));
     }
 
+    /*
     public Convocatoria save(Convocatoria convocatoria){
         return convocatoriaRepository.save(Demanda.builder()
                 .build());

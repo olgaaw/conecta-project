@@ -24,4 +24,11 @@ public class ConvocatoriaController {
                 .map(GetConvocatoriaDto::of)
                 .toList();
     }
+
+    @GetMapping("{id}")
+    public GetConvocatoriaDto getById(@PathVariable Long id){
+        return GetConvocatoriaDto.of(convocatoriaService.findById(id));
+    }
+    
+
 }
