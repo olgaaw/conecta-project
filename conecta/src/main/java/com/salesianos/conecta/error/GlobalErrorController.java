@@ -76,19 +76,6 @@ public class GlobalErrorController
 
     }
 
-    @ExceptionHandler(ConvocatoriaNotFoundException.class)
-    public ProblemDetail handleConvocatoriaNotFound(ConvocatoriaNotFoundException ex) {
-        ProblemDetail result = ProblemDetail
-                .forStatusAndDetail(HttpStatus.NOT_FOUND,
-                        ex.getMessage());
-        result.setTitle("Convocatoria no encontrada");
-        result.setType(URI.create("https://www.salesianos-triana.edu/errors/convocatoria-not-found"));
-        result.setProperty("author", "David");
-
-        return result;
-
-    }
-
 
 
 }
