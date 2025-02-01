@@ -19,6 +19,7 @@ public class Convocatoria {
     @GeneratedValue
     private Long id;
 
+    @Column(name = "cursoEscolar")
     private String cursoEscolar;
 
     private String nombre;
