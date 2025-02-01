@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public record GetDemandaDto(
         String nombreEmpresa,
-        Set<GetFamiliasProfesionalesDto> familiaProfesionalesEmpresa,
+        String nombreTitulo,
         String Curso,
         int cantidadAlumnos
         ){
@@ -15,9 +15,7 @@ public record GetDemandaDto(
     public static GetDemandaDto of(Demanda demanda){
         return new GetDemandaDto(
                 demanda.getEmpresa().getNombre(),
-                demanda.getEmpresa().getFamiliasProfesionales().stream()
-                                .map(GetFamiliasProfesionalesDto::of)
-                                .collect(Collectors.toSet()),
+                demanda.getCurso().getTitulo().getNombre(),
                 demanda.getCurso().getNombre(),
                 demanda.getCantidadAlumnos()
                 );

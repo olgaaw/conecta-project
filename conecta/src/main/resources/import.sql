@@ -53,5 +53,5 @@ INSERT INTO convocatoria (id, curso_Escolar, nombre) VALUES (nextval('convocator
 
 INSERT INTO demanda (requisitos, empresa_id, cantidad_Alumnos, curso_id, convocatoria_id) VALUES ('Necesito un software de gestión de proyectos.', 1, 3, 1, 1);
 INSERT INTO demanda (requisitos, empresa_id, cantidad_Alumnos, curso_id, convocatoria_id) VALUES ('Requiero servicios de consultoría en salud.', 2, 1, 1, 1);
-INSERT INTO demanda (requisitos, empresa_id, cantidad_Alumnos, curso_id, convocatoria_id) VALUES ('Busco un proveedor de hardware.', 2, 2, 1, 1);
+INSERT INTO demanda (requisitos, empresa_id, cantidad_Alumnos, curso_id, convocatoria_id) VALUES ('Busco un proveedor de hardware.', 2, 2, 51, 1);
 INSERT INTO demanda (requisitos, empresa_id, cantidad_Alumnos, curso_id, convocatoria_id) VALUES ('Solicito formación en primeros auxilios.', 2, 4, 51, 51);
