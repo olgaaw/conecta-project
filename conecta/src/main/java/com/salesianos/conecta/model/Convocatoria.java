@@ -23,7 +23,7 @@ public class Convocatoria {
 
     private String nombre;
 
-    @OneToMany(mappedBy = "convocatoria", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "convocatoria", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @Builder.Default
     @ToString.Exclude
     private List<Demanda>demandas = new ArrayList<>();

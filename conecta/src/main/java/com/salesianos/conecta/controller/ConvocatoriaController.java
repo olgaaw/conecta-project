@@ -29,6 +29,10 @@ public class ConvocatoriaController {
     public GetConvocatoriaDto getById(@PathVariable Long id){
         return GetConvocatoriaDto.of(convocatoriaService.findById(id));
     }
-    
 
+    @DeleteMapping("{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id){
+        convocatoriaService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

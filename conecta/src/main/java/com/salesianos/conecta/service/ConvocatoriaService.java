@@ -34,14 +34,16 @@ public class ConvocatoriaService {
                 .orElseThrow(() -> new ConvocatoriaNotFoundException(id));
     }
 
+    public void delete(Long id){
+        convocatoriaRepository.deleteById(id);
+    }
+
     /*
     public Convocatoria save(Convocatoria convocatoria){
         return convocatoriaRepository.save(Demanda.builder()
                 .build());
     }
 
-    public void delete(Long id){
-        convocatoriaRepository.deleteById(id);
-    }
+
 */
 }
