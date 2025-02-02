@@ -24,12 +24,13 @@ public class FamiliaProfesionalController {
                 .map(GetFamiliasProfesionalesDemandasDto::of)
                 .toList();
     }
-/*
+
     @GetMapping("{id}")
     public GetFamiliasProfesionalesDemandasDto getById(@PathVariable Long id){
         return GetFamiliasProfesionalesDemandasDto.of(familiaProfesionalService.findById(id));
     }
 
+/*
     @DeleteMapping("{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
         familiaProfesionalService.delete(id);

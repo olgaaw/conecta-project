@@ -1,6 +1,7 @@
 package com.salesianos.conecta.service;
 
 import com.salesianos.conecta.error.DemandaNotFoundException;
+import com.salesianos.conecta.error.FamiliaProfesionalNotFoundException;
 import com.salesianos.conecta.model.Demanda;
 import com.salesianos.conecta.model.FamiliaProfesional;
 import com.salesianos.conecta.repository.DemandaRepository;
@@ -27,12 +28,13 @@ public class FamiliaProfesionalService {
         return result;
 
     }
-/*
+
     public FamiliaProfesional findById(Long id){
         return familiaProfesionalRepository.findById(id)
-                .orElseThrow(() -> new DemandaNotFoundException(id));
+                .orElseThrow(() -> new FamiliaProfesionalNotFoundException(id));
     }
 
+/*
     public FamiliaProfesional save(Demanda demanda){
         return familiaProfesionalRepository.save(FamiliaProfesional.builder()
 
