@@ -1,5 +1,6 @@
 package com.salesianos.conecta.service;
 
+import com.salesianos.conecta.dto.GetEmpresaDto;
 import com.salesianos.conecta.error.EmpresaNotFoundException;
 import com.salesianos.conecta.model.Empresa;
 import com.salesianos.conecta.repository.EmpresaRepository;
@@ -18,6 +19,16 @@ public class EmpresaService {
     public List<Empresa> findAll(){
 
         List<Empresa> result = empresaRepository.findAll();
+
+        if(result.isEmpty()){
+            throw new EmpresaNotFoundException();
+        }
+        return result;
+    }
+
+    public List<GetEmpresaDto> findAllDto(){
+
+        List<GetEmpresaDto> result = empresaRepository.GetAllDto();
 
         if(result.isEmpty()){
             throw new EmpresaNotFoundException();

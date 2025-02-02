@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -21,6 +22,11 @@ public class EmpresaController {
                 .stream()
                 .map(GetEmpresaDto::of)
                 .toList();
+    }
+
+    @GetMapping("demandas")
+    public List<GetEmpresaDto> getAllDto(){
+        return new ArrayList<>(empresaService.findAllDto());
     }
 
     @GetMapping("{id}")
