@@ -30,11 +30,9 @@ public class FamiliaProfesionalController {
         return GetFamiliasProfesionalesDemandasDto.of(familiaProfesionalService.findById(id));
     }
 
-/*
     @DeleteMapping("{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
         familiaProfesionalService.delete(id);
         return ResponseEntity.noContent().build();
     }
-*/
 }

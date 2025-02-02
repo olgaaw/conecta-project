@@ -17,11 +17,11 @@ public class FamiliaProfesionalService {
 
     private final FamiliaProfesionalRepository familiaProfesionalRepository;
 
-    public List<FamiliaProfesional> findAll(){
+    public List<FamiliaProfesional> findAll() {
 
         List<FamiliaProfesional> result = familiaProfesionalRepository.findAll();
 
-        if (result.isEmpty()){
+        if (result.isEmpty()) {
             throw new DemandaNotFoundException();
         }
 
@@ -29,10 +29,14 @@ public class FamiliaProfesionalService {
 
     }
 
-    public FamiliaProfesional findById(Long id){
+    public FamiliaProfesional findById(Long id) {
         return familiaProfesionalRepository.findById(id)
                 .orElseThrow(() -> new FamiliaProfesionalNotFoundException(id));
     }
+
+    public void delete(Long id) {
+        familiaProfesionalRepository.deleteById(id);
+
 
 /*
     public FamiliaProfesional save(Demanda demanda){
@@ -41,8 +45,8 @@ public class FamiliaProfesionalService {
                 .build());
     }
 
-    public void delete(Long id){
-        familiaProfesionalRepository.deleteById(id);
-    }
 */
+    }
 }
+
+
