@@ -4,8 +4,11 @@ import com.salesianos.conecta.error.ContactoNotFoundException;
 import com.salesianos.conecta.model.Contacto;
 import com.salesianos.conecta.model.ContactoPK;
 import com.salesianos.conecta.repository.ContactoRepository;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Filter;
+import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,13 +18,13 @@ import java.util.List;
 public class ContactoService {
 
     private final ContactoRepository contactoRepository;
+    private final EntityManager entityManager;
 
-    public List<Contacto> findAll() {
+    public List<Contacto> findAll(Boolean isDeleted) {
+        Session session = entityManager.unwrap(Session.class);
+        Filter filter = session.enableFilter("deletedContactoFilter");
+        filter.setParameter("isDeleted", isDeleted);
         List<Contacto> result = contactoRepository.findAll();
-        if (result.isEmpty()) {
-            throw new ContactoNotFoundException("No existen contactos con esos criterios de búsqueda");
-        }
-
         return result;
     }
 
@@ -34,6 +37,8 @@ public class ContactoService {
                         .fecha(contacto.getFecha())
                         .canal(contacto.getCanal())
                         .resumen(contacto.getResumen())
+                        .profesor(contacto.getProfesor())
+                        .trabajador(contacto.getTrabajador())
                 .build());
     }
 
@@ -43,6 +48,8 @@ public class ContactoService {
                     old.setFecha(contacto.getFecha());
                     old.setCanal(contacto.getCanal());
                     old.setResumen(contacto.getResumen());
+                    old.setProfesor(contacto.getProfesor());
+                    old.setTrabajador(contacto.getTrabajador());
                     return contactoRepository.save(contacto);
 
                 }).orElseThrow(() -> new ContactoNotFoundException("No existe contacto con el id"+id));

@@ -1,6 +1,7 @@
 package com.salesianos.conecta.controller;
 
 import com.salesianos.conecta.dto.CreateUsuarioDto;
+import com.salesianos.conecta.dto.EditUsuarioCmd;
 import com.salesianos.conecta.dto.GetUsuarioDto;
 import com.salesianos.conecta.dto.ListGetUsuarioDto;
 import com.salesianos.conecta.model.Profesor;
@@ -32,6 +33,11 @@ public class UsuarioController {
     public ResponseEntity<Usuario> create(@Valid @RequestBody CreateUsuarioDto dto
     ) {
         return ResponseEntity.status(201).body(usuarioService.save(dto.toUsuario()));
+    }
+
+    @PutMapping("/{id}")
+    public Usuario edit(@RequestBody EditUsuarioCmd aEditar, @PathVariable Long id) {
+        return usuarioService.edit(aEditar,id);
     }
 
     @DeleteMapping("/{id}")

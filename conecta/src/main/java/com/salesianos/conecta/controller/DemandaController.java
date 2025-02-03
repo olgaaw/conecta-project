@@ -1,12 +1,11 @@
 package com.salesianos.conecta.controller;
 
-import com.salesianos.conecta.dto.CreateEmpresaDto;
-import com.salesianos.conecta.dto.CreateUsuarioDto;
+import com.salesianos.conecta.dto.GetDemandaDto;
 import com.salesianos.conecta.dto.GetEmpresaDto;
 import com.salesianos.conecta.model.Convocatoria;
 import com.salesianos.conecta.model.Demanda;
 import com.salesianos.conecta.model.Empresa;
-import com.salesianos.conecta.model.Usuario;
+import com.salesianos.conecta.service.DemandaService;
 import com.salesianos.conecta.service.EmpresaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -16,7 +15,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,55 +22,47 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/empresa/")
+@RequestMapping("/demanda/")
 @RequiredArgsConstructor
-@Tag(name = "Empresa", description = "El controlador de Empresa")
-public class EmpresaController {
+@Tag(name = "Demanda", description = "El controlador de Demanda")
+public class DemandaController {
 
-    private final EmpresaService empresaService;
+    private final DemandaService demandaService;
 
-    @Operation(summary = "Obtiene todas las empresas")
+    @Operation(summary = "Obtiene todas las demandas")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Se han encontrado empresas",
+                    description = "Se han encontrado demandas",
                     content = { @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = Empresa.class)),
+                            array = @ArraySchema(schema = @Schema(implementation = Demanda.class)),
                             examples = {@ExampleObject(
                                     value = """
                                             [
-                                                   {
-                                                       "nombre": "Empresa de Tecnología S.A.",
-                                                       "direccion": "Calle Falsa 123",
-                                                       "familiaProfesionales": [
-                                                           {
-                                                               "nombre": "Tecnología"
-                                                           }
-                                                       ],
-                                                       "demandas": 1
-                                                   },
-                                                   {
-                                                       "nombre": "Salud y Vida S.L.",
-                                                       "direccion": "Avenida Siempre Viva 742",
-                                                       "familiaProfesionales": [
-                                                           {
-                                                               "nombre": "Salud"
-                                                           }
-                                                       ],
-                                                       "demandas": 1
-                                                   }
-                                               ]                                          
+                                                  {
+                                                      "nombreEmpresa": "Empresa de Tecnología S.A.",
+                                                      "nombreTitulo": "Técnico Superior en Desarrollo de Aplicaciones Multiplataforma",
+                                                      "Curso": "Primero",
+                                                      "cantidadAlumnos": 3
+                                                  },
+                                                  {
+                                                      "nombreEmpresa": "Salud y Vida S.L.",
+                                                      "nombreTitulo": "Técnico Superior en Desarrollo de Aplicaciones Multiplataforma",
+                                                      "Curso": "Primero",
+                                                      "cantidadAlumnos": 1
+                                                  },                                             
+                                              ]                                          
                                             """
                             )}
                     )}),
             @ApiResponse(responseCode = "404",
-                    description = "No se ha encontrado ninguna empresa",
+                    description = "No se ha encontrado ninguna demanda",
                     content = @Content),
     })
     @GetMapping
-    public List<GetEmpresaDto> getAll(){
-        return empresaService.findAll()
+    public List<GetDemandaDto> getAll(){
+        return demandaService.findAll()
                 .stream()
-                .map(GetEmpresaDto::of)
+                .map(GetDemandaDto::of)
                 .toList();
     }
 
@@ -98,19 +88,19 @@ public class EmpresaController {
                     content = @Content),
     })
     @GetMapping("{id}")
-    public GetEmpresaDto getById(@PathVariable Long id){
-        return GetEmpresaDto.of(empresaService.findById(id));
+    public GetDemandaDto getById(@PathVariable Long id){
+        return GetDemandaDto.of(demandaService.findById(id));
     }
 
-    @PostMapping
-    public ResponseEntity<Empresa> create(@RequestBody CreateEmpresaDto dto
-    ) {
-        return ResponseEntity.status(201).body(empresaService.save(dto));
-    }
-
+    @Operation(summary = "Elimina una demanda")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se ha eliminado una demanda",
+                    content = @Content),
+    })
     @DeleteMapping("{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
-        empresaService.delete(id);
+        demandaService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
