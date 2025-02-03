@@ -55,13 +55,19 @@ public class EmpresaService {
         return empresaRepository.save(e);
     }
 
-    public Empresa edit(Empresa empresa, Long id) {
+    public Empresa edit(CreateEmpresaDto empresa, Long id) {
         return empresaRepository.findById(id)
                 .map(old -> {
-                    old.setCif(empresa.getCif());
-                    old.setCoordenadas(empresa.getCoordenadas());
-                    old.setDireccion(empresa.getDireccion());
-                    old.setNombre(empresa.getNombre());
+                    old.setNombre(empresa.nombre());
+                    old.setDireccion(empresa.direccion());
+
+                    for (FamiliaProfesional f: empresa.familiasProfesionales()){
+                        old.addFamiliaProfesional(f);
+                    }
+                    for (Demanda d: empresa.demandas()){
+                        old.addDemanda(d);
+                    }
+
                     return empresaRepository.save(old);
                 })
                 .orElseThrow(() -> new EmpresaNotFoundException(id));

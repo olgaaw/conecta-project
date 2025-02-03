@@ -39,6 +39,11 @@ public class EmpresaController {
         return ResponseEntity.status(201).body(empresaService.save(dto));
     }
 
+    @PutMapping("/{id}")
+    public Empresa edit(@RequestBody CreateEmpresaDto aEditar, @PathVariable Long id) {
+        return empresaService.edit(aEditar, id);
+    }
+
     @DeleteMapping("{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
         empresaService.delete(id);
