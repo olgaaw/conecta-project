@@ -34,7 +34,7 @@ public class Empresa {
     private List<Trabajador> trabajadores = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     @ToString.Exclude
     private List<Demanda> demandas = new ArrayList<>();

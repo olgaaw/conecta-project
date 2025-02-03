@@ -1,9 +1,8 @@
 package com.salesianos.conecta.service;
 
+import com.salesianos.conecta.error.ContactoNotFoundException;
 import com.salesianos.conecta.error.CursoNotFoundException;
-import com.salesianos.conecta.error.UsuarioNotFoundException;
 import com.salesianos.conecta.model.Curso;
-import com.salesianos.conecta.model.Usuario;
 import com.salesianos.conecta.repository.CursoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,6 +20,10 @@ public class CursoService {
             throw new CursoNotFoundException();
         }
         return result;
+    }
+
+    public Curso findById(Long id) {
+        return cursoRepository.findById(id).orElseThrow(() -> new ContactoNotFoundException(id));
     }
 
 }
