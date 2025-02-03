@@ -37,6 +37,8 @@ public class ContactoService {
                         .fecha(contacto.getFecha())
                         .canal(contacto.getCanal())
                         .resumen(contacto.getResumen())
+                        .profesor(contacto.getProfesor())
+                        .trabajador(contacto.getTrabajador())
                 .build());
     }
 
@@ -46,6 +48,8 @@ public class ContactoService {
                     old.setFecha(contacto.getFecha());
                     old.setCanal(contacto.getCanal());
                     old.setResumen(contacto.getResumen());
+                    old.setProfesor(contacto.getProfesor());
+                    old.setTrabajador(contacto.getTrabajador());
                     return contactoRepository.save(contacto);
 
                 }).orElseThrow(() -> new ContactoNotFoundException("No existe contacto con el id"+id));
