@@ -46,12 +46,12 @@ public class EmpresaService {
         e.setNombre(nueva.nombre());
         e.setDireccion(nueva.direccion());
 
-        for (FamiliaProfesional f : nueva.familiasProfesionales()){
-            e.addFamiliaProfesional(f);
+        for (FamiliaProfesional f : nueva.familiasProfesionales()) {
+                e.addFamiliaProfesional(f);
         }
 
-        for (Demanda d : nueva.demandas()){
-            e.addDemanda(d);
+        for (Demanda d : nueva.demandas()) {
+                e.addDemanda(d);
         }
 
         empresaRepository.save(e);
