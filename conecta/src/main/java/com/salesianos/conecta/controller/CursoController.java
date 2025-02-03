@@ -168,4 +168,10 @@ public class CursoController {
     public Curso edit(@RequestBody EditCursoCmd curso, @PathVariable Long id) {
         return cursoService.edit(curso, id);
     }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        cursoService.delete(id);
+
+    }
 }

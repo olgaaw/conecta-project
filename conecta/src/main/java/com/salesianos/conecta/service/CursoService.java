@@ -5,6 +5,7 @@ import com.salesianos.conecta.dto.CreateCursoDto;
 import com.salesianos.conecta.error.CursoNotFoundException;
 import com.salesianos.conecta.error.TituloNotFoundException;
 import com.salesianos.conecta.model.Curso;
+import com.salesianos.conecta.model.Profesor;
 import com.salesianos.conecta.model.Titulo;
 import com.salesianos.conecta.repository.CursoRepository;
 import com.salesianos.conecta.repository.TituloRepository;
@@ -54,4 +55,21 @@ public class CursoService {
 
         return cursoRepository.save(dto.toCurso(titulo));
     }
+
+    public void delete(Long id) {
+        Curso curso = cursoRepository.findById(id)
+                .orElseThrow(() -> new CursoNotFoundException(id));
+
+        for (Profesor profesor : curso.getProfesores()) {
+            profesor.getCursos().remove(curso);
+        }
+
+        if (curso.getTitulo() != null) {
+            curso.getTitulo().getCursos().remove(curso);
+        }
+        cursoRepository.deleteDemandasByCursoId(id);
+
+        cursoRepository.delete(curso);
+    }
+
 }
