@@ -55,3 +55,9 @@ INSERT INTO demanda (requisitos, empresa_id, cantidad_Alumnos, curso_id, convoca
 INSERT INTO demanda (requisitos, empresa_id, cantidad_Alumnos, curso_id, convocatoria_id) VALUES ('Requiero servicios de consultoría en salud.', 2, 1, 1, 1);
 INSERT INTO demanda (requisitos, empresa_id, cantidad_Alumnos, curso_id, convocatoria_id) VALUES ('Busco un proveedor de hardware.', 2, 2, 51, 1);
 INSERT INTO demanda (requisitos, empresa_id, cantidad_Alumnos, curso_id, convocatoria_id) VALUES ('Solicito formación en primeros auxilios.', 2, 4, 51, 51);
+
+INSERT INTO empresa_familias_profesionales (empresa_id, familia_profesional_id)
+VALUES (1, 1);
+
+INSERT INTO empresa_familias_profesionales (empresa_id, familia_profesional_id)
+VALUES (2, 2);
