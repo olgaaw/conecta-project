@@ -21,7 +21,6 @@ public record GetEmpresaDto (
                 empresa.getFamiliasProfesionales().stream()
                                 .map(GetFamiliasProfesionalesDto::of)
                                 .collect(Collectors.toSet()),
-
                 empresa.getDemandas().size()
         );
     }
