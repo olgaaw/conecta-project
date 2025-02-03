@@ -23,7 +23,7 @@ public class TrabajadorService {
         return result;
     }
 
-    public Trabajador finById(Long id) {
+    public Trabajador findById(Long id) {
        return trabajadorRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No existe ningun trabajador con esps criterios de búsqueda"));
     }
 
@@ -35,8 +35,6 @@ public class TrabajadorService {
                         .telefono(trabajador.getTelefono())
                         .area(trabajador.getArea())
                         .puesto(trabajador.getPuesto())
-                        //.empresa(empresaRepository.findById()
-                                //.orElseThrow(() -> new EntityNotFoundException("No existe una empresa con ese id"))
                 .build());
     }
 
@@ -49,8 +47,6 @@ public class TrabajadorService {
                     old.setTelefono(trabajador.getTelefono());
                     old.setArea(trabajador.getArea());
                     old.setPuesto(trabajador.getPuesto());
-                    //old.setEmpresa(empresaRepository.findById(trabajador.empresaId))
-                      //      .orElseThrow(() -> new EntityNotFoundException("No existe una empresa con ese id")));;
                     return trabajadorRepository.save(trabajador);
                 }).orElseThrow(() -> new EntityNotFoundException("No existe ningún trabajador con el id "+id));
     }
