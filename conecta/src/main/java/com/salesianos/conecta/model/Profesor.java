@@ -16,12 +16,9 @@ import java.util.*;
 @Entity
 public class Profesor extends Persona{
 
-    /*
     @OneToOne(mappedBy = "profesor", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private Usuario usuario;
-
-     */
 
 
     @ManyToMany(fetch = FetchType.LAZY)

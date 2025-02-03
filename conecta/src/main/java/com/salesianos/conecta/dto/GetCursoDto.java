@@ -10,7 +10,7 @@ public record GetCursoDto(
         Long id,
         String nombre,
         int horasEmpresa,
-        Set<Profesor> profesores,
+        Set<GetProfesorDto> profesores,
         String nombreTitulo
 ) {
     public static GetCursoDto of (Curso curso) {
@@ -18,7 +18,10 @@ public record GetCursoDto(
                 curso.getId(),
                 curso.getNombre(),
                 curso.getHorasEmpresa(),
-                curso.getProfesores(),
+                curso.getProfesores()
+                        .stream()
+                        .map(GetProfesorDto::of)
+                        .collect(Collectors.toSet()),
                 curso.getTitulo().getNombre()
         );
     }
