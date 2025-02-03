@@ -2,10 +2,11 @@ package com.salesianos.conecta.controller;
 
 
 import com.salesianos.conecta.dto.EditCursoCmd;
+import com.salesianos.conecta.dto.CreateCursoDto;
 import com.salesianos.conecta.dto.GetCursoDto;
-import com.salesianos.conecta.dto.GetUsuarioDto;
 import com.salesianos.conecta.model.Curso;
 import com.salesianos.conecta.service.CursoService;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -14,8 +15,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+
 
 import java.util.List;
 
@@ -135,6 +139,31 @@ public class CursoController {
     }
 
 
+    @Operation(summary = "Crea un curso")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",
+                    description = "Curso creado",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CreateCursoDto.class))),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado el curso",
+                    content = @Content),
+    })
+    @PostMapping
+    public ResponseEntity<GetCursoDto> create(@Valid @RequestBody CreateCursoDto dto) {
+        Curso curso = cursoService.save(dto);
+        return ResponseEntity.status(201).body(GetCursoDto.of(curso));
+    }
+
+
+    @Operation(summary = "Edita un curso por su id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Curso editado"),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado el curso ",
+                    content = @Content),
+    })
     @PutMapping("/{id}")
     public Curso edit(@RequestBody EditCursoCmd curso, @PathVariable Long id) {
         return cursoService.edit(curso, id);
