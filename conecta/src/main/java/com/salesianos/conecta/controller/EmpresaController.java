@@ -76,25 +76,29 @@ public class EmpresaController {
                 .toList();
     }
 
-    @Operation(summary = "Obtiene una demanda")
+    @Operation(summary = "Obtiene una empresa")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Se ha encontrado una demanda",
+                    description = "Se ha encontrado una empresa",
                     content = { @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = Convocatoria.class)),
+                            array = @ArraySchema(schema = @Schema(implementation = Empresa.class)),
                             examples = {@ExampleObject(
                                     value = """
                                             {
-                                                "nombreEmpresa": "Empresa de Tecnología S.A.",
-                                                "nombreTitulo": "Técnico Superior en Desarrollo de Aplicaciones Multiplataforma",
-                                                "Curso": "Primero",
-                                                "cantidadAlumnos": 3
+                                                "nombre": "Salud y Vida S.L.",
+                                                "direccion": "Avenida Siempre Viva 742",
+                                                "familiaProfesionales": [
+                                                    {
+                                                        "nombre": "Salud"
+                                                    }
+                                                ],
+                                                "demandas": 1
                                             }                                          
                                             """
                             )}
                     )}),
             @ApiResponse(responseCode = "404",
-                    description = "No se ha encontrado ninguna demanda",
+                    description = "No se ha encontrado ninguna empresa",
                     content = @Content),
     })
     @GetMapping("{id}")
@@ -102,12 +106,19 @@ public class EmpresaController {
         return GetEmpresaDto.of(empresaService.findById(id));
     }
 
+
     @PostMapping
     public ResponseEntity<Empresa> create(@RequestBody CreateEmpresaDto dto
     ) {
         return ResponseEntity.status(201).body(empresaService.save(dto));
     }
 
+    @Operation(summary = "Elimina una empresa")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se ha eliminado una empresa",
+                    content = @Content),
+    })
     @DeleteMapping("{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
         empresaService.delete(id);

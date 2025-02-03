@@ -71,7 +71,7 @@ public class DemandaController {
             @ApiResponse(responseCode = "200",
                     description = "Se ha encontrado una demanda",
                     content = { @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = Convocatoria.class)),
+                            array = @ArraySchema(schema = @Schema(implementation = Demanda.class)),
                             examples = {@ExampleObject(
                                     value = """
                                             {
