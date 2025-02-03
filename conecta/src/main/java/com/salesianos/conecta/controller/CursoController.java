@@ -169,9 +169,17 @@ public class CursoController {
         return cursoService.edit(curso, id);
     }
 
+
+    @Operation(summary = "Elimina un curso por su id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204",
+                    description = "Curso eliminado",
+                    content = @Content)
+    })
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public ResponseEntity<?> delete(@PathVariable Long id) {
         cursoService.delete(id);
+        return ResponseEntity.noContent().build();
 
     }
 }
