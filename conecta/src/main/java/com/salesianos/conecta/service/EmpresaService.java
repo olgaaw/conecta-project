@@ -40,12 +40,19 @@ public class EmpresaService {
 
     public Empresa save(CreateEmpresaDto nueva){
 
-        return empresaRepository.save(Empresa.builder()
-                .nombre(nueva.nombre())
-                .direccion(nueva.direccion())
-                .demandas(nueva.demandas())
-                .familiasProfesionales(nueva.familiasProfesionales())
-                .build());
+        Empresa e = new Empresa();
+
+        e.setNombre(nueva.nombre());
+        e.setDireccion(nueva.direccion());
+
+        for (FamiliaProfesional f: nueva.familiasProfesionales()){
+            e.addFamiliaProfesional(f);
+        }
+        for (Demanda d: nueva.demandas()){
+            e.addDemanda(d);
+        }
+
+        return empresaRepository.save(e);
     }
 
     public Empresa edit(Empresa empresa, Long id) {
