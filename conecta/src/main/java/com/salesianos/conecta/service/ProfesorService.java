@@ -34,7 +34,7 @@ public class ProfesorService {
                         .apellidos(profesor.getApellidos())
                         .email(profesor.getEmail())
                         .telefono(profesor.getTelefono())
-                        .usuario(profesor.getUsuario())
+                        //.usuario(profesor.getUsuario())
                 .build());
     }
 
@@ -45,7 +45,7 @@ public class ProfesorService {
                     old.setApellidos(profesor.getApellidos());
                     old.setEmail(profesor.getEmail());
                     old.setTelefono(profesor.getTelefono());
-                    old.setUsuario(profesor.getUsuario());
+                    //old.setUsuario(profesor.getUsuario());
 
                     return profesorRepository.save(profesor);
 

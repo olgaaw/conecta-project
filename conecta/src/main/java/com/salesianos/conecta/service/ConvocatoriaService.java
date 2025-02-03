@@ -22,7 +22,7 @@ public class ConvocatoriaService {
         List<Convocatoria> result = convocatoriaRepository.findAll();
 
         if (result.isEmpty()){
-            throw new DemandaNotFoundException();
+            throw new ConvocatoriaNotFoundException();
         }
 
         return result;

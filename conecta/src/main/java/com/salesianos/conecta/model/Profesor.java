@@ -20,7 +20,8 @@ public class Profesor extends Persona{
     @ToString.Exclude
     private Usuario usuario;
 
-    @ManyToMany
+
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             joinColumns = @JoinColumn(name = "profesor_id"),
             inverseJoinColumns = @JoinColumn(name = "curso_id")

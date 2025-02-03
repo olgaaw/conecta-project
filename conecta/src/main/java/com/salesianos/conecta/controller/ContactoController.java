@@ -1,6 +1,7 @@
 package com.salesianos.conecta.controller;
 
 import com.salesianos.conecta.dto.GetContactoDto;
+import com.salesianos.conecta.model.Contacto;
 import com.salesianos.conecta.service.ContactoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class ContactoController {
 
     @GetMapping
     public ResponseEntity<List<GetContactoDto>> getAll(){
-        return ResponseEntity.ok(contactoService.findAll()
+        return ResponseEntity.ok(contactoService.findAll(false)
                 .stream()
                 .map(GetContactoDto::of)
                 .toList());

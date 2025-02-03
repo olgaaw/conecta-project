@@ -1,6 +1,7 @@
 package com.salesianos.conecta.service;
 
 import com.salesianos.conecta.dto.CreateEmpresaDto;
+import com.salesianos.conecta.dto.GetEmpresaStringsDto;
 import com.salesianos.conecta.error.EmpresaNotFoundException;
 import com.salesianos.conecta.model.Demanda;
 import com.salesianos.conecta.model.Empresa;
@@ -45,33 +46,33 @@ public class EmpresaService {
         e.setNombre(nueva.nombre());
         e.setDireccion(nueva.direccion());
 
-        for (FamiliaProfesional f: nueva.familiasProfesionales()){
+        for (FamiliaProfesional f : nueva.familiasProfesionales()){
             e.addFamiliaProfesional(f);
         }
-        for (Demanda d: nueva.demandas()){
+
+        for (Demanda d : nueva.demandas()){
             e.addDemanda(d);
         }
 
-        return empresaRepository.save(e);
+        empresaRepository.save(e);
+
+        return e;
     }
 
-    public Empresa edit(CreateEmpresaDto empresa, Long id) {
-        return empresaRepository.findById(id)
+    public GetEmpresaStringsDto edit(CreateEmpresaDto empresa, Long id) {
+
+
+        Empresa empresaEditar = empresaRepository.findById(id)
                 .map(old -> {
                     old.setNombre(empresa.nombre());
                     old.setDireccion(empresa.direccion());
-
-                    for (FamiliaProfesional f: empresa.familiasProfesionales()){
-                        old.addFamiliaProfesional(f);
-                    }
-                    for (Demanda d: empresa.demandas()){
-                        old.addDemanda(d);
-                    }
-
+                    empresa.familiasProfesionales().forEach(old::addFamiliaProfesional);
+                    empresa.demandas().forEach(old::addDemanda);
                     return empresaRepository.save(old);
                 })
                 .orElseThrow(() -> new EmpresaNotFoundException(id));
 
+        return GetEmpresaStringsDto.of(empresaEditar);
     }
 
     public void delete(Long id){empresaRepository.deleteById(id);}
