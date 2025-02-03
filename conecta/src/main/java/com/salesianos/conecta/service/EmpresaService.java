@@ -53,7 +53,7 @@ public class EmpresaService {
             e.addDemanda(d);
         }
 
-        return e;
+        return empresaRepository.save(e);
     }
 
     public Empresa edit(Empresa empresa, Long id) {
