@@ -62,11 +62,11 @@ VALUES (nextval('trabajador_seq'), 'David', 'Sevillano Dominguez', 'dvd.sevi@gma
 INSERT INTO trabajador(id, nombre, apellidos, email, telefono, area, puesto, empresa_id)
 VALUES (nextval('trabajador_seq'), 'Olga', 'Valor Wu', 'ovaolowu@gmail.com', 666789547, 'Diseño', 'ux/ui designer', 51);
 
-INSERT INTO contacto(profesor_id, trabajador_id, fecha, canal, resumen, deleted)
-VALUES (1, 1, '2025-01-17', 'email', 'Aceptación del convenio de practicas', false);
+INSERT INTO contacto(id, profesor_id, trabajador_id, fecha, canal, resumen, deleted)
+VALUES (nextval('contacto_seq'), 1, 1,'2025-01-17', 'email', 'Aceptación del convenio de practicas', false);
 
-INSERT INTO contacto(profesor_id, trabajador_id, fecha, canal, resumen, deleted)
-VALUES (1, 51, '2025-01-15', 'llamada', 'Cerrada fecha inicio de practicas primero daw', false);
+INSERT INTO contacto(id, profesor_id, trabajador_id, fecha, canal, resumen, deleted)
+VALUES (nextval('contacto_seq'),1, 51, '2025-01-15', 'llamada', 'Cerrada fecha inicio de practicas primero daw', true);
 
 
 
