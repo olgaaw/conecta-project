@@ -1,5 +1,6 @@
 package com.salesianos.conecta.error;
 
+import com.salesianos.conecta.model.FamiliaProfesional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -50,8 +51,61 @@ public class GlobalErrorController
 
     }
 
+    @ExceptionHandler(EmpresaNotFoundException.class)
+    public ProblemDetail handleEmpresaNotFound(EmpresaNotFoundException ex) {
+        ProblemDetail result = ProblemDetail
+                .forStatusAndDetail(HttpStatus.NOT_FOUND,
+                        ex.getMessage());
+        result.setTitle("Empresa no encontrada");
+        result.setType(URI.create("https://www.salesianos-triana.edu/errors/empresa-not-found"));
+        result.setProperty("author", "David");
+
+        return result;
+
+    }
+
+    @ExceptionHandler(DemandaNotFoundException.class)
+    public ProblemDetail handleDemandaNotFound(DemandaNotFoundException ex) {
+        ProblemDetail result = ProblemDetail
+                .forStatusAndDetail(HttpStatus.NOT_FOUND,
+                        ex.getMessage());
+        result.setTitle("Demanda no encontrada");
+        result.setType(URI.create("https://www.salesianos-triana.edu/errors/demanda-not-found"));
+        result.setProperty("author", "David");
+
+        return result;
+
+    }
+
+    @ExceptionHandler(ConvocatoriaNotFoundException.class)
+    public ProblemDetail handleConvocatoriaNotFound(ConvocatoriaNotFoundException ex) {
+        ProblemDetail result = ProblemDetail
+                .forStatusAndDetail(HttpStatus.NOT_FOUND,
+                        ex.getMessage());
+        result.setTitle("Convocatoria no encontrada");
+        result.setType(URI.create("https://www.salesianos-triana.edu/errors/convocatoria-not-found"));
+        result.setProperty("author", "David");
+
+        return result;
+
+    }
+
+    @ExceptionHandler(FamiliaProfesionalNotFoundException.class)
+    public ProblemDetail handleFamiliaProfesionalNotFound(FamiliaProfesionalNotFoundException ex) {
+        ProblemDetail result = ProblemDetail
+                .forStatusAndDetail(HttpStatus.NOT_FOUND,
+                        ex.getMessage());
+        result.setTitle("Familia Profesional no encontrada");
+        result.setType(URI.create("https://www.salesianos-triana.edu/errors/familiaProfesional-not-found"));
+        result.setProperty("author", "David");
+
+        return result;
+
+    }
+
 
 
 }
+
 
 

@@ -16,7 +16,7 @@ import java.util.Objects;
 public class Demanda {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     private int cantidadAlumnos;

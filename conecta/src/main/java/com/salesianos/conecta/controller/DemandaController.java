@@ -1,6 +1,9 @@
 package com.salesianos.conecta.controller;
 
+import com.salesianos.conecta.dto.GetDemandaDto;
 import com.salesianos.conecta.dto.GetEmpresaDto;
+import com.salesianos.conecta.model.Empresa;
+import com.salesianos.conecta.service.DemandaService;
 import com.salesianos.conecta.service.EmpresaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -9,28 +12,28 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/empresa/")
+@RequestMapping("/demanda/")
 @RequiredArgsConstructor
-public class EmpresaController {
+public class DemandaController {
 
-    private final EmpresaService empresaService;
+    private final DemandaService demandaService;
 
     @GetMapping
-    public List<GetEmpresaDto> getAll(){
-        return empresaService.findAll()
+    public List<GetDemandaDto> getAll(){
+        return demandaService.findAll()
                 .stream()
-                .map(GetEmpresaDto::of)
+                .map(GetDemandaDto::of)
                 .toList();
     }
 
     @GetMapping("{id}")
-    public GetEmpresaDto getById(@PathVariable Long id){
-        return GetEmpresaDto.of(empresaService.findById(id));
+    public GetDemandaDto getById(@PathVariable Long id){
+        return GetDemandaDto.of(demandaService.findById(id));
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
-        empresaService.delete(id);
+        demandaService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
