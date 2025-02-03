@@ -2,6 +2,10 @@ package com.salesianos.conecta.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
+import org.hibernate.annotations.SQLDelete;
 
 import java.util.Date;
 
@@ -13,6 +17,9 @@ import java.util.Date;
 @Builder
 @Entity
 @Table(name = "contacto")
+@SQLDelete(sql = "UPDATE contacto SET deleted = true WHERE id=?")
+@FilterDef(name = "deletedContactoFilter", parameters = @ParamDef(name = "isDeleted", type = Boolean.class))
+@Filter(name = "deletedContactoFilter", condition = "deleted = :isDeleted")
 public class Contacto {
 
     @EmbeddedId
@@ -33,6 +40,7 @@ public class Contacto {
     private Date fecha;
     private String canal;
     private String resumen;
+    private Boolean deleted = false;
 
     // Helpers
 

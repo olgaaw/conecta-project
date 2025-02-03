@@ -19,7 +19,7 @@ public class ContactoController {
 
     @GetMapping
     public ResponseEntity<List<GetContactoDto>> getAll(){
-        return ResponseEntity.ok(contactoService.findAll()
+        return ResponseEntity.ok(contactoService.findAll(false)
                 .stream()
                 .map(GetContactoDto::of)
                 .toList());

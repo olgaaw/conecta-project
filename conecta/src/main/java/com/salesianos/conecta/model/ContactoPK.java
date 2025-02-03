@@ -1,6 +1,7 @@
 package com.salesianos.conecta.model;
 
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.GeneratedValue;
 import lombok.*;
 
 import java.io.Serializable;
@@ -12,6 +13,8 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Embeddable
 public class ContactoPK {
+    @GeneratedValue
+    private Long id;
 
     private Long profesor_id;
 

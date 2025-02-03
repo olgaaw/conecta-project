@@ -5,17 +5,19 @@ import com.salesianos.conecta.model.Profesor;
 import com.salesianos.conecta.model.Usuario;
 import com.salesianos.conecta.repository.ProfesorRepository;
 import com.salesianos.conecta.repository.UsuarioRepository;
-import jakarta.persistence.EntityNotFoundException;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
 public class UsuarioService {
     private final UsuarioRepository usuarioRepository ;
     private final ProfesorRepository profesorRepository;
+
 
     public List<Usuario> findAll() {
         List<Usuario> result = usuarioRepository.findAll();
@@ -25,9 +27,13 @@ public class UsuarioService {
         return result;
     }
 
+
+
     public Usuario findById(Long id) {
         return usuarioRepository.findById(id).orElseThrow(() -> new UsuarioNotFoundException(id));
     }
+
+
 
     public Usuario save(Usuario usuario) {
         Profesor savedProfesor = profesorRepository.save(usuario.getProfesor());
@@ -41,6 +47,7 @@ public class UsuarioService {
                 .build());
     }
 
+
     public Usuario edit(Usuario usuario, Long id) {
         return usuarioRepository.findById(id)
                 .map(old -> {
@@ -51,6 +58,7 @@ public class UsuarioService {
                     return usuarioRepository.save(usuario);
                 }).orElseThrow(() -> new UsuarioNotFoundException(id));
     }
+
 
     public void delete(Long id) {
         usuarioRepository.deleteById(id);
