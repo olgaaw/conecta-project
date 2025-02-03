@@ -1,5 +1,6 @@
 package com.salesianos.conecta.service;
 
+import com.salesianos.conecta.dto.EditCursoCmd;
 import com.salesianos.conecta.error.ContactoNotFoundException;
 import com.salesianos.conecta.error.CursoNotFoundException;
 import com.salesianos.conecta.model.Curso;
@@ -24,6 +25,17 @@ public class CursoService {
 
     public Curso findById(Long id) {
         return cursoRepository.findById(id).orElseThrow(() -> new ContactoNotFoundException(id));
+    }
+
+    public Curso edit(EditCursoCmd curso, Long id) {
+        return cursoRepository.findById(id)
+                .map(old -> {
+                    old.setNombre(curso.nombre());
+                    old.setHorasEmpresa(curso.horasEmpresa());
+                    old.setTitulo(curso.titulo());
+
+                    return cursoRepository.save(old);
+                }).orElseThrow(() -> new CursoNotFoundException(id));
     }
 
 }

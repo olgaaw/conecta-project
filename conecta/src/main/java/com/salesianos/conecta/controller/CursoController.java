@@ -1,8 +1,10 @@
 package com.salesianos.conecta.controller;
 
 
+import com.salesianos.conecta.dto.EditCursoCmd;
 import com.salesianos.conecta.dto.GetCursoDto;
 import com.salesianos.conecta.dto.GetUsuarioDto;
+import com.salesianos.conecta.model.Curso;
 import com.salesianos.conecta.service.CursoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -13,10 +15,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -135,4 +134,9 @@ public class CursoController {
         return GetCursoDto.of(cursoService.findById(id));
     }
 
+
+    @PutMapping("/{id}")
+    public Curso edit(@RequestBody EditCursoCmd curso, @PathVariable Long id) {
+        return cursoService.edit(curso, id);
+    }
 }
