@@ -29,6 +29,9 @@ public class FamiliaProfesional {
     @ManyToMany(mappedBy = "familiasProfesionales",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Empresa>empresas = new HashSet<>();
 
+    public FamiliaProfesional(String nombre) {
+    }
+
     // Métodos helpers
 
     public void addTitulo(Titulo t) {

@@ -1,6 +1,7 @@
 package com.salesianos.conecta.controller;
 
 import com.salesianos.conecta.dto.CreateUsuarioDto;
+import com.salesianos.conecta.dto.EditUsuarioCmd;
 import com.salesianos.conecta.dto.GetUsuarioDto;
 import com.salesianos.conecta.dto.ListGetUsuarioDto;
 import com.salesianos.conecta.model.Usuario;
@@ -102,17 +103,30 @@ public class UsuarioController {
     @Operation(summary = "Crea un usuario")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",
-                    description = "Monumento editado",
+                    description = "Usuario creado",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = CreateUsuarioDto.class))),
             @ApiResponse(responseCode = "404",
-                    description = "No se ha encontrado el monumento",
+                    description = "No se ha encontrado el usuario",
                     content = @Content),
     })
     @PostMapping
     public ResponseEntity<Usuario> create(@Valid @RequestBody CreateUsuarioDto dto
     ) {
         return ResponseEntity.status(201).body(usuarioService.save(dto.toUsuario()));
+    }
+
+    @Operation(summary = "Edita un usuario por su id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Usuario editado"),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado el usuario ",
+                    content = @Content),
+    })
+    @PutMapping("/{id}")
+    public Usuario edit(@RequestBody EditUsuarioCmd aEditar, @PathVariable Long id) {
+        return usuarioService.edit(aEditar,id);
     }
 
 

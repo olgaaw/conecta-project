@@ -7,7 +7,8 @@ import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
 import org.hibernate.annotations.SQLDelete;
 
-import java.util.Date;
+import java.time.LocalDate;
+
 
 @Getter
 @Setter
@@ -37,7 +38,7 @@ public class Contacto {
             foreignKey = @ForeignKey(name = "fk_trabajador_contacto"))
     private Trabajador trabajador;
 
-    private Date fecha;
+    private LocalDate fecha;
     private String canal;
     private String resumen;
     private Boolean deleted = false;

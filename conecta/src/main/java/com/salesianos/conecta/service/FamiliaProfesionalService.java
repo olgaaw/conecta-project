@@ -22,7 +22,7 @@ public class FamiliaProfesionalService {
         List<FamiliaProfesional> result = familiaProfesionalRepository.findAll();
 
         if (result.isEmpty()) {
-            throw new DemandaNotFoundException();
+            throw new FamiliaProfesionalNotFoundException();
         }
 
         return result;

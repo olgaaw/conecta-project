@@ -26,6 +26,8 @@ public class Curso {
     private int horasEmpresa;
 
     @ManyToMany(mappedBy = "cursos", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @Builder.Default
     private Set<Profesor> profesores = new HashSet<>();
 
     @ManyToOne

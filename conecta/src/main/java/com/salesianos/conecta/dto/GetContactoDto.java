@@ -2,10 +2,11 @@ package com.salesianos.conecta.dto;
 
 import com.salesianos.conecta.model.Contacto;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public record GetContactoDto (
-        Date fecha,
+        LocalDate fecha,
         String canal,
         String resumen,
         String trabajadorNombre,
