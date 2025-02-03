@@ -26,6 +26,8 @@ public class Curso {
     private int horasEmpresa;
 
     @ManyToMany(mappedBy = "cursos", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @Builder.Default
     private Set<Profesor> profesores = new HashSet<>();
 
     @ManyToOne
@@ -61,5 +63,6 @@ public class Curso {
     public final int hashCode() {
         return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
     }
+
 
 }

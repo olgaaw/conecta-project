@@ -5,7 +5,6 @@ import com.salesianos.conecta.model.Contacto;
 import com.salesianos.conecta.model.ContactoPK;
 import com.salesianos.conecta.repository.ContactoRepository;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Filter;
 import org.hibernate.Session;
@@ -34,11 +33,11 @@ public class ContactoService {
 
     public Contacto save(Contacto contacto) {
         return contactoRepository.save(Contacto.builder()
-                        .fecha(contacto.getFecha())
-                        .canal(contacto.getCanal())
-                        .resumen(contacto.getResumen())
-                        .profesor(contacto.getProfesor())
-                        .trabajador(contacto.getTrabajador())
+                .fecha(contacto.getFecha())
+                .canal(contacto.getCanal())
+                .resumen(contacto.getResumen())
+                .profesor(contacto.getProfesor())
+                .trabajador(contacto.getTrabajador())
                 .build());
     }
 

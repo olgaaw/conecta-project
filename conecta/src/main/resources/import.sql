@@ -49,8 +49,8 @@ INSERT INTO profesor_cursos (curso_id, profesor_id)
 VALUES (1, 51);
 
 INSERT INTO profesor_cursos (curso_id, profesor_id)
-
 VALUES (51, 1);
+
 
 INSERT INTO empresa (id, cif, direccion, coordenadas, nombre)
 VALUES (nextval('empresa_seq'),'A12345678', 'Calle Falsa 123', '40.416775,-3.703790', 'Empresa de Tecnología S.A.');

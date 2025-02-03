@@ -103,6 +103,19 @@ public class GlobalErrorController
 
     }
 
+    @ExceptionHandler(CursoNotFoundException.class)
+    public ProblemDetail handleCursoNotFound(CursoNotFoundException ex) {
+        ProblemDetail result = ProblemDetail
+                .forStatusAndDetail(HttpStatus.NOT_FOUND,
+                        ex.getMessage());
+        result.setTitle("Curso no encontrada");
+        result.setType(URI.create("https://www.salesianos-triana.edu/errors/curso-not-found"));
+        result.setProperty("author", "Olga");
+
+        return result;
+
+    }
+
 
 
 }

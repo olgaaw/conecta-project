@@ -11,9 +11,7 @@ import com.salesianos.conecta.repository.FamiliaProfesionalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -69,7 +67,9 @@ public class EmpresaService {
 
     }
 
-    public void delete(Long id){empresaRepository.deleteById(id);}
+    public void delete(Long id){
+        empresaRepository.deleteById(id);
+    }
 
 
 
