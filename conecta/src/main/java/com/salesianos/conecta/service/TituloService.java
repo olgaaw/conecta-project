@@ -1,6 +1,8 @@
 package com.salesianos.conecta.service;
 
+import com.salesianos.conecta.error.ProfesorNotFoundException;
 import com.salesianos.conecta.error.TituloNotFoundException;
+import com.salesianos.conecta.model.Profesor;
 import com.salesianos.conecta.model.Titulo;
 import com.salesianos.conecta.repository.TituloRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,5 +22,9 @@ public class TituloService {
         }
 
         return result;
+    }
+
+    public Titulo findById(Long id) {
+        return tituloRepository.findById(id).orElseThrow(() -> new TituloNotFoundException(id));
     }
 }
