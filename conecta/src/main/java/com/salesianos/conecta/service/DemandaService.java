@@ -56,6 +56,15 @@ public class DemandaService {
 
     }
 
+    public GetDemandaDto edit(CreateDemandaDto demanda, Long id){
+
+        Demanda demandaEditar = demandaRepository.findById(id)
+                .map(old ->{
+                    
+                })
+
+    }
+
     public void delete(Long id){
         demandaRepository.deleteById(id);
     }
