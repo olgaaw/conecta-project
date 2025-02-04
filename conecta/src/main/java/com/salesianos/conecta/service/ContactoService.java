@@ -85,7 +85,7 @@ public class ContactoService {
 
         contacto.removeFromProfesor(contacto.getProfesor());
 
-        contactoRepository.deleteById(id);
+        contactoRepository.delete(contacto);
     }
 
 

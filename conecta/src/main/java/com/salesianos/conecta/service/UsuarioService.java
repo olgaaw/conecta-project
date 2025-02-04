@@ -59,6 +59,11 @@ public class UsuarioService {
 
 
     public void delete(Long id) {
-        usuarioRepository.deleteById(id);
+
+        Usuario usuario = usuarioRepository.findById(id)
+                        .orElseThrow(() -> new UsuarioNotFoundException(id));
+
+        usuario.setProfesor(null);
+        usuarioRepository.delete(usuario);
     }
 }
