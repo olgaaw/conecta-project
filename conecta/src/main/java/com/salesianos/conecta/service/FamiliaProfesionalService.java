@@ -1,9 +1,6 @@
 package com.salesianos.conecta.service;
 
-import com.salesianos.conecta.dto.CreateConvocatoriaDto;
-import com.salesianos.conecta.dto.CreateFamiliaprofesionalDto;
-import com.salesianos.conecta.dto.GetConvocatoriaDto;
-import com.salesianos.conecta.dto.GetFamiliasProfesionalesDemandasDto;
+import com.salesianos.conecta.dto.*;
 import com.salesianos.conecta.error.DemandaNotFoundException;
 import com.salesianos.conecta.error.EmpresaNotFoundException;
 import com.salesianos.conecta.error.FamiliaProfesionalNotFoundException;
@@ -58,6 +55,21 @@ public class FamiliaProfesionalService {
         familiaProfesionalRepository.save(f);
 
         return GetFamiliasProfesionalesDemandasDto.of(f);
+    }
+
+    public GetFamiliasProfesionalesDemandasDto edit(CreateFamiliaprofesionalDto familiaProfesional, Long id) {
+
+
+        FamiliaProfesional familiaProfesionalEditar = familiaProfesionalRepository.findById(id)
+                .map(old -> {
+                    old.setNombre(familiaProfesional.nombre());
+
+                    
+                    return empresaRepository.save(old);
+                })
+                .orElseThrow(() -> new EmpresaNotFoundException(id));
+
+        return GetEmpresaStringsDto.of(empresaEditar);
     }
 
     public void delete(Long id) {
