@@ -1,11 +1,6 @@
 package com.salesianos.conecta.controller;
 
-import com.salesianos.conecta.dto.CreateCursoDto;
-import com.salesianos.conecta.dto.CreateTituloDto;
-import com.salesianos.conecta.dto.GetCursoDto;
-import com.salesianos.conecta.dto.GetTituloDto;
-import com.salesianos.conecta.model.Curso;
-import com.salesianos.conecta.model.Titulo;
+import com.salesianos.conecta.dto.*;
 import com.salesianos.conecta.service.TituloService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -100,6 +95,16 @@ public class TituloController {
     }
 
 
+    @Operation(summary = "Crea un titulo")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",
+                    description = "Titulo creado",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = CreateTituloDto.class))),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado el titulo",
+                    content = @Content),
+    })
     @PostMapping
     public ResponseEntity<GetTituloDto> create(@Valid @RequestBody CreateTituloDto dto) {
         return ResponseEntity.status(201).body(tituloService.save(dto));
