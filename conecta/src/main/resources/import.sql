@@ -1,4 +1,3 @@
-
 INSERT INTO profesor(id, nombre, apellidos, email, telefono)
 VALUES (nextval('profesor_seq'),'Lucia', 'Sanchez Garcia', 'lucia@gmail.com', 6554321);
 

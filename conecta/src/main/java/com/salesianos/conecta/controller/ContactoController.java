@@ -7,7 +7,6 @@ import com.salesianos.conecta.dto.GetDemandaDto;
 import com.salesianos.conecta.model.Contacto;
 import com.salesianos.conecta.model.ContactoPK;
 import com.salesianos.conecta.model.Convocatoria;
-import com.salesianos.conecta.model.Demanda;
 import com.salesianos.conecta.service.ContactoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
