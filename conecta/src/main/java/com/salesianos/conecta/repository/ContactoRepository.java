@@ -9,7 +9,6 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
-
 public interface ContactoRepository extends JpaRepository<Contacto, ContactoPK> {
     @Query("""
             select c from Contacto  c

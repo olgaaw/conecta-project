@@ -3,8 +3,11 @@ package com.salesianos.conecta.service;
 import com.salesianos.conecta.dto.CreateDemandaDto;
 import com.salesianos.conecta.dto.GetDemandaDto;
 import com.salesianos.conecta.error.DemandaNotFoundException;
+import com.salesianos.conecta.error.EmpresaNotFoundException;
 import com.salesianos.conecta.model.Demanda;
+import com.salesianos.conecta.repository.CursoRepository;
 import com.salesianos.conecta.repository.DemandaRepository;
+import com.salesianos.conecta.repository.EmpresaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +18,8 @@ import java.util.List;
 public class DemandaService {
 
     private final DemandaRepository demandaRepository;
+    private final EmpresaRepository empresaRepository;
+    private final CursoRepository cursoRepository;
 
     public List<Demanda> findAll(){
 
@@ -37,8 +42,12 @@ public class DemandaService {
 
         Demanda d = new Demanda();
 
-        d.setEmpresa(nueva.empresa());
-        d.setCurso(nueva.curso());
+        d.setEmpresa(empresaRepository.findById(nueva.empresa().getId())
+                .orElseThrow(() -> new EmpresaNotFoundException("Empresa no encontrada")));
+
+        d.setCurso(cursoRepository.findById(nueva.curso().getId())
+                .orElseThrow(() -> new EmpresaNotFoundException("Curso no encontrado")));
+
         d.setCantidadAlumnos(nueva.cantidadAlumnos());
 
         demandaRepository.save(d);

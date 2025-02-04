@@ -91,19 +91,36 @@ public class DemandaController {
         return GetDemandaDto.of(demandaService.findById(id));
     }
 
-    @Operation(summary = "Elimina una demanda")
+    @Operation(summary = "Crea una demanda")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",
-                    description = "Se ha eliminado una demanda",
-                    content = @Content),
+            @ApiResponse(responseCode = "201",
+                    description = "Se ha creado una demanda",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Demanda.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            {
+                                                "nombreEmpresa": "Empresa de Tecnología S.A.",
+                                                "nombreTitulo": "Técnico Superior en Desarrollo de Aplicaciones Multiplataforma",
+                                                "Curso": "Primero",
+                                                "cantidadAlumnos": 3
+                                            }                                         
+                                            """
+                            )}
+                    )}),
     })
-
     @PostMapping
     public ResponseEntity<GetDemandaDto> create(@RequestBody CreateDemandaDto dto
     ) {
         return ResponseEntity.status(201).body(demandaService.save(dto));
     }
 
+    @Operation(summary = "Elimina una demanda")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se ha eliminado una demanda",
+                    content = @Content),
+    })
     @DeleteMapping("{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
         demandaService.delete(id);
