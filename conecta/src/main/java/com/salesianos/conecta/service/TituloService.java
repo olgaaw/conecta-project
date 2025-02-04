@@ -5,8 +5,10 @@ import com.salesianos.conecta.dto.GetTituloDto;
 import com.salesianos.conecta.error.FamiliaProfesionalNotFoundException;
 import com.salesianos.conecta.error.TituloNotFoundException;
 import com.salesianos.conecta.model.*;
+import com.salesianos.conecta.repository.DemandaRepository;
 import com.salesianos.conecta.repository.FamiliaProfesionalRepository;
 import com.salesianos.conecta.repository.TituloRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,7 @@ import java.util.List;
 public class TituloService {
     private final TituloRepository tituloRepository;
     private final FamiliaProfesionalRepository familiaProfesionalRepository;
+    private final DemandaRepository demandaRepository;
 
     public List<Titulo> findAll() {
         List<Titulo> result = tituloRepository.findAll();
@@ -64,16 +67,21 @@ public class TituloService {
 
     }
 
+    @Transactional
     public void delete(Long id) {
         Titulo titulo = tituloRepository.findById(id)
-                        .orElseThrow(() -> new TituloNotFoundException(id));
+                .orElseThrow(() -> new TituloNotFoundException(id));
 
-        for(Curso c : titulo.getCursos()) {
-            titulo.removeCurso(c);
+        for (Curso curso : titulo.getCursos()) {
+            demandaRepository.deleteByCursoId(curso.getId());
+
+            for (Profesor profesor : curso.getProfesores()) {
+                profesor.getCursos().remove(curso);
+            }
+            curso.getProfesores().clear();
         }
 
-
-        tituloRepository.deleteById(id);
+        tituloRepository.delete(titulo);
     }
 
 
