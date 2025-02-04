@@ -27,6 +27,30 @@ public class ContactoController {
 
     private final ContactoService contactoService;
 
+    @Operation(summary = "Obtiene todos los contactos")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado contacots",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Contacto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            [
+                                                 {
+                                                         "fecha": "2025-01-17",
+                                                         "canal": "email",
+                                                         "resumen": "Aceptación del convenio de practicas",
+                                                         "trabajadorNombre": "David",
+                                                         "trabajadorEmpresa": "Empresa de Tecnología S.A."
+                                                     }
+                                             ]                                          
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado ningun contacto",
+                    content = @Content),
+    })
     @GetMapping
     public ResponseEntity<List<GetContactoDto>> getAll(){
         return ResponseEntity.ok(contactoService.findAll(false)

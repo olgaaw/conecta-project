@@ -4,6 +4,7 @@ import com.salesianos.conecta.dto.CreateContactoDto;
 import com.salesianos.conecta.dto.GetContactoDto;
 import com.salesianos.conecta.error.ContactoNotFoundException;
 import com.salesianos.conecta.error.ProfesorNotFoundException;
+import com.salesianos.conecta.error.UsuarioNotFoundException;
 import com.salesianos.conecta.model.Contacto;
 import com.salesianos.conecta.model.ContactoPK;
 import com.salesianos.conecta.model.Profesor;
@@ -53,7 +54,7 @@ public class ContactoService {
         c.setProfesor(profesorRepository.findById(dto.profesor().getId())
                 .orElseThrow(() -> new ProfesorNotFoundException(dto.profesor().getId())));
         c.setTrabajador(trabajadorRepository.findById(dto.trabajador().getId())
-                .orElseThrow(() -> new EntityNotFoundException("Trabajador no encontrado")));
+                .orElseThrow(() -> new UsuarioNotFoundException(dto.trabajador().getId())));
 
         contactoRepository.save(c);
 
