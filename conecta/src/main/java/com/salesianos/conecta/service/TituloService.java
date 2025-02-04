@@ -5,6 +5,7 @@ import com.salesianos.conecta.dto.GetTituloDto;
 import com.salesianos.conecta.error.FamiliaProfesionalNotFoundException;
 import com.salesianos.conecta.error.TituloNotFoundException;
 import com.salesianos.conecta.model.*;
+import com.salesianos.conecta.repository.CursoRepository;
 import com.salesianos.conecta.repository.DemandaRepository;
 import com.salesianos.conecta.repository.FamiliaProfesionalRepository;
 import com.salesianos.conecta.repository.TituloRepository;
@@ -20,7 +21,9 @@ public class TituloService {
     private final TituloRepository tituloRepository;
     private final FamiliaProfesionalRepository familiaProfesionalRepository;
     private final DemandaRepository demandaRepository;
+    private final CursoRepository cursoRepository;
 
+    @Transactional
     public List<Titulo> findAll() {
         List<Titulo> result = tituloRepository.findAll();
         if (result.isEmpty()) {
@@ -30,10 +33,12 @@ public class TituloService {
         return result;
     }
 
+    @Transactional
     public Titulo findById(Long id) {
         return tituloRepository.findById(id).orElseThrow(() -> new TituloNotFoundException(id));
     }
 
+    @Transactional
     public GetTituloDto save(CreateTituloDto titulo) {
        Titulo t = new Titulo();
        t.setNombre(titulo.nombre());
@@ -43,7 +48,9 @@ public class TituloService {
                .orElseThrow(() -> new FamiliaProfesionalNotFoundException(titulo.familiaProfesional().getId())));
 
        for (Curso c : titulo.curso()) {
-           t.addCurso(c);
+           Curso curso = cursoRepository.findById(c.getId())
+                   .orElseThrow(() -> new RuntimeException("Curso no encontrado"));
+           t.addCurso(curso);
        }
 
        tituloRepository.save(t);
@@ -51,6 +58,7 @@ public class TituloService {
        return GetTituloDto.of(t);
     }
 
+    @Transactional
     public GetTituloDto edit(CreateTituloDto titulo, Long id) {
         Titulo t = tituloRepository.findById(id)
                 .map(old -> {
@@ -58,13 +66,18 @@ public class TituloService {
                     old.setDuracion(titulo.duracion());
                     old.setGrado(titulo.grado());
                     old.setFamiliaProfesional(familiaProfesionalRepository.findById(titulo.familiaProfesional().getId())
-                                    .orElseThrow(() -> new FamiliaProfesionalNotFoundException(titulo.familiaProfesional().getId())));
-                    titulo.curso().forEach(old::addCurso);
+                            .orElseThrow(() -> new FamiliaProfesionalNotFoundException(titulo.familiaProfesional().getId())));
+                    old.getCursos().clear();
+
+                    for (Curso c : titulo.curso()) {
+                        old.addCurso(c);
+                    }
+
                     return tituloRepository.save(old);
-                }).orElseThrow(() -> new TituloNotFoundException(id));
+                })
+                .orElseThrow(() -> new TituloNotFoundException(id));
 
         return GetTituloDto.of(t);
-
     }
 
     @Transactional
