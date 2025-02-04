@@ -79,6 +79,12 @@ public class ContactoService {
     }
 
     public void delete(ContactoPK id) {
+
+        Contacto contacto = contactoRepository.findById(id)
+                        .orElseThrow(() -> new ContactoNotFoundException());
+
+        contacto.removeFromProfesor(contacto.getProfesor());
+
         contactoRepository.deleteById(id);
     }
 
