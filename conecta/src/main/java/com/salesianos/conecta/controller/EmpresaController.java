@@ -3,6 +3,7 @@ package com.salesianos.conecta.controller;
 import com.salesianos.conecta.dto.CreateEmpresaDto;
 import com.salesianos.conecta.dto.CreateUsuarioDto;
 import com.salesianos.conecta.dto.GetEmpresaDto;
+import com.salesianos.conecta.dto.GetEmpresaStringsDto;
 import com.salesianos.conecta.model.Convocatoria;
 import com.salesianos.conecta.model.Demanda;
 import com.salesianos.conecta.model.Empresa;
@@ -106,11 +107,60 @@ public class EmpresaController {
         return GetEmpresaDto.of(empresaService.findById(id));
     }
 
-
+    @Operation(summary = "Crea una empresa")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",
+                    description = "Se ha creado una empresa",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Empresa.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            {
+                                                "nombre": "Nombre de la Empresa",
+                                                "direccion": "Dirección de la Empresa",
+                                                "familiasProfesionales": [
+                                                    "Tecnología",
+                                                    "Salud"
+                                                ],
+                                                "demandas": 2
+                                            }                                         
+                                            """
+                            )}
+                    )}),
+    })
     @PostMapping
-    public ResponseEntity<Empresa> create(@RequestBody CreateEmpresaDto dto
+    public ResponseEntity<GetEmpresaStringsDto> create(@RequestBody CreateEmpresaDto dto
     ) {
         return ResponseEntity.status(201).body(empresaService.save(dto));
+    }
+
+    @Operation(summary = "Edita una empresa")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se ha encontrado una empresa",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Empresa.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            {
+                                                 "nomnbre": "souhisvdoiuhj de la Empresa",
+                                                 "direccion": "svnuipdjsodilnjv de la Empresa",
+                                                 "familiasProfesionales": [
+                                                     "Salud",
+                                                     "Tecnología"
+                                                 ],
+                                                 "demandas": 4
+                                             }                                          
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado ninguna empresa",
+                    content = @Content),
+    })
+    @PutMapping("/{id}")
+    public GetEmpresaStringsDto edit(@RequestBody CreateEmpresaDto aEditar, @PathVariable Long id) {
+        return empresaService.edit(aEditar, id);
     }
 
     @Operation(summary = "Elimina una empresa")

@@ -1,7 +1,9 @@
 package com.salesianos.conecta.service;
 
 import com.salesianos.conecta.dto.CreateEmpresaDto;
+import com.salesianos.conecta.dto.GetEmpresaStringsDto;
 import com.salesianos.conecta.error.EmpresaNotFoundException;
+import com.salesianos.conecta.error.FamiliaProfesionalNotFoundException;
 import com.salesianos.conecta.model.Demanda;
 import com.salesianos.conecta.model.Empresa;
 import com.salesianos.conecta.model.FamiliaProfesional;
@@ -36,35 +38,41 @@ public class EmpresaService {
                 .orElseThrow(()-> new EmpresaNotFoundException(id));
     }
 
-    public Empresa save(CreateEmpresaDto nueva){
+    public GetEmpresaStringsDto save(CreateEmpresaDto nueva){
 
         Empresa e = new Empresa();
 
         e.setNombre(nueva.nombre());
         e.setDireccion(nueva.direccion());
 
-        for (FamiliaProfesional f : nueva.familiasProfesionales()){
-            e.addFamiliaProfesional(f);
+        for (FamiliaProfesional f : nueva.familiasProfesionales()) {
+            e.addFamiliaProfesional(familiaProfesionalRepository.findById(f.getId())
+                    .orElseThrow(() -> new FamiliaProfesionalNotFoundException(f.getId())));
         }
 
-        for (Demanda d : nueva.demandas()){
-            e.addDemanda(d);
+        for (Demanda d : nueva.demandas()) {
+                e.addDemanda(d);
         }
 
-        return e;
+        empresaRepository.save(e);
+
+        return GetEmpresaStringsDto.of(e);
     }
 
-    public Empresa edit(Empresa empresa, Long id) {
-        return empresaRepository.findById(id)
+    public GetEmpresaStringsDto edit(CreateEmpresaDto empresa, Long id) {
+
+
+        Empresa empresaEditar = empresaRepository.findById(id)
                 .map(old -> {
-                    old.setCif(empresa.getCif());
-                    old.setCoordenadas(empresa.getCoordenadas());
-                    old.setDireccion(empresa.getDireccion());
-                    old.setNombre(empresa.getNombre());
+                    old.setNombre(empresa.nombre());
+                    old.setDireccion(empresa.direccion());
+                    empresa.familiasProfesionales().forEach(old::addFamiliaProfesional);
+                    empresa.demandas().forEach(old::addDemanda);
                     return empresaRepository.save(old);
                 })
                 .orElseThrow(() -> new EmpresaNotFoundException(id));
 
+        return GetEmpresaStringsDto.of(empresaEditar);
     }
 
     public void delete(Long id){
