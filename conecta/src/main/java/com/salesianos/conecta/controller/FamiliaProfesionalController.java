@@ -119,12 +119,40 @@ public class FamiliaProfesionalController {
         return ResponseEntity.status(201).body(familiaProfesionalService.save(dto));
     }
 
+    @Operation(summary = "Edita una familia profesional")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se ha encontrado una familia profesional",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = FamiliaProfesional.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            {
+                                                "nombreFamiliaProfesional": "Veterinaria",
+                                                "nombreEmpresas": [
+                                                    "Empresa de Tecnología S.A.",
+                                                    "Salud y Vida S.L."
+                                                ]
+                                            }                                          
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado ninguna familia profesional",
+                    content = @Content),
+    })
+    @PutMapping("/{id}")
+    public GetFamiliasProfesionalesDemandasDto edit(@RequestBody CreateFamiliaprofesionalDto aEditar, @PathVariable Long id) {
+        return familiaProfesionalService.edit(aEditar, id);
+    }
+
     @Operation(summary = "Elimina una familia profesional")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Se ha eliminado una familia profesional",
                     content = @Content),
     })
+
     @DeleteMapping("{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
         familiaProfesionalService.delete(id);

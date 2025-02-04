@@ -4,16 +4,15 @@ import com.salesianos.conecta.dto.*;
 import com.salesianos.conecta.error.DemandaNotFoundException;
 import com.salesianos.conecta.error.EmpresaNotFoundException;
 import com.salesianos.conecta.error.FamiliaProfesionalNotFoundException;
-import com.salesianos.conecta.model.Convocatoria;
-import com.salesianos.conecta.model.Demanda;
-import com.salesianos.conecta.model.Empresa;
-import com.salesianos.conecta.model.FamiliaProfesional;
+import com.salesianos.conecta.model.*;
 import com.salesianos.conecta.repository.DemandaRepository;
 import com.salesianos.conecta.repository.EmpresaRepository;
 import com.salesianos.conecta.repository.FamiliaProfesionalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -64,17 +63,38 @@ public class FamiliaProfesionalService {
                 .map(old -> {
                     old.setNombre(familiaProfesional.nombre());
 
-                    
-                    return empresaRepository.save(old);
+                    Set<Empresa> nuevasEmpresas = familiaProfesional.empresas().stream()
+                            .map(empresa -> empresaRepository.findById(empresa.getId())
+                                    .orElseThrow(() -> new EmpresaNotFoundException(empresa.getId())))
+                            .collect(Collectors.toSet());
+
+                    old.setEmpresas(nuevasEmpresas);
+
+                    return familiaProfesionalRepository.save(old);
                 })
                 .orElseThrow(() -> new EmpresaNotFoundException(id));
 
-        return GetEmpresaStringsDto.of(empresaEditar);
+        return GetFamiliasProfesionalesDemandasDto.of(familiaProfesionalEditar);
     }
 
     public void delete(Long id) {
-        familiaProfesionalRepository.deleteById(id);
+
+        FamiliaProfesional familiaProfesional = familiaProfesionalRepository.findById(id)
+                .orElseThrow(() -> new FamiliaProfesionalNotFoundException(id));
+
+        Set<Empresa> empresas = new HashSet<>(familiaProfesional.getEmpresas());
+        for (Empresa empresa : empresas) {
+            empresa.removeFamiliaProfesional(familiaProfesional);
+        }
+
+        List<Titulo> titulos = new ArrayList<>(familiaProfesional.getTitulos());
+        for (Titulo titulo : titulos) {
+            familiaProfesional.removeTitulo(titulo);
+        }
+
+        familiaProfesionalRepository.delete(familiaProfesional);
     }
+
 }
 
 
