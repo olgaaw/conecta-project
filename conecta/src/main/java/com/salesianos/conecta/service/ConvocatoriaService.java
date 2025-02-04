@@ -6,6 +6,7 @@ import com.salesianos.conecta.dto.GetConvocatoriaDto;
 import com.salesianos.conecta.dto.GetEmpresaStringsDto;
 import com.salesianos.conecta.error.ConvocatoriaNotFoundException;
 import com.salesianos.conecta.error.DemandaNotFoundException;
+import com.salesianos.conecta.error.EmpresaNotFoundException;
 import com.salesianos.conecta.error.FamiliaProfesionalNotFoundException;
 import com.salesianos.conecta.model.Convocatoria;
 import com.salesianos.conecta.model.Demanda;
@@ -61,6 +62,21 @@ public class ConvocatoriaService {
 
         return GetConvocatoriaDto.of(c);
     }
+    public GetConvocatoriaDto edit(CreateConvocatoriaDto convocatoria, Long id) {
+
+
+        Convocatoria convocatoriaEditar = convocatoriaRepository.findById(id)
+                .map(old -> {
+                    old.setCursoEscolar(convocatoria.cursoEscolar());
+                    old.setNombre(convocatoria.nombre());
+                    convocatoria.demandas().forEach(old::adddemanda);
+                    return convocatoriaRepository.save(old);
+                })
+                .orElseThrow(() -> new EmpresaNotFoundException(id));
+
+        return GetConvocatoriaDto.of(convocatoriaEditar);
+    }
+
 
 
 

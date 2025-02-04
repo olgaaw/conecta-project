@@ -112,6 +112,31 @@ public class ConvocatoriaController {
         return ResponseEntity.status(201).body(convocatoriaService.save(dto));
     }
 
+    @Operation(summary = "Edita una convocatoria")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se ha encontrado una convocatoria",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Convocatoria.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            {
+                                                "cursoEscolar": "2024/2025",
+                                                "nombre": "Diciembre",
+                                                "numeroDemandas": 5
+                                            }                                          
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado ninguna convocatoria",
+                    content = @Content),
+    })
+    @PutMapping("/{id}")
+    public GetConvocatoriaDto edit(@RequestBody CreateConvocatoriaDto aEditar, @PathVariable Long id) {
+        return convocatoriaService.edit(aEditar, id);
+    }
+
     @Operation(summary = "Elimina una convocatoria")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
