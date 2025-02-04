@@ -1,9 +1,10 @@
 package com.salesianos.conecta.service;
 
+import com.salesianos.conecta.dto.CreateDemandaDto;
+import com.salesianos.conecta.dto.GetDemandaDto;
 import com.salesianos.conecta.error.DemandaNotFoundException;
 import com.salesianos.conecta.model.Demanda;
 import com.salesianos.conecta.repository.DemandaRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -32,11 +33,18 @@ public class DemandaService {
                 .orElseThrow(() -> new DemandaNotFoundException(id));
     }
 
-    public Demanda save(Demanda demanda){
-        return demandaRepository.save(Demanda.builder()
-                        .cantidadAlumnos(demanda.getCantidadAlumnos())
-                        .requisitos(demanda.getRequisitos())
-                .build());
+    public GetDemandaDto save(CreateDemandaDto nueva){
+
+        Demanda d = new Demanda();
+
+        d.setEmpresa(nueva.empresa());
+        d.setCurso(nueva.curso());
+        d.setCantidadAlumnos(nueva.cantidadAlumnos());
+
+        demandaRepository.save(d);
+
+        return GetDemandaDto.of(d);
+
     }
 
     public void delete(Long id){

@@ -1,7 +1,6 @@
 package com.salesianos.conecta.controller;
 
-import com.salesianos.conecta.dto.GetDemandaDto;
-import com.salesianos.conecta.dto.GetEmpresaDto;
+import com.salesianos.conecta.dto.*;
 import com.salesianos.conecta.model.Convocatoria;
 import com.salesianos.conecta.model.Demanda;
 import com.salesianos.conecta.model.Empresa;
@@ -98,6 +97,13 @@ public class DemandaController {
                     description = "Se ha eliminado una demanda",
                     content = @Content),
     })
+
+    @PostMapping
+    public ResponseEntity<GetDemandaDto> create(@RequestBody CreateDemandaDto dto
+    ) {
+        return ResponseEntity.status(201).body(demandaService.save(dto));
+    }
+
     @DeleteMapping("{id}")
     public ResponseEntity<?> delete(@PathVariable Long id){
         demandaService.delete(id);

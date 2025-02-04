@@ -42,6 +42,7 @@ VALUES (nextval('curso_seq'),'Segundo', 500, 1);
 
 
 
+
 INSERT INTO profesor_cursos (curso_id, profesor_id)
 VALUES (1, 1);
 
