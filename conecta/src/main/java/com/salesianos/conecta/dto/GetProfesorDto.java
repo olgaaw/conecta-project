@@ -9,14 +9,13 @@ public record GetProfesorDto(
         String email,
         int telefono
 ) {
-    public static GetProfesorDto of (Profesor profesor) {
+    public static GetProfesorDto of(Profesor profesor) {
         return new GetProfesorDto(
                 profesor.getId(),
                 profesor.getNombre(),
                 profesor.getApellidos(),
                 profesor.getEmail(),
                 profesor.getTelefono()
-
         );
     }
 }
