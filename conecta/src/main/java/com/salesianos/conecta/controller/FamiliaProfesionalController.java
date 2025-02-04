@@ -1,7 +1,6 @@
 package com.salesianos.conecta.controller;
 
-import com.salesianos.conecta.dto.GetDemandaDto;
-import com.salesianos.conecta.dto.GetFamiliasProfesionalesDemandasDto;
+import com.salesianos.conecta.dto.*;
 import com.salesianos.conecta.model.Empresa;
 import com.salesianos.conecta.model.FamiliaProfesional;
 import com.salesianos.conecta.service.DemandaService;
@@ -93,6 +92,31 @@ public class FamiliaProfesionalController {
     @GetMapping("{id}")
     public GetFamiliasProfesionalesDemandasDto getById(@PathVariable Long id){
         return GetFamiliasProfesionalesDemandasDto.of(familiaProfesionalService.findById(id));
+    }
+
+    @Operation(summary = "Crea una familia profesional")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",
+                    description = "Se ha creado una familia profesional",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = FamiliaProfesional.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            {
+                                                 "nombreFamiliaProfesional": "Veterinaria",
+                                                 "nombreEmpresas": [
+                                                     "Empresa de Tecnología S.A.",
+                                                     "Salud y Vida S.L."
+                                                 ]
+                                             }                                         
+                                            """
+                            )}
+                    )}),
+    })
+    @PostMapping
+    public ResponseEntity<GetFamiliasProfesionalesDemandasDto> create(@RequestBody CreateFamiliaprofesionalDto dto
+    ) {
+        return ResponseEntity.status(201).body(familiaProfesionalService.save(dto));
     }
 
     @Operation(summary = "Elimina una familia profesional")

@@ -1,16 +1,15 @@
 package com.salesianos.conecta.dto;
 
 import com.salesianos.conecta.model.Demanda;
-import com.salesianos.conecta.model.FamiliaProfesional;
+import com.salesianos.conecta.model.Empresa;
 
 import java.util.List;
 import java.util.Set;
 
-public record CreateConvocatoriaDto(
-        String cursoEscolar,
+public record CreateFamiliaprofesionalDto(
 
         String nombre,
 
-        Set<Demanda> demandas
+        Set<Empresa> empresas
 ) {
 }

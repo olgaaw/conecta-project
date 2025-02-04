@@ -1,21 +1,32 @@
 package com.salesianos.conecta.service;
 
+import com.salesianos.conecta.dto.CreateConvocatoriaDto;
+import com.salesianos.conecta.dto.CreateFamiliaprofesionalDto;
+import com.salesianos.conecta.dto.GetConvocatoriaDto;
+import com.salesianos.conecta.dto.GetFamiliasProfesionalesDemandasDto;
 import com.salesianos.conecta.error.DemandaNotFoundException;
+import com.salesianos.conecta.error.EmpresaNotFoundException;
 import com.salesianos.conecta.error.FamiliaProfesionalNotFoundException;
+import com.salesianos.conecta.model.Convocatoria;
 import com.salesianos.conecta.model.Demanda;
+import com.salesianos.conecta.model.Empresa;
 import com.salesianos.conecta.model.FamiliaProfesional;
 import com.salesianos.conecta.repository.DemandaRepository;
+import com.salesianos.conecta.repository.EmpresaRepository;
 import com.salesianos.conecta.repository.FamiliaProfesionalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class FamiliaProfesionalService {
 
     private final FamiliaProfesionalRepository familiaProfesionalRepository;
+    private final EmpresaRepository empresaRepository;
 
     public List<FamiliaProfesional> findAll() {
 
@@ -34,18 +45,23 @@ public class FamiliaProfesionalService {
                 .orElseThrow(() -> new FamiliaProfesionalNotFoundException(id));
     }
 
-    public void delete(Long id) {
-        familiaProfesionalRepository.deleteById(id);
+    public GetFamiliasProfesionalesDemandasDto save(CreateFamiliaprofesionalDto nueva) {
+        FamiliaProfesional f = new FamiliaProfesional();
+        f.setNombre(nueva.nombre());
 
+        Set<Empresa> empresas = nueva.empresas().stream()
+                .map(empresa -> empresaRepository.findById(empresa.getId())
+                        .orElseThrow(() -> new EmpresaNotFoundException(empresa.getId())))
+                .collect(Collectors.toSet());
 
-/*
-    public FamiliaProfesional save(Demanda demanda){
-        return familiaProfesionalRepository.save(FamiliaProfesional.builder()
+        f.setEmpresas(empresas);
+        familiaProfesionalRepository.save(f);
 
-                .build());
+        return GetFamiliasProfesionalesDemandasDto.of(f);
     }
 
-*/
+    public void delete(Long id) {
+        familiaProfesionalRepository.deleteById(id);
     }
 }
 
