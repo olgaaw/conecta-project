@@ -2,6 +2,7 @@ package com.salesianos.conecta.service;
 
 import com.salesianos.conecta.dto.CreateDemandaDto;
 import com.salesianos.conecta.dto.GetDemandaDto;
+import com.salesianos.conecta.error.CursoNotFoundException;
 import com.salesianos.conecta.error.DemandaNotFoundException;
 import com.salesianos.conecta.error.EmpresaNotFoundException;
 import com.salesianos.conecta.model.Demanda;
@@ -60,9 +61,16 @@ public class DemandaService {
 
         Demanda demandaEditar = demandaRepository.findById(id)
                 .map(old ->{
-                    
+                    old.setEmpresa(empresaRepository.findById(demanda.empresa().getId())
+                            .orElseThrow(() -> new DemandaNotFoundException(demanda.empresa().getId())));
+                    old.setCurso(cursoRepository.findById(demanda.curso().getId())
+                            .orElseThrow(() -> new CursoNotFoundException(demanda.curso().getId())));
+                    old.setCantidadAlumnos(demanda.cantidadAlumnos());
+                    return demandaRepository.save(old);
                 })
+                .orElseThrow(() -> new DemandaNotFoundException(id));
 
+        return GetDemandaDto.of(demandaEditar);
     }
 
     public void delete(Long id){
