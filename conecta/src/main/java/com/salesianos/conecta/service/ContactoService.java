@@ -2,13 +2,9 @@ package com.salesianos.conecta.service;
 
 import com.salesianos.conecta.dto.CreateContactoDto;
 import com.salesianos.conecta.dto.GetContactoDto;
-import com.salesianos.conecta.error.ContactoNotFoundException;
-import com.salesianos.conecta.error.ProfesorNotFoundException;
-import com.salesianos.conecta.error.UsuarioNotFoundException;
-import com.salesianos.conecta.model.Contacto;
-import com.salesianos.conecta.model.ContactoPK;
-import com.salesianos.conecta.model.Profesor;
-import com.salesianos.conecta.model.Trabajador;
+import com.salesianos.conecta.dto.GetDemandaDto;
+import com.salesianos.conecta.error.*;
+import com.salesianos.conecta.model.*;
 import com.salesianos.conecta.repository.ContactoRepository;
 import com.salesianos.conecta.repository.ProfesorRepository;
 import com.salesianos.conecta.repository.TrabajadorRepository;
@@ -61,17 +57,24 @@ public class ContactoService {
         return GetContactoDto.of(c);
     }
 
-    public Contacto edit(Contacto contacto, ContactoPK id) {
-        return contactoRepository.findById(id)
-                .map(old -> {
-                    old.setFecha(contacto.getFecha());
-                    old.setCanal(contacto.getCanal());
-                    old.setResumen(contacto.getResumen());
-                    old.setProfesor(contacto.getProfesor());
-                    old.setTrabajador(contacto.getTrabajador());
-                    return contactoRepository.save(contacto);
+    public GetContactoDto edit(CreateContactoDto contacto, ContactoPK id) {
+        // Busca el contacto utilizando el ContactoPK
+        Contacto contactoExistente = contactoRepository.findById(id)
+                .orElseThrow(() -> new ContactoNotFoundException("No se encontró el contacto con id " + id));
 
-                }).orElseThrow(() -> new ContactoNotFoundException("No existe contacto con el id"+id));
+        // Actualiza los campos del contacto
+        contactoExistente.setFecha(contacto.fecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        contactoExistente.setCanal(contacto.canal());
+        contactoExistente.setResumen(contacto.resumen());
+        contactoExistente.setProfesor(profesorRepository.findById(contacto.profesor().getId())
+                .orElseThrow(() -> new ProfesorNotFoundException(contacto.profesor().getId())));
+        contactoExistente.setTrabajador(trabajadorRepository.findById(contacto.trabajador().getId())
+                .orElseThrow(() -> new UsuarioNotFoundException(contacto.trabajador().getId())));
+
+        // Guarda el contacto actualizado
+        contactoRepository.save(contactoExistente);
+
+        return GetContactoDto.of(contactoExistente);
     }
 
     public void delete(ContactoPK id) {

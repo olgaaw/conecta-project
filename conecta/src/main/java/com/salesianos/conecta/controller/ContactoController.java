@@ -5,7 +5,9 @@ import com.salesianos.conecta.dto.CreateDemandaDto;
 import com.salesianos.conecta.dto.GetContactoDto;
 import com.salesianos.conecta.dto.GetDemandaDto;
 import com.salesianos.conecta.model.Contacto;
+import com.salesianos.conecta.model.ContactoPK;
 import com.salesianos.conecta.model.Convocatoria;
+import com.salesianos.conecta.model.Demanda;
 import com.salesianos.conecta.service.ContactoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -84,5 +86,42 @@ public class ContactoController {
         return ResponseEntity.status(201).body(contactoService.save(dto));
     }
 
+    @Operation(summary = "Edita una demanda")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se ha encontrado una demanda",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Demanda.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            {
+                                                   "nombreEmpresa": "Empresa de Tecnología S.A.",
+                                                   "nombreTitulo": "Técnico Superior en Desarrollo de Aplicaciones Multiplataforma",
+                                                   "Curso": "Primero",
+                                                   "cantidadAlumnos": 5
+                                               }                                         
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado ninguna demanda",
+                    content = @Content),
+    })
+    @PutMapping("/{profesorId}/{trabajadorId}")
+    public ResponseEntity<GetContactoDto> edit(@RequestBody CreateContactoDto aEditar,
+                                               @PathVariable Long profesorId,
+                                               @PathVariable Long trabajadorId) {
+        // Crea el ContactoPK utilizando los IDs de profesor y trabajador
+        ContactoPK id = new ContactoPK();
+        id.setProfesor_id(profesorId);
+        id.setTrabajador_id(trabajadorId);
+
+        // Llama al servicio para editar el contacto
+        GetContactoDto updatedContacto = contactoService.edit(aEditar, id);
+
+        // Devuelve la respuesta con el contacto actualizado
+        return ResponseEntity.ok(updatedContacto);
+
+    }
 
 }
