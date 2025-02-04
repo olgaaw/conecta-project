@@ -21,7 +21,7 @@ public class FamiliaProfesional {
 
     private String nombre;
 
-    @OneToMany(mappedBy = "familiaProfesional", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "familiaProfesional", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @Builder.Default
     @ToString.Exclude
     private List<Titulo> titulos = new ArrayList<>();

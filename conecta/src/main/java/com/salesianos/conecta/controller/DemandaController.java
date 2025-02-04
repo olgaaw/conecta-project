@@ -115,6 +115,32 @@ public class DemandaController {
         return ResponseEntity.status(201).body(demandaService.save(dto));
     }
 
+    @Operation(summary = "Edita una demanda")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se ha encontrado una demanda",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Demanda.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            {
+                                                   "nombreEmpresa": "Empresa de Tecnología S.A.",
+                                                   "nombreTitulo": "Técnico Superior en Desarrollo de Aplicaciones Multiplataforma",
+                                                   "Curso": "Primero",
+                                                   "cantidadAlumnos": 5
+                                               }                                         
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado ninguna demanda",
+                    content = @Content),
+    })
+    @PutMapping("/{id}")
+    public GetDemandaDto edit(@RequestBody CreateDemandaDto aEditar, @PathVariable Long id) {
+        return demandaService.edit(aEditar, id);
+    }
+
     @Operation(summary = "Elimina una demanda")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",

@@ -1,9 +1,17 @@
 package com.salesianos.conecta.service;
 
+import com.salesianos.conecta.dto.CreateConvocatoriaDto;
+import com.salesianos.conecta.dto.CreateEmpresaDto;
+import com.salesianos.conecta.dto.GetConvocatoriaDto;
+import com.salesianos.conecta.dto.GetEmpresaStringsDto;
 import com.salesianos.conecta.error.ConvocatoriaNotFoundException;
 import com.salesianos.conecta.error.DemandaNotFoundException;
+import com.salesianos.conecta.error.EmpresaNotFoundException;
+import com.salesianos.conecta.error.FamiliaProfesionalNotFoundException;
 import com.salesianos.conecta.model.Convocatoria;
 import com.salesianos.conecta.model.Demanda;
+import com.salesianos.conecta.model.Empresa;
+import com.salesianos.conecta.model.FamiliaProfesional;
 import com.salesianos.conecta.repository.ConvocatoriaRepository;
 import com.salesianos.conecta.repository.DemandaRepository;
 import lombok.RequiredArgsConstructor;
@@ -38,12 +46,38 @@ public class ConvocatoriaService {
         convocatoriaRepository.deleteById(id);
     }
 
-    /*
-    public Convocatoria save(Convocatoria convocatoria){
-        return convocatoriaRepository.save(Demanda.builder()
-                .build());
+    public GetConvocatoriaDto save(CreateConvocatoriaDto nueva){
+
+        Convocatoria c = new Convocatoria();
+
+        c.setCursoEscolar(nueva.cursoEscolar());
+        c.setNombre(nueva.nombre());
+
+
+        for (Demanda d : nueva.demandas()) {
+            c.adddemanda(d);
+        }
+
+        convocatoriaRepository.save(c);
+
+        return GetConvocatoriaDto.of(c);
+    }
+    public GetConvocatoriaDto edit(CreateConvocatoriaDto convocatoria, Long id) {
+
+
+        Convocatoria convocatoriaEditar = convocatoriaRepository.findById(id)
+                .map(old -> {
+                    old.setCursoEscolar(convocatoria.cursoEscolar());
+                    old.setNombre(convocatoria.nombre());
+                    convocatoria.demandas().forEach(old::adddemanda);
+                    return convocatoriaRepository.save(old);
+                })
+                .orElseThrow(() -> new EmpresaNotFoundException(id));
+
+        return GetConvocatoriaDto.of(convocatoriaEditar);
     }
 
 
-*/
+
+
 }

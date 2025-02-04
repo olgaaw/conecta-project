@@ -28,7 +28,7 @@ public class Empresa {
 
     private String nombre;
 
-    @OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
     @Builder.Default
     @ToString.Exclude
     private List<Trabajador> trabajadores = new ArrayList<>();

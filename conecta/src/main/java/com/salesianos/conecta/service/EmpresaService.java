@@ -4,16 +4,17 @@ import com.salesianos.conecta.dto.CreateEmpresaDto;
 import com.salesianos.conecta.dto.GetEmpresaStringsDto;
 import com.salesianos.conecta.error.EmpresaNotFoundException;
 import com.salesianos.conecta.error.FamiliaProfesionalNotFoundException;
-import com.salesianos.conecta.model.Demanda;
-import com.salesianos.conecta.model.Empresa;
-import com.salesianos.conecta.model.FamiliaProfesional;
+import com.salesianos.conecta.model.*;
 import com.salesianos.conecta.repository.DemandaRepository;
 import com.salesianos.conecta.repository.EmpresaRepository;
 import com.salesianos.conecta.repository.FamiliaProfesionalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -76,6 +77,25 @@ public class EmpresaService {
     }
 
     public void delete(Long id){
+
+        Empresa empresa = empresaRepository.findById(id)
+                .orElseThrow(() -> new EmpresaNotFoundException(id));
+
+        List<Trabajador> trabajadores = new ArrayList<>(empresa.getTrabajadores());
+        for (Trabajador trabajador : trabajadores) {
+            empresa.removeTrabajador(trabajador);
+        }
+
+        List<Demanda> demandas = new ArrayList<>(empresa.getDemandas());
+        for (Demanda demanda : demandas) {
+            empresa.removeDemanda(demanda);
+        }
+
+        Set<FamiliaProfesional> familiasProfesionales = new HashSet<>(empresa.getFamiliasProfesionales());
+        for (FamiliaProfesional familiaProfesional : familiasProfesionales) {
+            empresa.removeFamiliaProfesional(familiaProfesional);
+        }
+
         empresaRepository.deleteById(id);
     }
 
