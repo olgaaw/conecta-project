@@ -4,9 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.proxy.HibernateProxy;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
@@ -35,6 +33,10 @@ public class Curso {
     foreignKey = @ForeignKey(name = "fk_titulo_curso"))
     private Titulo titulo;
 
+    @OneToMany(mappedBy = "curso", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    @Builder.Default
+    private List<Demanda> demandas = new ArrayList<>();
 
     //helpers
     public void addProfesor(Profesor p) {
@@ -45,6 +47,16 @@ public class Curso {
     public void removeProfesor(Profesor p) {
         this.profesores.remove(p);
         p.getCursos().remove(this);
+    }
+
+    public void addDemanda(Demanda demanda) {
+        this.demandas.add(demanda);
+        demanda.setCurso(this);
+    }
+
+    public void removeDemanda(Demanda demanda) {
+        demandas.remove(demanda);
+        demanda.setCurso(null);
     }
 
 

@@ -27,7 +27,7 @@ public class Titulo {
 
     private String grado;
 
-    @OneToMany(mappedBy = "titulo", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "titulo", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     @ToString.Exclude
     private List<Curso> cursos = new ArrayList<>();

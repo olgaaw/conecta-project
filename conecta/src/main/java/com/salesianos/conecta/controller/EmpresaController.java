@@ -150,7 +150,7 @@ public class EmpresaController {
                                                      "Tecnología"
                                                  ],
                                                  "demandas": 4
-                                             }                                          
+                                             }
                                             """
                             )}
                     )}),
