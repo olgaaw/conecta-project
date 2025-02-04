@@ -10,6 +10,9 @@ import org.springframework.data.repository.query.Param;
 public interface CursoRepository extends JpaRepository<Curso, Long> {
     @Modifying
     @Transactional
-    @Query("DELETE FROM Demanda d WHERE d.curso.id = :cursoId")
+    @Query("""
+            DELETE FROM Demanda d
+            WHERE d.curso.id = :cursoId
+            """)
     void deleteDemandasByCursoId(@Param("cursoId") Long cursoId);
 }

@@ -109,4 +109,11 @@ public class TituloController {
     public ResponseEntity<GetTituloDto> create(@Valid @RequestBody CreateTituloDto dto) {
         return ResponseEntity.status(201).body(tituloService.save(dto));
     }
+
+
+    @PutMapping("/{id}")
+    public GetTituloDto edit(@RequestBody CreateTituloDto aEditar, @PathVariable Long id) {
+        return tituloService.edit(aEditar, id);
+    }
+
 }

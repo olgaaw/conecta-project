@@ -48,6 +48,21 @@ public class TituloService {
        return GetTituloDto.of(t);
     }
 
+    public GetTituloDto edit(CreateTituloDto titulo, Long id) {
+        Titulo t = tituloRepository.findById(id)
+                .map(old -> {
+                    old.setNombre(titulo.nombre());
+                    old.setDuracion(titulo.duracion());
+                    old.setGrado(titulo.grado());
+                    old.setFamiliaProfesional(familiaProfesionalRepository.findById(titulo.familiaProfesional().getId())
+                                    .orElseThrow(() -> new FamiliaProfesionalNotFoundException(titulo.familiaProfesional().getId())));
+                    titulo.curso().forEach(old::addCurso);
+                    return tituloRepository.save(old);
+                }).orElseThrow(() -> new TituloNotFoundException(id));
+
+        return GetTituloDto.of(t);
+
+    }
 
 
 }
