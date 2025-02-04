@@ -1,7 +1,11 @@
 package com.salesianos.conecta.controller;
 
+import com.salesianos.conecta.dto.CreateCursoDto;
+import com.salesianos.conecta.dto.CreateTituloDto;
 import com.salesianos.conecta.dto.GetCursoDto;
 import com.salesianos.conecta.dto.GetTituloDto;
+import com.salesianos.conecta.model.Curso;
+import com.salesianos.conecta.model.Titulo;
 import com.salesianos.conecta.service.TituloService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -10,11 +14,10 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -94,5 +97,11 @@ public class TituloController {
     @GetMapping("/{id}")
     public GetTituloDto getById(@PathVariable Long id) {
         return GetTituloDto.of(tituloService.findById(id));
+    }
+
+
+    @PostMapping
+    public ResponseEntity<GetTituloDto> create(@Valid @RequestBody CreateTituloDto dto) {
+        return ResponseEntity.status(201).body(tituloService.save(dto));
     }
 }
