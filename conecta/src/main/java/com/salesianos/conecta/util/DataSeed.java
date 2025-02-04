@@ -1,15 +1,14 @@
 package com.salesianos.conecta.util;
 
 import com.salesianos.conecta.model.*;
-import com.salesianos.conecta.repository.ContactoRepository;
-import com.salesianos.conecta.repository.EmpresaRepository;
-import com.salesianos.conecta.repository.ProfesorRepository;
-import com.salesianos.conecta.repository.TrabajadorRepository;
+import com.salesianos.conecta.repository.*;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
@@ -19,25 +18,57 @@ public class DataSeed {
     private final ContactoRepository contactoRepository;
     private final ProfesorRepository profesorRepository;
     private final EmpresaRepository empresaRepository;
+    private final DemandaRepository demandaRepository;
+    private final FamiliaProfesionalRepository familiaProfesionalRepository;
 
     @PostConstruct
     public void init(){
 
 
+
+/*
         Empresa e = Empresa.builder()
                 .cif("121234123")
                 .nombre("Manolo SL")
+                .direccion("Malaga")
+                .coordenadas("8557673.91")
                 .build();
 
         empresaRepository.save(e);
 
+        Demanda d = Demanda.builder()
+                .empresa(e)
+                .build();
+
+        demandaRepository.save(d);
+
+        Demanda d2 = Demanda.builder()
+                .empresa(e)
+                .build();
+
+        demandaRepository.save(d2);
 
         Empresa e2 = Empresa.builder()
                 .cif("654456456")
                 .nombre("Juanes SL")
+                .direccion("Sevilla")
+                .coordenadas("34234243.88")
                 .build();
 
         empresaRepository.save(e2);
+
+        FamiliaProfesional f = FamiliaProfesional.builder()
+                .nombre("Informática y Telecomunicaciones")
+                .empresas(new HashSet<>())
+                .build();
+
+        familiaProfesionalRepository.save(f);
+
+        e.addDemanda(d);
+        e.addDemanda(d2);
+        e.addFamiliaProfesional(f);
+        e2.addFamiliaProfesional(f);
+
 
 
         Trabajador t = Trabajador.builder()
@@ -65,7 +96,7 @@ public class DataSeed {
 
         trabajadorRepository.save(t2);
 
-
+        /*
         Profesor p = Profesor.builder()
                 .nombre("Paco")
                 .apellidos("Perez")
@@ -99,10 +130,11 @@ public class DataSeed {
                 .build();
 
         contacto.addToProfesor(p);
-        contactoRepository.save(contacto2);
-
+        contactoRepository.save(contacto2); */
 
     }
+
+
 
 
 

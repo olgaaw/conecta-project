@@ -28,13 +28,13 @@ public class Empresa {
 
     private String nombre;
 
-    @OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     @ToString.Exclude
     private List<Trabajador> trabajadores = new ArrayList<>();
 
 
-    @OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "empresa", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     @ToString.Exclude
     private List<Demanda> demandas = new ArrayList<>();

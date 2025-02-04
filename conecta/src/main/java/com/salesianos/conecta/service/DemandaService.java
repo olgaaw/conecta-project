@@ -1,8 +1,13 @@
 package com.salesianos.conecta.service;
 
+import com.salesianos.conecta.dto.CreateDemandaDto;
+import com.salesianos.conecta.dto.GetDemandaDto;
+import com.salesianos.conecta.error.DemandaNotFoundException;
+import com.salesianos.conecta.error.EmpresaNotFoundException;
 import com.salesianos.conecta.model.Demanda;
+import com.salesianos.conecta.repository.CursoRepository;
 import com.salesianos.conecta.repository.DemandaRepository;
-import jakarta.persistence.EntityNotFoundException;
+import com.salesianos.conecta.repository.EmpresaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,13 +18,15 @@ import java.util.List;
 public class DemandaService {
 
     private final DemandaRepository demandaRepository;
+    private final EmpresaRepository empresaRepository;
+    private final CursoRepository cursoRepository;
 
     public List<Demanda> findAll(){
 
         List<Demanda> result = demandaRepository.findAll();
 
         if (result.isEmpty()){
-            throw new EntityNotFoundException("No se han encontrado demandas con esos parametros");
+            throw new DemandaNotFoundException();
         }
 
         return result;
@@ -28,14 +35,25 @@ public class DemandaService {
 
     public Demanda findById(Long id){
         return demandaRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("No se ha encontrado una demanda con el id: " + id));
+                .orElseThrow(() -> new DemandaNotFoundException(id));
     }
 
-    public Demanda save(Demanda demanda){
-        return demandaRepository.save(Demanda.builder()
-                        .cantidadAlumnos(demanda.getCantidadAlumnos())
-                        .requisitos(demanda.getRequisitos())
-                .build());
+    public GetDemandaDto save(CreateDemandaDto nueva){
+
+        Demanda d = new Demanda();
+
+        d.setEmpresa(empresaRepository.findById(nueva.empresa().getId())
+                .orElseThrow(() -> new EmpresaNotFoundException("Empresa no encontrada")));
+
+        d.setCurso(cursoRepository.findById(nueva.curso().getId())
+                .orElseThrow(() -> new EmpresaNotFoundException("Curso no encontrado")));
+
+        d.setCantidadAlumnos(nueva.cantidadAlumnos());
+
+        demandaRepository.save(d);
+
+        return GetDemandaDto.of(d);
+
     }
 
     public void delete(Long id){

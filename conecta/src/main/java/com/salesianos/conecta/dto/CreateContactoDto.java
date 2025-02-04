@@ -1,10 +1,13 @@
 package com.salesianos.conecta.dto;
 
+import com.salesianos.conecta.model.Profesor;
+import com.salesianos.conecta.model.Trabajador;
+
 import java.util.Date;
 
 public record CreateContactoDto(
-        Long profesorId,
-        Long trabajadorId,
+        Profesor profesor,
+        Trabajador trabajador,
         Date fecha,
         String canal,
         String resumen

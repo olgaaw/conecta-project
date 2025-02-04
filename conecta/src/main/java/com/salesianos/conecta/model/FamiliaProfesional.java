@@ -26,8 +26,11 @@ public class FamiliaProfesional {
     @ToString.Exclude
     private List<Titulo> titulos = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "familiasProfesionales",fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "familiasProfesionales",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Empresa>empresas = new HashSet<>();
+
+    public FamiliaProfesional(String nombre) {
+    }
 
     // Métodos helpers
 

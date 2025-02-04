@@ -26,6 +26,8 @@ public class Curso {
     private int horasEmpresa;
 
     @ManyToMany(mappedBy = "cursos", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @Builder.Default
     private Set<Profesor> profesores = new HashSet<>();
 
     @ManyToOne
@@ -35,7 +37,6 @@ public class Curso {
 
 
     //helpers
-    /*
     public void addProfesor(Profesor p) {
         this.profesores.add(p);
         p.getCursos().add(this);
@@ -45,7 +46,6 @@ public class Curso {
         this.profesores.remove(p);
         p.getCursos().remove(this);
     }
-     */
 
 
     @Override
@@ -63,5 +63,6 @@ public class Curso {
     public final int hashCode() {
         return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
     }
+
 
 }

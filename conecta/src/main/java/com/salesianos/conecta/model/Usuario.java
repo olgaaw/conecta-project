@@ -34,7 +34,7 @@ public class Usuario {
     @NotNull(message = "El rol no puede estar vacio")
     private String role;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "profesor_id")
     @ToString.Exclude
     private Profesor profesor;
@@ -54,4 +54,6 @@ public class Usuario {
     public final int hashCode() {
         return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
     }
+
+
 }

@@ -16,11 +16,12 @@ import java.util.*;
 @Entity
 public class Profesor extends Persona{
 
-    @OneToOne(mappedBy = "profesor", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "profesor", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @ToString.Exclude
     private Usuario usuario;
 
-    @ManyToMany
+
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             joinColumns = @JoinColumn(name = "profesor_id"),
             inverseJoinColumns = @JoinColumn(name = "curso_id")
@@ -46,8 +47,6 @@ public class Profesor extends Persona{
     }
 
 
-    
-    
 
     @Override
     public final boolean equals(Object o) {

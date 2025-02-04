@@ -1,7 +1,9 @@
 package com.salesianos.conecta.service;
 
 import com.salesianos.conecta.dto.CreateContactoDto;
+import com.salesianos.conecta.dto.GetContactoDto;
 import com.salesianos.conecta.error.ContactoNotFoundException;
+import com.salesianos.conecta.error.ProfesorNotFoundException;
 import com.salesianos.conecta.model.Contacto;
 import com.salesianos.conecta.model.ContactoPK;
 import com.salesianos.conecta.model.Profesor;
@@ -9,10 +11,14 @@ import com.salesianos.conecta.model.Trabajador;
 import com.salesianos.conecta.repository.ContactoRepository;
 import com.salesianos.conecta.repository.ProfesorRepository;
 import com.salesianos.conecta.repository.TrabajadorRepository;
-import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Filter;
+import org.hibernate.Session;
+import org.hibernate.TransactionException;
 import org.springframework.stereotype.Service;
 
+import java.time.ZoneId;
 import java.util.List;
 
 @Service
@@ -20,15 +26,15 @@ import java.util.List;
 public class ContactoService {
 
     private final ContactoRepository contactoRepository;
-    private final ProfesorRepository profesorRepository;
+    private final EntityManager entityManager;
     private final TrabajadorRepository trabajadorRepository;
+    private final ProfesorRepository profesorRepository;
 
-    public List<Contacto> findAll() {
+    public List<Contacto> findAll(Boolean isDeleted) {
+        Session session = entityManager.unwrap(Session.class);
+        Filter filter = session.enableFilter("deletedContactoFilter");
+        filter.setParameter("isDeleted", isDeleted);
         List<Contacto> result = contactoRepository.findAll();
-        if (result.isEmpty()) {
-            throw new ContactoNotFoundException("No existen contactos con esos criterios de búsqueda");
-        }
-
         return result;
     }
 
@@ -36,20 +42,21 @@ public class ContactoService {
         return contactoRepository.findById(id).orElseThrow(() -> new ContactoNotFoundException("No existe ningún contacto con el id"+id));
     }
 
-    public Contacto save(CreateContactoDto dto) {
-        Profesor profesor = profesorRepository.findById(dto.profesorId())
-                .orElseThrow(() -> new RuntimeException("Profesor no encontrado"));
-        Trabajador trabajador = trabajadorRepository.findById(dto.trabajadorId())
-                .orElseThrow(() -> new RuntimeException("Trabajador no encontrado"));
+    public GetContactoDto save(CreateContactoDto dto) {
 
-        Contacto contacto = Contacto.builder()
-                .fecha(dto.getFecha())
-                .canal(dto.getCanal())
-                .resumen(dto.getResumen())
-                .profesor(profesor)
-                .trabajador(trabajador)
-                .build();
-        return contactoRepository.save(contacto);
+        Contacto c = new Contacto();
+
+        c.setFecha(dto.fecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        c.setCanal(dto.canal());
+        c.setResumen(dto.resumen());
+        c.setProfesor(profesorRepository.findById(dto.profesor().getId())
+                .orElseThrow(() -> new ProfesorNotFoundException("Profesor no encontrado")));
+        c.setTrabajador(trabajadorRepository.findById(dto.trabajador().getId())
+                .orElseThrow(() -> new TransactionException("Trabajador no encontrado")));
+
+        contactoRepository.save(c);
+
+        return GetContactoDto.of(c);
     }
 
     public Contacto edit(Contacto contacto, ContactoPK id) {
@@ -58,6 +65,8 @@ public class ContactoService {
                     old.setFecha(contacto.getFecha());
                     old.setCanal(contacto.getCanal());
                     old.setResumen(contacto.getResumen());
+                    old.setProfesor(contacto.getProfesor());
+                    old.setTrabajador(contacto.getTrabajador());
                     return contactoRepository.save(contacto);
 
                 }).orElseThrow(() -> new ContactoNotFoundException("No existe contacto con el id"+id));
