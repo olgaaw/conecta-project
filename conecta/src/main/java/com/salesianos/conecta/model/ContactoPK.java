@@ -14,8 +14,6 @@ import java.util.Objects;
 @NoArgsConstructor
 @Embeddable
 public class ContactoPK {
-    @GeneratedValue
-    private Long id;
 
     private Long profesor_id;
 

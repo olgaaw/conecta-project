@@ -61,17 +61,21 @@ public class ContactoService {
         return GetContactoDto.of(c);
     }
 
-    public Contacto edit(Contacto contacto, ContactoPK id) {
-        return contactoRepository.findById(id)
-                .map(old -> {
-                    old.setFecha(contacto.getFecha());
-                    old.setCanal(contacto.getCanal());
-                    old.setResumen(contacto.getResumen());
-                    old.setProfesor(contacto.getProfesor());
-                    old.setTrabajador(contacto.getTrabajador());
-                    return contactoRepository.save(contacto);
+    public GetContactoDto edit(CreateContactoDto contacto, ContactoPK id) {
+        Contacto contactoExistente = contactoRepository.findById(id)
+                .orElseThrow(() -> new ContactoNotFoundException("No se encontró el contacto con id " + id));
 
-                }).orElseThrow(() -> new ContactoNotFoundException("No existe contacto con el id"+id));
+        contactoExistente.setFecha(contacto.fecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        contactoExistente.setCanal(contacto.canal());
+        contactoExistente.setResumen(contacto.resumen());
+        contactoExistente.setProfesor(profesorRepository.findById(contacto.profesor().getId())
+                .orElseThrow(() -> new ProfesorNotFoundException(contacto.profesor().getId())));
+        contactoExistente.setTrabajador(trabajadorRepository.findById(contacto.trabajador().getId())
+                .orElseThrow(() -> new UsuarioNotFoundException(contacto.trabajador().getId())));
+
+        contactoRepository.save(contactoExistente);
+
+        return GetContactoDto.of(contactoExistente);
     }
 
     public void delete(ContactoPK id) {

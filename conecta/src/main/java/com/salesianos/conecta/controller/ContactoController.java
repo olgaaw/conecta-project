@@ -5,7 +5,9 @@ import com.salesianos.conecta.dto.CreateDemandaDto;
 import com.salesianos.conecta.dto.GetContactoDto;
 import com.salesianos.conecta.dto.GetDemandaDto;
 import com.salesianos.conecta.model.Contacto;
+import com.salesianos.conecta.model.ContactoPK;
 import com.salesianos.conecta.model.Convocatoria;
+import com.salesianos.conecta.model.Demanda;
 import com.salesianos.conecta.service.ContactoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -82,6 +84,42 @@ public class ContactoController {
     public ResponseEntity<GetContactoDto> create(@RequestBody CreateContactoDto dto) {
 
         return ResponseEntity.status(201).body(contactoService.save(dto));
+    }
+
+    @Operation(summary = "Edita un contacto")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se ha encontrado un contacto",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Contacto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            {
+                                                "fecha": "2023-10-01",
+                                                "canal": "Email",
+                                                "resumen": "Resumen del contacto",
+                                                "trabajadorNombre": "David",
+                                                "trabajadorEmpresa": "Empresa de Tecnología S.A."
+                                            }                                         
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado ningun contacto ",
+                    content = @Content),
+    })
+    @PutMapping("/{profesorId}/{trabajadorId}")
+    public ResponseEntity<GetContactoDto> edit(@RequestBody CreateContactoDto aEditar,
+                                               @PathVariable Long profesorId,
+                                               @PathVariable Long trabajadorId) {
+        ContactoPK id = new ContactoPK();
+        id.setProfesor_id(profesorId);
+        id.setTrabajador_id(trabajadorId);
+
+        GetContactoDto updatedContacto = contactoService.edit(aEditar, id);
+
+        return ResponseEntity.ok(updatedContacto);
+
     }
 
 
