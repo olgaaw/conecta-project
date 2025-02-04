@@ -1,6 +1,6 @@
-package com.salesianos.conecta.dto;
+package com.salesianos.conecta.dto.usuario;
 
-import com.salesianos.conecta.model.Profesor;
+import com.salesianos.conecta.dto.profesor.GetProfesorDto;
 import com.salesianos.conecta.model.Usuario;
 
 

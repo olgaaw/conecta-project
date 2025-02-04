@@ -1,4 +1,4 @@
-package com.salesianos.conecta.dto;
+package com.salesianos.conecta.dto.titulo;
 
 import com.salesianos.conecta.model.Curso;
 import com.salesianos.conecta.model.FamiliaProfesional;

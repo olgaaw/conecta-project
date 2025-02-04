@@ -1,9 +1,7 @@
-package com.salesianos.conecta.dto;
+package com.salesianos.conecta.dto.convocatoria;
 
 import com.salesianos.conecta.model.Demanda;
-import com.salesianos.conecta.model.FamiliaProfesional;
 
-import java.util.List;
 import java.util.Set;
 
 public record CreateConvocatoriaDto(

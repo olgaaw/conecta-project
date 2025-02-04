@@ -1,9 +1,9 @@
 package com.salesianos.conecta.controller;
 
-import com.salesianos.conecta.dto.CreateUsuarioDto;
-import com.salesianos.conecta.dto.EditUsuarioCmd;
-import com.salesianos.conecta.dto.GetUsuarioDto;
-import com.salesianos.conecta.dto.ListGetUsuarioDto;
+import com.salesianos.conecta.dto.usuario.CreateUsuarioDto;
+import com.salesianos.conecta.dto.usuario.EditUsuarioCmd;
+import com.salesianos.conecta.dto.usuario.GetUsuarioDto;
+import com.salesianos.conecta.dto.usuario.ListGetUsuarioDto;
 import com.salesianos.conecta.model.Usuario;
 import com.salesianos.conecta.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;

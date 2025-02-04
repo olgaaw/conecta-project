@@ -1,9 +1,8 @@
-package com.salesianos.conecta.dto;
+package com.salesianos.conecta.dto.contacto;
 
 import com.salesianos.conecta.model.Contacto;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public record GetContactoDto (
         LocalDate fecha,

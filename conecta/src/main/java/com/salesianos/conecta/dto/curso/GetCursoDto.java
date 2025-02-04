@@ -1,5 +1,6 @@
-package com.salesianos.conecta.dto;
+package com.salesianos.conecta.dto.curso;
 
+import com.salesianos.conecta.dto.profesor.GetProfesorDto;
 import com.salesianos.conecta.model.Curso;
 import java.util.Set;
 import java.util.stream.Collectors;

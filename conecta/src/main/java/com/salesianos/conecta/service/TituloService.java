@@ -1,7 +1,7 @@
 package com.salesianos.conecta.service;
 
-import com.salesianos.conecta.dto.CreateTituloDto;
-import com.salesianos.conecta.dto.GetTituloDto;
+import com.salesianos.conecta.dto.titulo.CreateTituloDto;
+import com.salesianos.conecta.dto.titulo.GetTituloDto;
 import com.salesianos.conecta.error.FamiliaProfesionalNotFoundException;
 import com.salesianos.conecta.error.TituloNotFoundException;
 import com.salesianos.conecta.model.*;

@@ -1,11 +1,9 @@
-package com.salesianos.conecta.dto;
+package com.salesianos.conecta.dto.empresa;
 
 import com.salesianos.conecta.model.Empresa;
 import com.salesianos.conecta.model.FamiliaProfesional;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public record GetEmpresaStringsDto(
         String nombre,
