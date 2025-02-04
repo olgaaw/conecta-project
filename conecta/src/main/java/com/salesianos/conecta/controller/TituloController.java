@@ -1,6 +1,7 @@
 package com.salesianos.conecta.controller;
 
 import com.salesianos.conecta.dto.*;
+import com.salesianos.conecta.model.Empresa;
 import com.salesianos.conecta.service.TituloService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -111,9 +112,46 @@ public class TituloController {
     }
 
 
+    @Operation(summary = "Edita un titulo")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se ha encontrado una titulo",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = GetTituloDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                              {
+                                                  "nombre": "Técnico en Desarrollo de Aplicaciones Web",
+                                                  "duracion": 2000,
+                                                  "grado": "Grado Superior",
+                                                  "familiasProfesionalesDto": {
+                                                      "nombre": "Tecnología"
+                                                  }
+                                              }
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado ningún titulo",
+                    content = @Content),
+    })
     @PutMapping("/{id}")
     public GetTituloDto edit(@RequestBody CreateTituloDto aEditar, @PathVariable Long id) {
         return tituloService.edit(aEditar, id);
+    }
+
+
+    @Operation(summary = "Elimina un titulo por su id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204",
+                    description = "Titulo eliminado",
+                    content = @Content)
+    })
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        tituloService.delete(id);
+        return ResponseEntity.noContent().build();
+
     }
 
 }

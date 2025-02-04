@@ -64,5 +64,17 @@ public class TituloService {
 
     }
 
+    public void delete(Long id) {
+        Titulo titulo = tituloRepository.findById(id)
+                        .orElseThrow(() -> new TituloNotFoundException(id));
+
+        for(Curso c : titulo.getCursos()) {
+            titulo.removeCurso(c);
+        }
+
+
+        tituloRepository.deleteById(id);
+    }
+
 
 }
