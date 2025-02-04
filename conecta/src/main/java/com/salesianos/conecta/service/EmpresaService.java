@@ -3,6 +3,7 @@ package com.salesianos.conecta.service;
 import com.salesianos.conecta.dto.CreateEmpresaDto;
 import com.salesianos.conecta.dto.GetEmpresaStringsDto;
 import com.salesianos.conecta.error.EmpresaNotFoundException;
+import com.salesianos.conecta.error.FamiliaProfesionalNotFoundException;
 import com.salesianos.conecta.model.Demanda;
 import com.salesianos.conecta.model.Empresa;
 import com.salesianos.conecta.model.FamiliaProfesional;
@@ -45,7 +46,8 @@ public class EmpresaService {
         e.setDireccion(nueva.direccion());
 
         for (FamiliaProfesional f : nueva.familiasProfesionales()) {
-                e.addFamiliaProfesional(f);
+            e.addFamiliaProfesional(familiaProfesionalRepository.findById(f.getId())
+                    .orElseThrow(() -> new FamiliaProfesionalNotFoundException(f.getId())));
         }
 
         for (Demanda d : nueva.demandas()) {

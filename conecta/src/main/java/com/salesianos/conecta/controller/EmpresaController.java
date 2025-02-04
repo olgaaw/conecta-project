@@ -119,8 +119,8 @@ public class EmpresaController {
                                                 "nombre": "Nombre de la Empresa",
                                                 "direccion": "Dirección de la Empresa",
                                                 "familiasProfesionales": [
-                                                    null,
-                                                    null
+                                                    "Tecnología",
+                                                    "Salud"
                                                 ],
                                                 "demandas": 2
                                             }                                         
