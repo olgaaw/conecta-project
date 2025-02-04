@@ -1,7 +1,6 @@
 package com.salesianos.conecta.controller;
 
-import com.salesianos.conecta.dto.GetDemandaDto;
-import com.salesianos.conecta.dto.GetEmpresaDto;
+import com.salesianos.conecta.dto.*;
 import com.salesianos.conecta.model.Convocatoria;
 import com.salesianos.conecta.model.Demanda;
 import com.salesianos.conecta.model.Empresa;
@@ -90,6 +89,30 @@ public class DemandaController {
     @GetMapping("{id}")
     public GetDemandaDto getById(@PathVariable Long id){
         return GetDemandaDto.of(demandaService.findById(id));
+    }
+
+    @Operation(summary = "Crea una demanda")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",
+                    description = "Se ha creado una demanda",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Demanda.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            {
+                                                "nombreEmpresa": "Empresa de Tecnología S.A.",
+                                                "nombreTitulo": "Técnico Superior en Desarrollo de Aplicaciones Multiplataforma",
+                                                "Curso": "Primero",
+                                                "cantidadAlumnos": 3
+                                            }                                         
+                                            """
+                            )}
+                    )}),
+    })
+    @PostMapping
+    public ResponseEntity<GetDemandaDto> create(@RequestBody CreateDemandaDto dto
+    ) {
+        return ResponseEntity.status(201).body(demandaService.save(dto));
     }
 
     @Operation(summary = "Elimina una demanda")

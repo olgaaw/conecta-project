@@ -7,21 +7,23 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public record GetEmpresaDto (
+public record GetEmpresaStringsDto(
         String nombre,
         String direccion,
-        Set<GetFamiliasProfesionalesDto> familiaProfesionales,
+        List<String> familiasProfesionales,
         int demandas
 ){
 
-    public static GetEmpresaDto of(Empresa empresa){
-        return new GetEmpresaDto(
+    public static GetEmpresaStringsDto of(Empresa empresa){
+        return new GetEmpresaStringsDto(
                 empresa.getNombre(),
                 empresa.getDireccion(),
-                empresa.getFamiliasProfesionales().stream()
-                                .map(GetFamiliasProfesionalesDto::of)
-                                .collect(Collectors.toSet()),
+                empresa.getFamiliasProfesionales()
+                        .stream()
+                        .map(FamiliaProfesional::getNombre)
+                        .toList(),
                 empresa.getDemandas().size()
         );
     }
+
 }
