@@ -12,6 +12,7 @@ import com.salesianos.conecta.repository.ContactoRepository;
 import com.salesianos.conecta.repository.ProfesorRepository;
 import com.salesianos.conecta.repository.TrabajadorRepository;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Filter;
 import org.hibernate.Session;
@@ -50,9 +51,9 @@ public class ContactoService {
         c.setCanal(dto.canal());
         c.setResumen(dto.resumen());
         c.setProfesor(profesorRepository.findById(dto.profesor().getId())
-                .orElseThrow(() -> new ProfesorNotFoundException("Profesor no encontrado")));
+                .orElseThrow(() -> new ProfesorNotFoundException(dto.profesor().getId())));
         c.setTrabajador(trabajadorRepository.findById(dto.trabajador().getId())
-                .orElseThrow(() -> new TransactionException("Trabajador no encontrado")));
+                .orElseThrow(() -> new EntityNotFoundException("Trabajador no encontrado")));
 
         contactoRepository.save(c);
 
