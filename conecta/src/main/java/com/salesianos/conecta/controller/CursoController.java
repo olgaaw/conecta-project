@@ -1,6 +1,5 @@
 package com.salesianos.conecta.controller;
 
-
 import com.salesianos.conecta.dto.curso.EditCursoCmd;
 import com.salesianos.conecta.dto.curso.CreateCursoDto;
 import com.salesianos.conecta.dto.curso.GetCursoDto;
@@ -19,7 +18,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
-
 
 import java.util.List;
 
@@ -92,8 +90,6 @@ public class CursoController {
                 .toList();
     }
 
-
-
     @Operation(summary = "Obtiene un curso por su id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -138,7 +134,6 @@ public class CursoController {
         return GetCursoDto.of(cursoService.findById(id));
     }
 
-
     @Operation(summary = "Crea un curso")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",
@@ -151,10 +146,9 @@ public class CursoController {
     })
     @PostMapping
     public ResponseEntity<GetCursoDto> create(@Valid @RequestBody CreateCursoDto dto) {
-        Curso curso = cursoService.save(dto);
-        return ResponseEntity.status(201).body(GetCursoDto.of(curso));
+        GetCursoDto cursoDto = cursoService.save(dto);
+        return ResponseEntity.status(201).body(cursoDto);
     }
-
 
     @Operation(summary = "Edita un curso por su id")
     @ApiResponses(value = {
@@ -165,10 +159,9 @@ public class CursoController {
                     content = @Content),
     })
     @PutMapping("/{id}")
-    public Curso edit(@RequestBody EditCursoCmd curso, @PathVariable Long id) {
+    public GetCursoDto edit(@RequestBody EditCursoCmd curso, @PathVariable Long id) {
         return cursoService.edit(curso, id);
     }
-
 
     @Operation(summary = "Elimina un curso por su id")
     @ApiResponses(value = {
@@ -180,6 +173,5 @@ public class CursoController {
     public ResponseEntity<?> delete(@PathVariable Long id) {
         cursoService.delete(id);
         return ResponseEntity.noContent().build();
-
     }
 }

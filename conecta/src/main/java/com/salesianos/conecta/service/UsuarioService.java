@@ -15,13 +15,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 @Service
 @RequiredArgsConstructor
 public class UsuarioService {
-    private final UsuarioRepository usuarioRepository ;
+    private final UsuarioRepository usuarioRepository;
     private final ProfesorRepository profesorRepository;
-
 
     public List<Usuario> findAll() {
         List<Usuario> result = usuarioRepository.findAll();
@@ -31,26 +29,21 @@ public class UsuarioService {
         return result;
     }
 
-
-
     public Usuario findById(Long id) {
         return usuarioRepository.findById(id).orElseThrow(() -> new UsuarioNotFoundException(id));
     }
-
-
 
     public Usuario save(Usuario usuario) {
         Profesor savedProfesor = profesorRepository.save(usuario.getProfesor());
         usuario.setProfesor(savedProfesor);
 
         return usuarioRepository.save(Usuario.builder()
-                        .username(usuario.getUsername())
-                        .password(usuario.getPassword())
-                        .role(usuario.getRole())
-                        .profesor(usuario.getProfesor())
+                .username(usuario.getUsername())
+                .password(usuario.getPassword())
+                .role(usuario.getRole())
+                .profesor(usuario.getProfesor())
                 .build());
     }
-
 
     public Usuario edit(EditUsuarioCmd usuario, Long id) {
         return usuarioRepository.findById(id)
@@ -68,12 +61,9 @@ public class UsuarioService {
                     old.setApellidos(profesor.apellidos());
                     old.setEmail(profesor.email());
                     old.setTelefono(profesor.telefono());
-
                     return profesorRepository.save(old);
-
                 }).orElseThrow(() -> new ProfesorNotFoundException(id));
     }
-
 
     @Transactional
     public void delete(Long id) {

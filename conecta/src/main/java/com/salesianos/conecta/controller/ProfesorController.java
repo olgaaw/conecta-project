@@ -2,10 +2,7 @@ package com.salesianos.conecta.controller;
 
 import com.salesianos.conecta.dto.profesor.EditProfesorCmd;
 import com.salesianos.conecta.dto.profesor.GetProfesorDto;
-import com.salesianos.conecta.dto.titulo.CreateTituloDto;
-import com.salesianos.conecta.dto.titulo.GetTituloDto;
 import com.salesianos.conecta.dto.usuario.CreateUsuarioDto;
-import com.salesianos.conecta.dto.usuario.EditUsuarioCmd;
 import com.salesianos.conecta.model.Profesor;
 import com.salesianos.conecta.model.Usuario;
 import com.salesianos.conecta.service.ProfesorService;
@@ -24,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/profesor/")
@@ -66,13 +64,11 @@ public class ProfesorController {
     })
     @GetMapping
     public List<GetProfesorDto> getAll() {
-        return profesorService.findAll()
-                .stream()
+        List<Profesor> profesores = profesorService.findAll();
+        return profesores.stream()
                 .map(GetProfesorDto::of)
-                .toList();
+                .collect(Collectors.toList());
     }
-
-
 
     @Operation(summary = "Obtiene un profesor por su id")
     @ApiResponses(value = {
@@ -100,9 +96,9 @@ public class ProfesorController {
     })
     @GetMapping("/{id}")
     public GetProfesorDto getById(@PathVariable Long id) {
-        return GetProfesorDto.of(profesorService.findById(id));
+        Profesor profesor = profesorService.findById(id);
+        return GetProfesorDto.of(profesor);
     }
-
 
     @Operation(summary = "Crea un profesor")
     @ApiResponses(value = {
@@ -115,11 +111,9 @@ public class ProfesorController {
                     content = @Content),
     })
     @PostMapping
-    public ResponseEntity<Usuario> create(@Valid @RequestBody CreateUsuarioDto dto
-    ) {
+    public ResponseEntity<Usuario> create(@Valid @RequestBody CreateUsuarioDto dto) {
         return ResponseEntity.status(201).body(usuarioService.save(dto.toUsuario()));
     }
-
 
     @Operation(summary = "Edita un profesor por su id")
     @ApiResponses(value = {
@@ -130,13 +124,8 @@ public class ProfesorController {
                     content = @Content),
     })
     @PutMapping("/{id}")
-    public Profesor edit(@io.swagger.v3.oas.annotations.parameters.RequestBody EditProfesorCmd aEditar, @PathVariable Long id) {
-        return usuarioService.editProfesor(aEditar,id);
+    public GetProfesorDto edit(@RequestBody EditProfesorCmd aEditar, @PathVariable Long id) {
+        Profesor profesor = profesorService.edit(aEditar, id);
+        return GetProfesorDto.of(profesor);
     }
-
-
-
-
-
-
 }
