@@ -113,7 +113,7 @@ public class FamiliaProfesionalController {
                     )}),
     })
     @PostMapping
-    public ResponseEntity<GetFamiliasProfesionalesDemandasDto> create(@RequestBody CreateFamiliaprofesionalDto dto
+    public ResponseEntity<GetFamiliasProfesionalesDemandasDto> create(@io.swagger.v3.oas.annotations.parameters.RequestBody CreateFamiliaprofesionalDto dto
     ) {
         return ResponseEntity.status(201).body(familiaProfesionalService.save(dto));
     }
@@ -141,7 +141,7 @@ public class FamiliaProfesionalController {
                     content = @Content),
     })
     @PutMapping("/{id}")
-    public GetFamiliasProfesionalesDemandasDto edit(@RequestBody CreateFamiliaprofesionalDto aEditar, @PathVariable Long id) {
+    public GetFamiliasProfesionalesDemandasDto edit(@io.swagger.v3.oas.annotations.parameters.RequestBody CreateFamiliaprofesionalDto aEditar, @PathVariable Long id) {
         return familiaProfesionalService.edit(aEditar, id);
     }
 

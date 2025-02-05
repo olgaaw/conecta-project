@@ -106,7 +106,7 @@ public class ConvocatoriaController {
                     )}),
     })
     @PostMapping
-    public ResponseEntity<GetConvocatoriaDto> create(@RequestBody CreateConvocatoriaDto dto
+    public ResponseEntity<GetConvocatoriaDto> create(@io.swagger.v3.oas.annotations.parameters.RequestBody CreateConvocatoriaDto dto
     ) {
         return ResponseEntity.status(201).body(convocatoriaService.save(dto));
     }
@@ -132,7 +132,7 @@ public class ConvocatoriaController {
                     content = @Content),
     })
     @PutMapping("/{id}")
-    public GetConvocatoriaDto edit(@RequestBody CreateConvocatoriaDto aEditar, @PathVariable Long id) {
+    public GetConvocatoriaDto edit(@io.swagger.v3.oas.annotations.parameters.RequestBody CreateConvocatoriaDto aEditar, @PathVariable Long id) {
         return convocatoriaService.edit(aEditar, id);
     }
 

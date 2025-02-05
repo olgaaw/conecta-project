@@ -9,6 +9,7 @@ import com.salesianos.conecta.model.Profesor;
 import com.salesianos.conecta.model.Usuario;
 import com.salesianos.conecta.repository.ProfesorRepository;
 import com.salesianos.conecta.repository.UsuarioRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -74,6 +75,7 @@ public class UsuarioService {
     }
 
 
+    @Transactional
     public void delete(Long id) {
 
         Usuario usuario = usuarioRepository.findById(id)

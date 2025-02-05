@@ -111,7 +111,7 @@ public class UsuarioController {
                     content = @Content),
     })
     @PostMapping
-    public ResponseEntity<Usuario> create(@Valid @RequestBody CreateUsuarioDto dto
+    public ResponseEntity<Usuario> create(@Valid @io.swagger.v3.oas.annotations.parameters.RequestBody CreateUsuarioDto dto
     ) {
         return ResponseEntity.status(201).body(usuarioService.save(dto.toUsuario()));
     }
@@ -125,7 +125,7 @@ public class UsuarioController {
                     content = @Content),
     })
     @PutMapping("/{id}")
-    public Usuario edit(@RequestBody EditUsuarioCmd aEditar, @PathVariable Long id) {
+    public Usuario edit(@io.swagger.v3.oas.annotations.parameters.RequestBody EditUsuarioCmd aEditar, @PathVariable Long id) {
         return usuarioService.edit(aEditar,id);
     }
 

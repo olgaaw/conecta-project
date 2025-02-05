@@ -150,7 +150,7 @@ public class CursoController {
                     content = @Content),
     })
     @PostMapping
-    public ResponseEntity<GetCursoDto> create(@Valid @RequestBody CreateCursoDto dto) {
+    public ResponseEntity<GetCursoDto> create(@Valid @io.swagger.v3.oas.annotations.parameters.RequestBody CreateCursoDto dto) {
         Curso curso = cursoService.save(dto);
         return ResponseEntity.status(201).body(GetCursoDto.of(curso));
     }
@@ -165,7 +165,7 @@ public class CursoController {
                     content = @Content),
     })
     @PutMapping("/{id}")
-    public Curso edit(@RequestBody EditCursoCmd curso, @PathVariable Long id) {
+    public Curso edit(@io.swagger.v3.oas.annotations.parameters.RequestBody EditCursoCmd curso, @PathVariable Long id) {
         return cursoService.edit(curso, id);
     }
 

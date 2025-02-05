@@ -1,5 +1,9 @@
 package com.salesianos.conecta.service;
 
+import com.salesianos.conecta.dto.trabajador.CreateTrabajadorDto;
+import com.salesianos.conecta.error.EmpresaNotFoundException;
+import com.salesianos.conecta.error.TrabajadorNotFoundException;
+import com.salesianos.conecta.model.Empresa;
 import com.salesianos.conecta.model.Trabajador;
 import com.salesianos.conecta.repository.EmpresaRepository;
 import com.salesianos.conecta.repository.TrabajadorRepository;
@@ -18,37 +22,33 @@ public class TrabajadorService {
     public List<Trabajador> findAll() {
         List<Trabajador> result = trabajadorRepository.findAll();
         if (result.isEmpty()) {
-            throw new EntityNotFoundException("No existe ningun trabajador con esos criterios de búsqueda");
+            throw new TrabajadorNotFoundException();
         }
         return result;
     }
 
     public Trabajador findById(Long id) {
-       return trabajadorRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No existe ningun trabajador con esps criterios de búsqueda"));
+       return trabajadorRepository.findById(id).orElseThrow(() -> new TrabajadorNotFoundException(id));
     }
 
-    public Trabajador save(Trabajador trabajador) {
-        return trabajadorRepository.save(Trabajador.builder()
-                        .nombre(trabajador.getNombre())
-                        .apellidos(trabajador.getApellidos())
-                        .email(trabajador.getEmail())
-                        .telefono(trabajador.getTelefono())
-                        .area(trabajador.getArea())
-                        .puesto(trabajador.getPuesto())
-                .build());
+    public Trabajador save(CreateTrabajadorDto dto) {
+        Empresa empresa = empresaRepository.findById(dto.empresaId())
+                .orElseThrow(() -> new EmpresaNotFoundException(dto.empresaId()));
+
+        return trabajadorRepository.save(dto.toTrabajador(empresa));
     }
 
-    public Trabajador edit(Trabajador trabajador, Long id) {
+    public Trabajador edit(CreateTrabajadorDto dto, Long id) {
         return trabajadorRepository.findById(id)
                 .map(old -> {
-                    old.setNombre(trabajador.getNombre());
-                    old.setApellidos(trabajador.getApellidos());
-                    old.setEmail(trabajador.getEmail());
-                    old.setTelefono(trabajador.getTelefono());
-                    old.setArea(trabajador.getArea());
-                    old.setPuesto(trabajador.getPuesto());
-                    return trabajadorRepository.save(trabajador);
-                }).orElseThrow(() -> new EntityNotFoundException("No existe ningún trabajador con el id "+id));
+                    old.setNombre(dto.nombre());
+                    old.setApellidos(dto.apellidos());
+                    old.setEmail(dto.email());
+                    old.setTelefono(dto.telefono());
+                    old.setArea(dto.area());
+                    old.setPuesto(dto.puesto());
+                    return trabajadorRepository.save(old);
+                }).orElseThrow(() -> new TrabajadorNotFoundException(id));
     }
 
     public void delete(Long id) {

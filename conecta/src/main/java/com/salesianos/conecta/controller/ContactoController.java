@@ -115,7 +115,7 @@ public class ContactoController {
                     )}),
     })
     @PostMapping
-    public ResponseEntity<GetContactoDto> create(@RequestBody CreateContactoDto dto) {
+    public ResponseEntity<GetContactoDto> create(@io.swagger.v3.oas.annotations.parameters.RequestBody CreateContactoDto dto) {
 
         return ResponseEntity.status(201).body(contactoService.save(dto));
     }
@@ -143,7 +143,7 @@ public class ContactoController {
                     content = @Content),
     })
     @PutMapping("/{profesorId}/{trabajadorId}")
-    public ResponseEntity<GetContactoDto> edit(@RequestBody CreateContactoDto aEditar,
+    public ResponseEntity<GetContactoDto> edit(@io.swagger.v3.oas.annotations.parameters.RequestBody CreateContactoDto aEditar,
                                                @PathVariable Long profesorId,
                                                @PathVariable Long trabajadorId) {
         ContactoPK id = new ContactoPK();

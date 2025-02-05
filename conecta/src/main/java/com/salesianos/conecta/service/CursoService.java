@@ -51,7 +51,7 @@ public class CursoService {
 
     public Curso save(CreateCursoDto dto) {
         Titulo titulo = tituloRepository.findById(dto.tituloId())
-                .orElseThrow(() -> new TituloNotFoundException());
+                .orElseThrow(() -> new TituloNotFoundException(dto.tituloId()));
 
         return cursoRepository.save(dto.toCurso(titulo));
     }
