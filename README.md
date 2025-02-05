@@ -2,15 +2,15 @@
 
 ## Descripción
 
-Con la nueva Ley de Formación Profesional se ha incrementado el número de horas que el alumnado de FP debe pasar en la empresa, y ya no basta con la clásica Formación en Centros de Trabajo del 2º curso, sino que deben realizar al menos una estancia formativa en 1º. Esto ha supuesto que los centros educativos deban aumentar el número de empresas con las que colaboran. La colaboración entre centros educativos y empresas desempeña un papel clave en la formación de futuros profesionales. Esta sinergia no solo permite que los estudiantes adquieran experiencia práctica en entornos reales de trabajo, sino que también facilita que las empresas identifiquen y formen talento adaptado a sus necesidades.
+Este proyecto consiste en el desarrollo de una API REST utilizando Spring Boot 3, diseñada para gestionar la interacción entre centros educativos y empresas en el contexto de la nueva Ley de Formación Profesional. Esta ley ha incrementado el número de horas que los estudiantes de Formación Profesional deben pasar en las empresas, lo que requiere una colaboración más estrecha y eficiente entre ambas partes.
 
-La comunicación entre estas dos partes puede presentar desafíos, como la falta de un canal centralizado y eficiente para gestionar propuestas, solicitudes y seguimiento de prácticas. Por ello, se propone el desarrollo de una herramienta que facilite y mejore la interacción entre profesores de formación profesional y empresas colaboradoras.
+### Objetivos de la API
 
-El objetivo de este proyecto es diseñar e implementar una plataforma que permita:
-- Gestionar de forma centralizada las ofertas de prácticas ofrecidas por las empresas.
-- Proporcionar a los profesores un medio sencillo para coordinar con las empresas.
-- Ofrecer un sistema para realizar el seguimiento de los alumnos durante su estancia en la empresa.
-- Este proyecto no solo ayudará a mejorar la comunicación, sino que también sentará las bases para una colaboración más sólida y efectiva entre los centros de formación profesional y las empresas, en beneficio tanto de los estudiantes como del tejido empresarial local.
+La API REST tiene como objetivo principal facilitar y optimizar la gestión de las prácticas formativas, permitiendo:
+- **Gestión Centralizada de Ofertas de Prácticas**: Gestionar las ofertas de prácticas de manera centralizada.
+- **Coordinación entre Profesores y Empresas**: Proporcionar herramientas sencillas para realizar el seguiminto de las comunicaciones con las empresas.
+- **Seguimiento de Alumnos**: Se implementará un sistema que permitirá realizar el seguimiento de los alumnos durante su estancia en la empresa.
+
 
 ![image](https://github.com/user-attachments/assets/6058479f-e601-4636-8c27-d0e53cab2270)
 
@@ -25,22 +25,17 @@ El objetivo de este proyecto es diseñar e implementar una plataforma que permit
 
 ## Ejecución del proyecto
 
-1. **Clonar repositorio:** utilizando git clone <url>
+1. **Clonar repositorio:** utilizando 
+`git clone` 
 2. **Configurar la base de datos:**
-   - Ejecutar los comandos mvn clean y mvn install
-   - Ejecutar el comando docker-compose up -d
+   - Ejecutar los comandos `mvn clean y mvn install`
+   - Ejecutar el comando `docker-compose up -d`
    - Crear la base de datos en PostgreSQL
    - Configurar los datos de conexión en las application.properties
-4. Ejecutar la aplicación con mvn spring-boot run
-
-Para acceder a la documentación del proyecto iremos a:
-localhost:8080/swagger-ui.html
+4. **Ejecutar la aplicación:** con `mvn spring-boot run`
+5. **Acceso a la documentación:**
+`localhost:8080/swagger-ui.html`
 
 Se adjunta una colección de postman para ir probando los diferentes endpoints de la API REST.
 
-## Funcionamiento
-
-
-
-  
 
