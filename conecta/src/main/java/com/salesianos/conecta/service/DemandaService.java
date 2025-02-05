@@ -78,4 +78,8 @@ public class DemandaService {
         demandaRepository.deleteById(id);
     }
 
+    public List<Demanda> findByEmpresaId(Long empresaId) {
+        return demandaRepository.findByEmpresaId(empresaId);
+    }
+
 }

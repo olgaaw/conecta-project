@@ -3,6 +3,8 @@ package com.salesianos.conecta.controller;
 import com.salesianos.conecta.dto.empresa.CreateEmpresaDto;
 import com.salesianos.conecta.dto.empresa.GetEmpresaDto;
 import com.salesianos.conecta.dto.empresa.GetEmpresaStringsDto;
+import com.salesianos.conecta.error.EmpresaNotFoundException;
+import com.salesianos.conecta.model.Demanda;
 import com.salesianos.conecta.model.Empresa;
 import com.salesianos.conecta.service.EmpresaService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -170,6 +172,45 @@ public class EmpresaController {
     public ResponseEntity<?> delete(@PathVariable Long id){
         empresaService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Obtiene una lista de las empresas con mas de una demanda")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado empresas",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Empresa.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            [
+                                                {
+                                                    "nombre": "Nombre de la Empresa",
+                                                    "direccion": "Dirección de la Empresa",
+                                                    "familiaProfesionales": [
+                                                        {
+                                                            "nombre": "Salud"
+                                                        },
+                                                        {
+                                                            "nombre": "Tecnología"
+                                                        }
+                                                    ],
+                                                    "demandas": 2
+                                                }
+                                            ]                                          
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado ninguna empresa",
+                    content = @Content),
+    })
+    @GetMapping("/demandas")
+    public List<GetEmpresaDto> getEmpresasVariasDemandas() {
+        List<Empresa> empresas = empresaService.findEmpresasVariasDemandas();
+        if (empresas.isEmpty()){
+            throw new EmpresaNotFoundException();
+        }
+        return empresas.stream().map(GetEmpresaDto::of).toList();
     }
 
 }
