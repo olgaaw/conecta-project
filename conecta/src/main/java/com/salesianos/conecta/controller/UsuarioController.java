@@ -19,6 +19,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Tag(name = "Usuarios", description = "Controlador usuarios")
 @RestController
 @RequiredArgsConstructor
@@ -64,10 +67,9 @@ public class UsuarioController {
     })
     @GetMapping
     public ListGetUsuarioDto getAll() {
-        return ListGetUsuarioDto.of(usuarioService.findAll());
+        List<Usuario> usuarios = usuarioService.findAll();
+        return ListGetUsuarioDto.of(usuarios);
     }
-
-
 
     @Operation(summary = "Obtiene un usuario por su id")
     @ApiResponses(value = {
@@ -95,10 +97,9 @@ public class UsuarioController {
     })
     @GetMapping("/{id}")
     public GetUsuarioDto getById(@PathVariable Long id) {
-        return GetUsuarioDto.of(usuarioService.findById(id));
+        Usuario usuario = usuarioService.findById(id);
+        return GetUsuarioDto.of(usuario);
     }
-
-
 
     @Operation(summary = "Crea un usuario")
     @ApiResponses(value = {
@@ -111,9 +112,9 @@ public class UsuarioController {
                     content = @Content),
     })
     @PostMapping
-    public ResponseEntity<Usuario> create(@Valid @io.swagger.v3.oas.annotations.parameters.RequestBody CreateUsuarioDto dto
-    ) {
-        return ResponseEntity.status(201).body(usuarioService.save(dto.toUsuario()));
+    public ResponseEntity<GetUsuarioDto> create(@Valid @RequestBody CreateUsuarioDto dto) {
+        Usuario usuario = usuarioService.save(dto.toUsuario());
+        return ResponseEntity.status(201).body(GetUsuarioDto.of(usuario));
     }
 
     @Operation(summary = "Edita un usuario por su id")
@@ -125,11 +126,10 @@ public class UsuarioController {
                     content = @Content),
     })
     @PutMapping("/{id}")
-    public Usuario edit(@io.swagger.v3.oas.annotations.parameters.RequestBody EditUsuarioCmd aEditar, @PathVariable Long id) {
-        return usuarioService.edit(aEditar,id);
+    public GetUsuarioDto edit(@RequestBody EditUsuarioCmd aEditar, @PathVariable Long id) {
+        Usuario usuario = usuarioService.edit(aEditar, id);
+        return GetUsuarioDto.of(usuario);
     }
-
-
 
     @Operation(summary = "Elimina un usuario por su id")
     @ApiResponses(value = {
@@ -141,8 +141,5 @@ public class UsuarioController {
     public ResponseEntity<?> deleteById(@PathVariable Long id) {
         usuarioService.delete(id);
         return ResponseEntity.noContent().build();
-
     }
-
-
 }
