@@ -2,6 +2,8 @@ package com.salesianos.conecta.controller;
 
 import com.salesianos.conecta.dto.contacto.CreateContactoDto;
 import com.salesianos.conecta.dto.contacto.GetContactoDto;
+import com.salesianos.conecta.dto.convocatoria.CreateConvocatoriaDto;
+import com.salesianos.conecta.dto.convocatoria.GetConvocatoriaDto;
 import com.salesianos.conecta.model.Contacto;
 import com.salesianos.conecta.model.ContactoPK;
 import com.salesianos.conecta.service.ContactoService;

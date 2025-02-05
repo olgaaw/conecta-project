@@ -4,6 +4,7 @@ import com.salesianos.conecta.dto.profesor.EditProfesorCmd;
 import com.salesianos.conecta.dto.usuario.EditUsuarioCmd;
 import com.salesianos.conecta.error.ProfesorNotFoundException;
 import com.salesianos.conecta.error.UsuarioNotFoundException;
+import com.salesianos.conecta.model.Contacto;
 import com.salesianos.conecta.model.Profesor;
 import com.salesianos.conecta.model.Usuario;
 import com.salesianos.conecta.repository.ProfesorRepository;
@@ -78,7 +79,12 @@ public class UsuarioService {
         Usuario usuario = usuarioRepository.findById(id)
                         .orElseThrow(() -> new UsuarioNotFoundException(id));
 
+        for (Contacto contacto : usuario.getProfesor().getContactos()){
+            contacto.removeFromProfesor(usuario.getProfesor());
+        }
+
         usuario.setProfesor(null);
+
         usuarioRepository.delete(usuario);
     }
 }
