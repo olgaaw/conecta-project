@@ -7,7 +7,6 @@ import com.salesianos.conecta.model.Empresa;
 import com.salesianos.conecta.model.Trabajador;
 import com.salesianos.conecta.repository.EmpresaRepository;
 import com.salesianos.conecta.repository.TrabajadorRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

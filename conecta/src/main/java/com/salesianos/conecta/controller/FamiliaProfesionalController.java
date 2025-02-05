@@ -1,9 +1,7 @@
 package com.salesianos.conecta.controller;
 
-import com.salesianos.conecta.dto.empresa.GetEmpresaStringsDto;
 import com.salesianos.conecta.dto.familiaProfesional.CreateFamiliaprofesionalDto;
 import com.salesianos.conecta.dto.familiaProfesional.GetFamiliasProfesionalesDemandasDto;
-import com.salesianos.conecta.model.Empresa;
 import com.salesianos.conecta.model.FamiliaProfesional;
 import com.salesianos.conecta.service.FamiliaProfesionalService;
 import io.swagger.v3.oas.annotations.Operation;

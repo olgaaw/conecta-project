@@ -2,6 +2,7 @@ package com.salesianos.conecta.controller;
 
 import com.salesianos.conecta.dto.demanda.CreateDemandaDto;
 import com.salesianos.conecta.dto.demanda.GetDemandaDto;
+import com.salesianos.conecta.error.EmpresaNotFoundException;
 import com.salesianos.conecta.model.Demanda;
 import com.salesianos.conecta.service.DemandaService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,19 +36,31 @@ public class DemandaController {
                             examples = {@ExampleObject(
                                     value = """
                                             [
-                                                  {
-                                                      "nombreEmpresa": "Empresa de Tecnología S.A.",
-                                                      "nombreTitulo": "Técnico Superior en Desarrollo de Aplicaciones Multiplataforma",
-                                                      "Curso": "Primero",
-                                                      "cantidadAlumnos": 3
-                                                  },
-                                                  {
-                                                      "nombreEmpresa": "Salud y Vida S.L.",
-                                                      "nombreTitulo": "Técnico Superior en Desarrollo de Aplicaciones Multiplataforma",
-                                                      "Curso": "Primero",
-                                                      "cantidadAlumnos": 1
-                                                  },                                             
-                                              ]                                          
+                                                {
+                                                    "nombreEmpresa": "Empresa de Tecnología S.A.",
+                                                    "nombreTitulo": "Técnico Superior en Desarrollo de Aplicaciones Multiplataforma",
+                                                    "Curso": "Primero",
+                                                    "cantidadAlumnos": 3
+                                                },
+                                                {
+                                                    "nombreEmpresa": "Salud y Vida S.L.",
+                                                    "nombreTitulo": "Técnico Superior en Desarrollo de Aplicaciones Multiplataforma",
+                                                    "Curso": "Primero",
+                                                    "cantidadAlumnos": 1
+                                                },
+                                                {
+                                                    "nombreEmpresa": "Empresa de Tecnología S.A.",
+                                                    "nombreTitulo": "Técnico en Sistemas Microinformáticos y Redes",
+                                                    "Curso": "Segundo",
+                                                    "cantidadAlumnos": 2
+                                                },
+                                                {
+                                                    "nombreEmpresa": "Salud y Vida S.L.",
+                                                    "nombreTitulo": "Técnico en Sistemas Microinformáticos y Redes",
+                                                    "Curso": "Segundo",
+                                                    "cantidadAlumnos": 4
+                                                }
+                                            ]                                          
                                             """
                             )}
                     )}),
@@ -152,5 +165,46 @@ public class DemandaController {
         demandaService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @Operation(summary = "Obtiene todas las demandas de una empresa")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado demandas",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Demanda.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            [
+                                                {
+                                                    "nombreEmpresa": "Nombre de la Empresa",
+                                                    "nombreTitulo": "Técnico Superior en Desarrollo de Aplicaciones Multiplataforma",
+                                                    "Curso": "Primero",
+                                                    "cantidadAlumnos": 3
+                                                },
+                                                {
+                                                    "nombreEmpresa": "Nombre de la Empresa",
+                                                    "nombreTitulo": "Técnico Superior en Desarrollo de Aplicaciones Multiplataforma",
+                                                    "Curso": "Primero",
+                                                    "cantidadAlumnos": 1
+                                                }
+                                            ]                                          
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado ninguna demanda",
+                    content = @Content),
+    })
+    @GetMapping("/empresa/{empresaId}")
+    public List<GetDemandaDto> getDemandasByEmpresaId(@PathVariable Long empresaId) {
+        List<Demanda> demandas = demandaService.findByEmpresaId(empresaId);
+
+        if (demandas.isEmpty()){
+            throw new EmpresaNotFoundException(empresaId);
+        }
+
+        return demandas.stream().map(GetDemandaDto::of).toList();
+    }
+
 
 }

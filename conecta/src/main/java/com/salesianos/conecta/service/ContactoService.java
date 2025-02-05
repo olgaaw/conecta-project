@@ -85,5 +85,13 @@ public class ContactoService {
         return contactos;
     }
 
+    public List<Contacto> findByFamiliaProfesional(String nombreFamilia) {
+        return contactoRepository.findByFamiliaProfesionalNombre(nombreFamilia);
+    }
+
+    public List<Contacto> findByEmpresa(Long empresaId) {
+        return contactoRepository.findByEmpresaId(empresaId);
+    }
+
 
 }

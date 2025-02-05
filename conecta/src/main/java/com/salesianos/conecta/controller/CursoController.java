@@ -139,10 +139,24 @@ public class CursoController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",
                     description = "Curso creado",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = CreateCursoDto.class))),
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = GetCursoDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            [
+                                                {
+                                                    "id": 102,
+                                                    "nombre": "Desarrollo Web",
+                                                    "horasEmpresa": 350,
+                                                    "profesores": [],
+                                                    "nombreTitulo": "Técnico Superior en Desarrollo de Aplicaciones Multiplataforma"
+                                                }
+                                                                                            ]
+                                            """
+                            )}
+                    )}),
             @ApiResponse(responseCode = "404",
-                    description = "No se ha encontrado el curso",
+                    description = "No se ha encontrado el curso ",
                     content = @Content),
     })
     @PostMapping
@@ -154,14 +168,45 @@ public class CursoController {
     @Operation(summary = "Edita un curso por su id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Curso editado"),
+                    description = "Curso editado",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = GetCursoDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            [
+                                                {
+                                                    "id": 1,
+                                                    "nombre": "Segundo",
+                                                    "horasEmpresa": 350,
+                                                    "profesores": [
+                                                        {
+                                                            "id": 1,
+                                                            "nombre": "Lucia",
+                                                            "apellidos": "Sanchez Garcia",
+                                                            "email": "lucia@gmail.com",
+                                                            "telefono": 6554321
+                                                        },
+                                                        {
+                                                            "id": 51,
+                                                            "nombre": "Luis",
+                                                            "apellidos": "Gómez Torres",
+                                                            "email": "lgomez@gmail.com",
+                                                            "telefono": 678548923
+                                                        }
+                                                    ],
+                                                    "nombreTitulo": "Técnico Superior en Desarrollo de Aplicaciones Multiplataforma"
+                                                }
+                                            ]
+                                            """
+                            )}
+                    )}),
             @ApiResponse(responseCode = "404",
                     description = "No se ha encontrado el curso ",
                     content = @Content),
     })
     @PutMapping("/{id}")
-    public Curso edit(@RequestBody EditCursoCmd curso, @PathVariable Long id) {
-        return cursoService.edit(curso, id);
+    public GetCursoDto edit(@RequestBody EditCursoCmd curso, @PathVariable Long id) {
+        return GetCursoDto.of(cursoService.edit(curso, id));
     }
 
     @Operation(summary = "Elimina un curso por su id")

@@ -1,9 +1,7 @@
 package com.salesianos.conecta.controller;
 
-import com.salesianos.conecta.dto.convocatoria.GetConvocatoriaDto;
 import com.salesianos.conecta.dto.trabajador.CreateTrabajadorDto;
 import com.salesianos.conecta.dto.trabajador.GetTrabajadorDto;
-import com.salesianos.conecta.model.Convocatoria;
 import com.salesianos.conecta.model.Trabajador;
 import com.salesianos.conecta.service.TrabajadorService;
 import io.swagger.v3.oas.annotations.Operation;
