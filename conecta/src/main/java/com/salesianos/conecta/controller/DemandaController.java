@@ -110,7 +110,8 @@ public class DemandaController {
     @PostMapping
     public ResponseEntity<GetDemandaDto> create(@RequestBody CreateDemandaDto dto
     ) {
-        return ResponseEntity.status(201).body(demandaService.save(dto));
+        Demanda demanda = demandaService.save(dto);
+        return ResponseEntity.status(201).body(GetDemandaDto.of(demanda));
     }
 
     @Operation(summary = "Edita una demanda")
@@ -136,7 +137,8 @@ public class DemandaController {
     })
     @PutMapping("/{id}")
     public GetDemandaDto edit(@RequestBody CreateDemandaDto aEditar, @PathVariable Long id) {
-        return demandaService.edit(aEditar, id);
+        Demanda demanda = demandaService.edit(aEditar, id);
+        return GetDemandaDto.of(demanda);
     }
 
     @Operation(summary = "Elimina una demanda")

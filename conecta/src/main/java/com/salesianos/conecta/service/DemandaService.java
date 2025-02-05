@@ -5,7 +5,9 @@ import com.salesianos.conecta.dto.demanda.GetDemandaDto;
 import com.salesianos.conecta.error.CursoNotFoundException;
 import com.salesianos.conecta.error.DemandaNotFoundException;
 import com.salesianos.conecta.error.EmpresaNotFoundException;
+import com.salesianos.conecta.model.Curso;
 import com.salesianos.conecta.model.Demanda;
+import com.salesianos.conecta.model.Empresa;
 import com.salesianos.conecta.repository.CursoRepository;
 import com.salesianos.conecta.repository.DemandaRepository;
 import com.salesianos.conecta.repository.EmpresaRepository;
@@ -39,27 +41,28 @@ public class DemandaService {
                 .orElseThrow(() -> new DemandaNotFoundException(id));
     }
 
-    public GetDemandaDto save(CreateDemandaDto nueva){
+    public Demanda save (CreateDemandaDto nueva){
 
-        Demanda d = new Demanda();
+        Empresa empresa = empresaRepository.findById(nueva.empresa().getId())
+                .orElseThrow(() -> new EmpresaNotFoundException(nueva.empresa().getId()));
 
-        d.setEmpresa(empresaRepository.findById(nueva.empresa().getId())
-                .orElseThrow(() -> new EmpresaNotFoundException("Empresa no encontrada")));
+        Curso curso = cursoRepository.findById(nueva.curso().getId())
+                .orElseThrow(() -> new CursoNotFoundException(nueva.curso().getId()));
 
-        d.setCurso(cursoRepository.findById(nueva.curso().getId())
-                .orElseThrow(() -> new EmpresaNotFoundException("Curso no encontrado")));
 
-        d.setCantidadAlumnos(nueva.cantidadAlumnos());
+        Demanda demanda = Demanda.builder()
+                .empresa(empresa)
+                .curso(curso)
+                .cantidadAlumnos(nueva.cantidadAlumnos())
+                .build();
 
-        demandaRepository.save(d);
-
-        return GetDemandaDto.of(d);
-
+        return demandaRepository.save(demanda);
     }
 
-    public GetDemandaDto edit(CreateDemandaDto demanda, Long id){
 
-        Demanda demandaEditar = demandaRepository.findById(id)
+    public Demanda edit(CreateDemandaDto demanda, Long id){
+
+        return demandaRepository.findById(id)
                 .map(old ->{
                     old.setEmpresa(empresaRepository.findById(demanda.empresa().getId())
                             .orElseThrow(() -> new DemandaNotFoundException(demanda.empresa().getId())));
@@ -69,8 +72,6 @@ public class DemandaService {
                     return demandaRepository.save(old);
                 })
                 .orElseThrow(() -> new DemandaNotFoundException(id));
-
-        return GetDemandaDto.of(demandaEditar);
     }
 
     public void delete(Long id){
