@@ -1,6 +1,8 @@
 package com.salesianos.conecta.service;
 
-import com.salesianos.conecta.dto.EditUsuarioCmd;
+import com.salesianos.conecta.dto.profesor.EditProfesorCmd;
+import com.salesianos.conecta.dto.usuario.EditUsuarioCmd;
+import com.salesianos.conecta.error.ProfesorNotFoundException;
 import com.salesianos.conecta.error.UsuarioNotFoundException;
 import com.salesianos.conecta.model.Profesor;
 import com.salesianos.conecta.model.Usuario;
@@ -55,6 +57,19 @@ public class UsuarioService {
                     old.setPassword(usuario.password());
                     return usuarioRepository.save(old);
                 }).orElseThrow(() -> new UsuarioNotFoundException(id));
+    }
+
+    public Profesor editProfesor(EditProfesorCmd profesor, Long id) {
+        return profesorRepository.findById(id)
+                .map(old -> {
+                    old.setNombre(profesor.nombre());
+                    old.setApellidos(profesor.apellidos());
+                    old.setEmail(profesor.email());
+                    old.setTelefono(profesor.telefono());
+
+                    return profesorRepository.save(old);
+
+                }).orElseThrow(() -> new ProfesorNotFoundException(id));
     }
 
 

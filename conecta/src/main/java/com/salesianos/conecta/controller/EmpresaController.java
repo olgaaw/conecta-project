@@ -1,13 +1,9 @@
 package com.salesianos.conecta.controller;
 
-import com.salesianos.conecta.dto.CreateEmpresaDto;
-import com.salesianos.conecta.dto.CreateUsuarioDto;
-import com.salesianos.conecta.dto.GetEmpresaDto;
-import com.salesianos.conecta.dto.GetEmpresaStringsDto;
-import com.salesianos.conecta.model.Convocatoria;
-import com.salesianos.conecta.model.Demanda;
+import com.salesianos.conecta.dto.empresa.CreateEmpresaDto;
+import com.salesianos.conecta.dto.empresa.GetEmpresaDto;
+import com.salesianos.conecta.dto.empresa.GetEmpresaStringsDto;
 import com.salesianos.conecta.model.Empresa;
-import com.salesianos.conecta.model.Usuario;
 import com.salesianos.conecta.service.EmpresaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -17,7 +13,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,5 +1,6 @@
 package com.salesianos.conecta.service;
 
+import com.salesianos.conecta.dto.profesor.EditProfesorCmd;
 import com.salesianos.conecta.error.ProfesorNotFoundException;
 import com.salesianos.conecta.model.Profesor;
 import com.salesianos.conecta.repository.CursoRepository;
@@ -37,15 +38,15 @@ public class ProfesorService {
                 .build());
     }
 
-    public Profesor edit(Profesor profesor, Long id) {
+    public Profesor edit(EditProfesorCmd profesor, Long id) {
         return profesorRepository.findById(id)
                 .map(old -> {
-                    old.setNombre(profesor.getNombre());
-                    old.setApellidos(profesor.getApellidos());
-                    old.setEmail(profesor.getEmail());
-                    old.setTelefono(profesor.getTelefono());
+                    old.setNombre(profesor.nombre());
+                    old.setApellidos(profesor.apellidos());
+                    old.setEmail(profesor.email());
+                    old.setTelefono(profesor.telefono());
 
-                    return profesorRepository.save(profesor);
+                    return profesorRepository.save(old);
 
                 }).orElseThrow(() -> new ProfesorNotFoundException(id));
     }

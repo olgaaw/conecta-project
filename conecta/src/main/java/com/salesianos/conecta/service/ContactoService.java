@@ -1,7 +1,7 @@
 package com.salesianos.conecta.service;
 
 import com.salesianos.conecta.dto.contacto.CreateContactoDto;
-import com.salesianos.conecta.dto.GetContactoDto;
+import com.salesianos.conecta.dto.contacto.GetContactoDto;
 import com.salesianos.conecta.error.ContactoNotFoundException;
 import com.salesianos.conecta.error.ProfesorNotFoundException;
 import com.salesianos.conecta.error.UsuarioNotFoundException;

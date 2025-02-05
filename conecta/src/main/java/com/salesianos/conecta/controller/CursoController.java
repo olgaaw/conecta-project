@@ -1,9 +1,9 @@
 package com.salesianos.conecta.controller;
 
 
-import com.salesianos.conecta.dto.EditCursoCmd;
-import com.salesianos.conecta.dto.CreateCursoDto;
-import com.salesianos.conecta.dto.GetCursoDto;
+import com.salesianos.conecta.dto.curso.EditCursoCmd;
+import com.salesianos.conecta.dto.curso.CreateCursoDto;
+import com.salesianos.conecta.dto.curso.GetCursoDto;
 import com.salesianos.conecta.model.Curso;
 import com.salesianos.conecta.service.CursoService;
 

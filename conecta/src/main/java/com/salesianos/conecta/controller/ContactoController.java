@@ -1,7 +1,7 @@
 package com.salesianos.conecta.controller;
 
 import com.salesianos.conecta.dto.contacto.CreateContactoDto;
-import com.salesianos.conecta.dto.GetContactoDto;
+import com.salesianos.conecta.dto.contacto.GetContactoDto;
 import com.salesianos.conecta.model.Contacto;
 import com.salesianos.conecta.model.ContactoPK;
 import com.salesianos.conecta.service.ContactoService;
@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/contacto/")
 @RequiredArgsConstructor
+@Tag(name = "Contactos", description = "Controlador contacto")
 public class ContactoController {
 
     private final ContactoService contactoService;

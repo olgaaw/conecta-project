@@ -1,7 +1,7 @@
 package com.salesianos.conecta.service;
 
-import com.salesianos.conecta.dto.CreateEmpresaDto;
-import com.salesianos.conecta.dto.GetEmpresaStringsDto;
+import com.salesianos.conecta.dto.empresa.CreateEmpresaDto;
+import com.salesianos.conecta.dto.empresa.GetEmpresaStringsDto;
 import com.salesianos.conecta.error.EmpresaNotFoundException;
 import com.salesianos.conecta.error.FamiliaProfesionalNotFoundException;
 import com.salesianos.conecta.model.*;
