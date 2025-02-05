@@ -1,11 +1,10 @@
 package com.salesianos.conecta.service;
 
-import com.salesianos.conecta.dto.*;
-import com.salesianos.conecta.error.DemandaNotFoundException;
+import com.salesianos.conecta.dto.familiaProfesional.CreateFamiliaprofesionalDto;
+import com.salesianos.conecta.dto.familiaProfesional.GetFamiliasProfesionalesDemandasDto;
 import com.salesianos.conecta.error.EmpresaNotFoundException;
 import com.salesianos.conecta.error.FamiliaProfesionalNotFoundException;
 import com.salesianos.conecta.model.*;
-import com.salesianos.conecta.repository.DemandaRepository;
 import com.salesianos.conecta.repository.EmpresaRepository;
 import com.salesianos.conecta.repository.FamiliaProfesionalRepository;
 import lombok.RequiredArgsConstructor;

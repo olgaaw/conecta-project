@@ -1,7 +1,7 @@
 package com.salesianos.conecta.controller;
 
-import com.salesianos.conecta.dto.*;
-import com.salesianos.conecta.model.Empresa;
+import com.salesianos.conecta.dto.titulo.CreateTituloDto;
+import com.salesianos.conecta.dto.titulo.GetTituloDto;
 import com.salesianos.conecta.service.TituloService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/titulo/")
+@Tag(name = "Titulos", description = "Controlador titulo")
 public class TituloController {
     private final TituloService tituloService;
 

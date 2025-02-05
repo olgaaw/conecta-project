@@ -1,10 +1,9 @@
-package com.salesianos.conecta.dto;
+package com.salesianos.conecta.dto.familiaProfesional;
 
 import com.salesianos.conecta.model.Empresa;
 import com.salesianos.conecta.model.FamiliaProfesional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public record GetFamiliasProfesionalesDemandasDto (
         String nombreFamiliaProfesional,

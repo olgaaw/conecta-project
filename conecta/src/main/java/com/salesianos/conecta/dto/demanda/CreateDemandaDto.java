@@ -1,8 +1,7 @@
-package com.salesianos.conecta.dto;
+package com.salesianos.conecta.dto.demanda;
 
 import com.salesianos.conecta.model.Curso;
 import com.salesianos.conecta.model.Empresa;
-import com.salesianos.conecta.model.Titulo;
 
 public record CreateDemandaDto(
         Empresa empresa,

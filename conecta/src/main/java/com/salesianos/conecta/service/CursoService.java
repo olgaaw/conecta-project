@@ -1,7 +1,7 @@
 package com.salesianos.conecta.service;
 
-import com.salesianos.conecta.dto.EditCursoCmd;
-import com.salesianos.conecta.dto.CreateCursoDto;
+import com.salesianos.conecta.dto.curso.EditCursoCmd;
+import com.salesianos.conecta.dto.curso.CreateCursoDto;
 import com.salesianos.conecta.error.CursoNotFoundException;
 import com.salesianos.conecta.error.TituloNotFoundException;
 import com.salesianos.conecta.model.Curso;

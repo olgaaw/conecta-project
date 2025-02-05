@@ -1,11 +1,9 @@
-package com.salesianos.conecta.dto;
+package com.salesianos.conecta.dto.empresa;
 
 import com.salesianos.conecta.model.*;
-import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public record CreateEmpresaDto(
         String nombre,

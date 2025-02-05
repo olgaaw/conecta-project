@@ -1,19 +1,12 @@
 package com.salesianos.conecta.service;
 
-import com.salesianos.conecta.dto.CreateConvocatoriaDto;
-import com.salesianos.conecta.dto.CreateEmpresaDto;
-import com.salesianos.conecta.dto.GetConvocatoriaDto;
-import com.salesianos.conecta.dto.GetEmpresaStringsDto;
+import com.salesianos.conecta.dto.convocatoria.CreateConvocatoriaDto;
+import com.salesianos.conecta.dto.convocatoria.GetConvocatoriaDto;
 import com.salesianos.conecta.error.ConvocatoriaNotFoundException;
-import com.salesianos.conecta.error.DemandaNotFoundException;
 import com.salesianos.conecta.error.EmpresaNotFoundException;
-import com.salesianos.conecta.error.FamiliaProfesionalNotFoundException;
 import com.salesianos.conecta.model.Convocatoria;
 import com.salesianos.conecta.model.Demanda;
-import com.salesianos.conecta.model.Empresa;
-import com.salesianos.conecta.model.FamiliaProfesional;
 import com.salesianos.conecta.repository.ConvocatoriaRepository;
-import com.salesianos.conecta.repository.DemandaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
