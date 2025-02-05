@@ -172,4 +172,43 @@ public class EmpresaController {
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(summary = "Obtiene una lista de las empresas con mas de una demanda")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado empresas",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Empresa.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            [
+                                                {
+                                                    "nombre": "Nombre de la Empresa",
+                                                    "direccion": "Dirección de la Empresa",
+                                                    "familiaProfesionales": [
+                                                        {
+                                                            "nombre": "Salud"
+                                                        },
+                                                        {
+                                                            "nombre": "Tecnología"
+                                                        }
+                                                    ],
+                                                    "demandas": 2
+                                                }
+                                            ]                                          
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado ninguna empresa",
+                    content = @Content),
+    })
+    @GetMapping("/demandas")
+    public List<GetEmpresaDto> getEmpresasVariasDemandas() {
+        return empresaService.findEmpresasVariasDemandas()
+                .stream()
+                .map(GetEmpresaDto::of)
+                .toList();
+    }
+
+
 }

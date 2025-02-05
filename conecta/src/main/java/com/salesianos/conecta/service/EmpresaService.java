@@ -1,6 +1,7 @@
 package com.salesianos.conecta.service;
 
 import com.salesianos.conecta.dto.empresa.CreateEmpresaDto;
+import com.salesianos.conecta.dto.empresa.GetEmpresaDto;
 import com.salesianos.conecta.dto.empresa.GetEmpresaStringsDto;
 import com.salesianos.conecta.error.DemandaNotFoundException;
 import com.salesianos.conecta.error.EmpresaNotFoundException;
@@ -118,6 +119,11 @@ public class EmpresaService {
 
         empresaRepository.deleteById(id);
     }
+
+    public List<Empresa> findEmpresasVariasDemandas() {
+        return empresaRepository.findEmpresasVariasDemandas();
+    }
+
 
 
 
