@@ -2,6 +2,7 @@ package com.salesianos.conecta.service;
 
 import com.salesianos.conecta.dto.empresa.CreateEmpresaDto;
 import com.salesianos.conecta.dto.empresa.GetEmpresaStringsDto;
+import com.salesianos.conecta.error.DemandaNotFoundException;
 import com.salesianos.conecta.error.EmpresaNotFoundException;
 import com.salesianos.conecta.error.FamiliaProfesionalNotFoundException;
 import com.salesianos.conecta.model.*;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -39,41 +41,59 @@ public class EmpresaService {
                 .orElseThrow(()-> new EmpresaNotFoundException(id));
     }
 
-    public GetEmpresaStringsDto save(CreateEmpresaDto nueva){
+    public Empresa save(CreateEmpresaDto nueva){
 
-        Empresa e = new Empresa();
+        Empresa empresa = Empresa.builder()
+                .nombre(nueva.nombre())
+                .direccion(nueva.direccion())
+                .build();
 
-        e.setNombre(nueva.nombre());
-        e.setDireccion(nueva.direccion());
+        Set<FamiliaProfesional> familiasProfesionales = nueva.familiasProfesionales();
 
-        for (FamiliaProfesional f : nueva.familiasProfesionales()) {
-            e.addFamiliaProfesional(familiaProfesionalRepository.findById(f.getId())
+        for (FamiliaProfesional f : familiasProfesionales) {
+            empresa.addFamiliaProfesional(familiaProfesionalRepository.findById(f.getId())
                     .orElseThrow(() -> new FamiliaProfesionalNotFoundException(f.getId())));
         }
 
-        for (Demanda d : nueva.demandas()) {
-                e.addDemanda(d);
+        List<Demanda> demandas = nueva.demandas();
+
+        for (Demanda d : demandas) {
+            empresa.addDemanda(demandaRepository.findById(d.getId())
+                    .orElseThrow(() -> new FamiliaProfesionalNotFoundException(d.getId())));
         }
 
-        empresaRepository.save(e);
+        return empresaRepository.save(empresa);
 
-        return GetEmpresaStringsDto.of(e);
     }
 
-    public GetEmpresaStringsDto edit(CreateEmpresaDto empresa, Long id) {
+    public Empresa edit(CreateEmpresaDto empresa, Long id) {
 
 
-        Empresa empresaEditar = empresaRepository.findById(id)
+        return empresaRepository.findById(id)
                 .map(old -> {
                     old.setNombre(empresa.nombre());
                     old.setDireccion(empresa.direccion());
-                    empresa.familiasProfesionales().forEach(old::addFamiliaProfesional);
-                    empresa.demandas().forEach(old::addDemanda);
+                    List<Demanda> demandas = empresa.demandas().stream()
+                            .map(demanda -> demandaRepository.findById(demanda.getId())
+                                    .orElseThrow(() -> new DemandaNotFoundException(demanda.getId())))
+                            .toList();
+
+                    for (Demanda d : demandas) {
+                        old.addDemanda(d);
+                    }
+                    Set<FamiliaProfesional> familiasProfesionales = empresa.familiasProfesionales().stream()
+                            .map(familiaProfesional -> familiaProfesionalRepository.findById(familiaProfesional.getId())
+                                    .orElseThrow(() -> new FamiliaProfesionalNotFoundException(familiaProfesional.getId())))
+                            .collect(Collectors.toSet());
+
+                    for (FamiliaProfesional f : familiasProfesionales) {
+                        old.addFamiliaProfesional(f);
+                    }
+
                     return empresaRepository.save(old);
                 })
                 .orElseThrow(() -> new EmpresaNotFoundException(id));
 
-        return GetEmpresaStringsDto.of(empresaEditar);
     }
 
     public void delete(Long id){

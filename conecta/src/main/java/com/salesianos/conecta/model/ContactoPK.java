@@ -14,13 +14,10 @@ import java.util.Objects;
 @NoArgsConstructor
 @Embeddable
 public class ContactoPK {
-    @GeneratedValue
-    private Long id;
 
     private Long profesor_id;
 
     private Long trabajador_id;
-
 
     @Override
     public final boolean equals(Object o) {

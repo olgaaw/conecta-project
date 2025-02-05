@@ -5,11 +5,11 @@ INSERT INTO profesor(id, nombre, apellidos, email, telefono)
 VALUES (nextval('profesor_seq'), 'Luis', 'Gómez Torres', 'lgomez@gmail.com', 678548923);
 
 
-INSERT INTO usuario(id, username, password, role, profesor_id)
-VALUES (nextval('usuario_seq'),'luciasangar', '123456789', 'profesor', 1);
+INSERT INTO usuario(id, username, password, role, profesor_id, deleted)
+VALUES (nextval('usuario_seq'),'luciasangar', '123456789', 'profesor', 1, false);
 
-INSERT INTO usuario(id, username, password, role, profesor_id)
-VALUES (nextval('usuario_seq'),'luisgoto', '56748392', 'profesor', 51);
+INSERT INTO usuario(id, username, password, role, profesor_id, deleted)
+VALUES (nextval('usuario_seq'),'luisgoto', '56748392', 'profesor', 51, false);
 
 
 -- Insertar Familias Profesionales
@@ -86,8 +86,8 @@ VALUES (nextval('trabajador_seq'), 'Olga', 'Valor Wu', 'ovaolowu@gmail.com', 666
 
 
 
-INSERT INTO contacto(id, profesor_id, trabajador_id, fecha, canal, resumen, deleted)
-VALUES (nextval('contacto_seq'), 1, 1,'2025-01-17', 'email', 'Aceptación del convenio de practicas', false);
+INSERT INTO contacto(profesor_id, trabajador_id, fecha, canal, resumen, deleted)
+VALUES (1, 1,'2025-01-17', 'email', 'Aceptación del convenio de practicas', false);
 
-INSERT INTO contacto(id, profesor_id, trabajador_id, fecha, canal, resumen, deleted)
-VALUES (nextval('contacto_seq'),1, 51, '2025-01-15', 'llamada', 'Cerrada fecha inicio de practicas primero daw', true);
+INSERT INTO contacto(profesor_id, trabajador_id, fecha, canal, resumen, deleted)
+VALUES (1, 51, '2025-01-15', 'llamada', 'Cerrada fecha inicio de practicas primero daw', true);

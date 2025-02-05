@@ -130,7 +130,7 @@ public class ProfesorController {
                     content = @Content),
     })
     @PutMapping("/{id}")
-    public Profesor edit(@RequestBody EditProfesorCmd aEditar, @PathVariable Long id) {
+    public Profesor edit(@io.swagger.v3.oas.annotations.parameters.RequestBody EditProfesorCmd aEditar, @PathVariable Long id) {
         return usuarioService.editProfesor(aEditar,id);
     }
 

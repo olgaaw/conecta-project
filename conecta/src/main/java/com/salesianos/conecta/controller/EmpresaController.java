@@ -126,7 +126,8 @@ public class EmpresaController {
     @PostMapping
     public ResponseEntity<GetEmpresaStringsDto> create(@RequestBody CreateEmpresaDto dto
     ) {
-        return ResponseEntity.status(201).body(empresaService.save(dto));
+        Empresa empresa = empresaService.save(dto);
+        return ResponseEntity.status(201).body(GetEmpresaStringsDto.of(empresa));
     }
 
     @Operation(summary = "Edita una empresa")
@@ -155,7 +156,8 @@ public class EmpresaController {
     })
     @PutMapping("/{id}")
     public GetEmpresaStringsDto edit(@RequestBody CreateEmpresaDto aEditar, @PathVariable Long id) {
-        return empresaService.edit(aEditar, id);
+        Empresa empresa = empresaService.edit(aEditar, id);
+        return GetEmpresaStringsDto.of(empresa);
     }
 
     @Operation(summary = "Elimina una empresa")

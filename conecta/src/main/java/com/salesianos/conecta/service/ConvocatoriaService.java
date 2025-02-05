@@ -3,20 +3,29 @@ package com.salesianos.conecta.service;
 import com.salesianos.conecta.dto.convocatoria.CreateConvocatoriaDto;
 import com.salesianos.conecta.dto.convocatoria.GetConvocatoriaDto;
 import com.salesianos.conecta.error.ConvocatoriaNotFoundException;
+import com.salesianos.conecta.error.DemandaNotFoundException;
 import com.salesianos.conecta.error.EmpresaNotFoundException;
+import com.salesianos.conecta.error.FamiliaProfesionalNotFoundException;
 import com.salesianos.conecta.model.Convocatoria;
 import com.salesianos.conecta.model.Demanda;
+import com.salesianos.conecta.model.Empresa;
+import com.salesianos.conecta.model.FamiliaProfesional;
 import com.salesianos.conecta.repository.ConvocatoriaRepository;
+import com.salesianos.conecta.repository.DemandaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ConvocatoriaService {
 
     private final ConvocatoriaRepository convocatoriaRepository;
+    private final DemandaRepository demandaRepository;
 
     public List<Convocatoria> findAll(){
 
@@ -39,36 +48,44 @@ public class ConvocatoriaService {
         convocatoriaRepository.deleteById(id);
     }
 
-    public GetConvocatoriaDto save(CreateConvocatoriaDto nueva){
-
-        Convocatoria c = new Convocatoria();
-
-        c.setCursoEscolar(nueva.cursoEscolar());
-        c.setNombre(nueva.nombre());
+    public Convocatoria save(CreateConvocatoriaDto nueva){
 
 
-        for (Demanda d : nueva.demandas()) {
-            c.adddemanda(d);
+        Convocatoria convocatoria = Convocatoria.builder()
+                .cursoEscolar(nueva.cursoEscolar())
+                .nombre(nueva.nombre())
+                .build();
+
+        List<Demanda> demandas = nueva.demandas();
+
+        for (Demanda d : demandas) {
+            convocatoria.adddemanda(demandaRepository.findById(d.getId())
+                    .orElseThrow(() -> new FamiliaProfesionalNotFoundException(d.getId())));
         }
 
-        convocatoriaRepository.save(c);
-
-        return GetConvocatoriaDto.of(c);
+        return convocatoriaRepository.save(convocatoria);
     }
-    public GetConvocatoriaDto edit(CreateConvocatoriaDto convocatoria, Long id) {
+
+    public Convocatoria edit(CreateConvocatoriaDto convocatoria, Long id) {
 
 
-        Convocatoria convocatoriaEditar = convocatoriaRepository.findById(id)
+        return convocatoriaRepository.findById(id)
                 .map(old -> {
                     old.setCursoEscolar(convocatoria.cursoEscolar());
                     old.setNombre(convocatoria.nombre());
-                    convocatoria.demandas().forEach(old::adddemanda);
+                    List<Demanda> demandas = convocatoria.demandas().stream()
+                            .map(demanda -> demandaRepository.findById(demanda.getId())
+                                    .orElseThrow(() -> new DemandaNotFoundException(demanda.getId())))
+                            .toList();
+
+                    for (Demanda d : demandas) {
+                        old.adddemanda(d);
+                    }
+
                     return convocatoriaRepository.save(old);
                 })
-                .orElseThrow(() -> new EmpresaNotFoundException(id));
-
-        return GetConvocatoriaDto.of(convocatoriaEditar);
-    }
+                .orElseThrow(() -> new ConvocatoriaNotFoundException(id));
+        }
 
 
 
