@@ -39,7 +39,7 @@ public class TituloService {
     }
 
     @Transactional
-    public GetTituloDto save(CreateTituloDto titulo) {
+    public Titulo save(CreateTituloDto titulo) {
        Titulo t = new Titulo();
        t.setNombre(titulo.nombre());
        t.setDuracion(titulo.duracion());
@@ -53,14 +53,13 @@ public class TituloService {
            t.addCurso(curso);
        }
 
-       tituloRepository.save(t);
+       return tituloRepository.save(t);
 
-       return GetTituloDto.of(t);
     }
 
     @Transactional
-    public GetTituloDto edit(CreateTituloDto titulo, Long id) {
-        Titulo t = tituloRepository.findById(id)
+    public Titulo edit(CreateTituloDto titulo, Long id) {
+        return tituloRepository.findById(id)
                 .map(old -> {
                     old.setNombre(titulo.nombre());
                     old.setDuracion(titulo.duracion());
@@ -76,8 +75,6 @@ public class TituloService {
                     return tituloRepository.save(old);
                 })
                 .orElseThrow(() -> new TituloNotFoundException(id));
-
-        return GetTituloDto.of(t);
     }
 
     @Transactional

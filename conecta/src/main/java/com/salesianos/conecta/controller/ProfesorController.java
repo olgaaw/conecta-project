@@ -115,7 +115,7 @@ public class ProfesorController {
                     content = @Content),
     })
     @PostMapping
-    public ResponseEntity<Usuario> create(@Valid @io.swagger.v3.oas.annotations.parameters.RequestBody CreateUsuarioDto dto
+    public ResponseEntity<Usuario> create(@Valid @RequestBody CreateUsuarioDto dto
     ) {
         return ResponseEntity.status(201).body(usuarioService.save(dto.toUsuario()));
     }
