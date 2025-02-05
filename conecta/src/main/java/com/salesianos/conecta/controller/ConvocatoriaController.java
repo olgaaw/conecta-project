@@ -108,7 +108,8 @@ public class ConvocatoriaController {
     @PostMapping
     public ResponseEntity<GetConvocatoriaDto> create(@RequestBody CreateConvocatoriaDto dto
     ) {
-        return ResponseEntity.status(201).body(convocatoriaService.save(dto));
+        Convocatoria convocatoria = convocatoriaService.save(dto);
+        return ResponseEntity.status(201).body(GetConvocatoriaDto.of(convocatoria));
     }
 
     @Operation(summary = "Edita una convocatoria")
@@ -133,7 +134,8 @@ public class ConvocatoriaController {
     })
     @PutMapping("/{id}")
     public GetConvocatoriaDto edit(@RequestBody CreateConvocatoriaDto aEditar, @PathVariable Long id) {
-        return convocatoriaService.edit(aEditar, id);
+        Convocatoria convocatoria = convocatoriaService.edit(aEditar, id);
+        return GetConvocatoriaDto.of(convocatoria);
     }
 
     @Operation(summary = "Elimina una convocatoria")

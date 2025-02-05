@@ -39,26 +39,21 @@ public class ConvocatoriaService {
         convocatoriaRepository.deleteById(id);
     }
 
-    public GetConvocatoriaDto save(CreateConvocatoriaDto nueva){
+    public Convocatoria save(CreateConvocatoriaDto nueva){
 
-        Convocatoria c = new Convocatoria();
+        Convocatoria convocatoria = Convocatoria.builder()
+                .cursoEscolar(nueva.cursoEscolar())
+                .nombre(nueva.nombre())
+                .demandas(nueva.demandas())
+                .build();
 
-        c.setCursoEscolar(nueva.cursoEscolar());
-        c.setNombre(nueva.nombre());
-
-
-        for (Demanda d : nueva.demandas()) {
-            c.adddemanda(d);
-        }
-
-        convocatoriaRepository.save(c);
-
-        return GetConvocatoriaDto.of(c);
+        return convocatoriaRepository.save(convocatoria);
     }
-    public GetConvocatoriaDto edit(CreateConvocatoriaDto convocatoria, Long id) {
+
+    public Convocatoria edit(CreateConvocatoriaDto convocatoria, Long id) {
 
 
-        Convocatoria convocatoriaEditar = convocatoriaRepository.findById(id)
+        return convocatoriaRepository.findById(id)
                 .map(old -> {
                     old.setCursoEscolar(convocatoria.cursoEscolar());
                     old.setNombre(convocatoria.nombre());
@@ -66,9 +61,7 @@ public class ConvocatoriaService {
                     return convocatoriaRepository.save(old);
                 })
                 .orElseThrow(() -> new EmpresaNotFoundException(id));
-
-        return GetConvocatoriaDto.of(convocatoriaEditar);
-    }
+        }
 
 
 
