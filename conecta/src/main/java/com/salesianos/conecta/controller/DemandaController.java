@@ -108,7 +108,7 @@ public class DemandaController {
                     )}),
     })
     @PostMapping
-    public ResponseEntity<GetDemandaDto> create(@io.swagger.v3.oas.annotations.parameters.RequestBody CreateDemandaDto dto
+    public ResponseEntity<GetDemandaDto> create(@RequestBody CreateDemandaDto dto
     ) {
         Demanda demanda = demandaService.save(dto);
         return ResponseEntity.status(201).body(GetDemandaDto.of(demanda));
@@ -136,7 +136,7 @@ public class DemandaController {
                     content = @Content),
     })
     @PutMapping("/{id}")
-    public GetDemandaDto edit(@io.swagger.v3.oas.annotations.parameters.RequestBody CreateDemandaDto aEditar, @PathVariable Long id) {
+    public GetDemandaDto edit(@RequestBody CreateDemandaDto aEditar, @PathVariable Long id) {
         Demanda demanda = demandaService.edit(aEditar, id);
         return GetDemandaDto.of(demanda);
     }

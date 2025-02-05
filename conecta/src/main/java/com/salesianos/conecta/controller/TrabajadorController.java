@@ -1,7 +1,9 @@
 package com.salesianos.conecta.controller;
 
+import com.salesianos.conecta.dto.convocatoria.GetConvocatoriaDto;
 import com.salesianos.conecta.dto.trabajador.CreateTrabajadorDto;
 import com.salesianos.conecta.dto.trabajador.GetTrabajadorDto;
+import com.salesianos.conecta.model.Convocatoria;
 import com.salesianos.conecta.model.Trabajador;
 import com.salesianos.conecta.service.TrabajadorService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -130,9 +132,10 @@ public class TrabajadorController {
                     content = @Content),
     })
     @PostMapping
-    public ResponseEntity<Trabajador> create(@io.swagger.v3.oas.annotations.parameters.RequestBody CreateTrabajadorDto dto
+    public ResponseEntity<GetTrabajadorDto> create(@RequestBody CreateTrabajadorDto dto
     ) {
-        return ResponseEntity.status(201).body(trabajadorService.save(dto));
+        Trabajador trabajador = trabajadorService.save(dto);
+        return ResponseEntity.status(201).body(GetTrabajadorDto.of(trabajador));
     }
 
 
@@ -145,8 +148,9 @@ public class TrabajadorController {
                     content = @Content),
     })
     @PutMapping("/{id}")
-    public Trabajador edit(@io.swagger.v3.oas.annotations.parameters.RequestBody CreateTrabajadorDto aEditar, @PathVariable Long id) {
-        return trabajadorService.edit(aEditar,id);
+    public GetTrabajadorDto edit(@RequestBody CreateTrabajadorDto aEditar, @PathVariable Long id) {
+        Trabajador trabajador = trabajadorService.edit(aEditar, id);
+        return GetTrabajadorDto.of(trabajador);
     }
 
 

@@ -2,6 +2,7 @@ package com.salesianos.conecta.controller;
 
 import com.salesianos.conecta.dto.titulo.CreateTituloDto;
 import com.salesianos.conecta.dto.titulo.GetTituloDto;
+import com.salesianos.conecta.model.Titulo;
 import com.salesianos.conecta.service.TituloService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -109,8 +110,9 @@ public class TituloController {
                     content = @Content),
     })
     @PostMapping
-    public ResponseEntity<GetTituloDto> create(@Valid @io.swagger.v3.oas.annotations.parameters.RequestBody CreateTituloDto dto) {
-        return ResponseEntity.status(201).body(tituloService.save(dto));
+    public ResponseEntity<GetTituloDto> create(@Valid @RequestBody CreateTituloDto dto) {
+        Titulo titulo = tituloService.save(dto);
+        return ResponseEntity.status(201).body(GetTituloDto.of(titulo));
     }
 
 
@@ -138,8 +140,9 @@ public class TituloController {
                     content = @Content),
     })
     @PutMapping("/{id}")
-    public GetTituloDto edit(@io.swagger.v3.oas.annotations.parameters.RequestBody CreateTituloDto aEditar, @PathVariable Long id) {
-        return tituloService.edit(aEditar, id);
+    public GetTituloDto edit(@RequestBody CreateTituloDto aEditar, @PathVariable Long id) {
+        Titulo titulo = tituloService.edit(aEditar, id);
+        return GetTituloDto.of(titulo);
     }
 
 

@@ -1,7 +1,9 @@
 package com.salesianos.conecta.controller;
 
+import com.salesianos.conecta.dto.empresa.GetEmpresaStringsDto;
 import com.salesianos.conecta.dto.familiaProfesional.CreateFamiliaprofesionalDto;
 import com.salesianos.conecta.dto.familiaProfesional.GetFamiliasProfesionalesDemandasDto;
+import com.salesianos.conecta.model.Empresa;
 import com.salesianos.conecta.model.FamiliaProfesional;
 import com.salesianos.conecta.service.FamiliaProfesionalService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -113,9 +115,10 @@ public class FamiliaProfesionalController {
                     )}),
     })
     @PostMapping
-    public ResponseEntity<GetFamiliasProfesionalesDemandasDto> create(@io.swagger.v3.oas.annotations.parameters.RequestBody CreateFamiliaprofesionalDto dto
+    public ResponseEntity<GetFamiliasProfesionalesDemandasDto> create(@RequestBody CreateFamiliaprofesionalDto dto
     ) {
-        return ResponseEntity.status(201).body(familiaProfesionalService.save(dto));
+        FamiliaProfesional familiaProfesional = familiaProfesionalService.save(dto);
+        return ResponseEntity.status(201).body(GetFamiliasProfesionalesDemandasDto.of(familiaProfesional));
     }
 
     @Operation(summary = "Edita una familia profesional")
@@ -141,8 +144,10 @@ public class FamiliaProfesionalController {
                     content = @Content),
     })
     @PutMapping("/{id}")
-    public GetFamiliasProfesionalesDemandasDto edit(@io.swagger.v3.oas.annotations.parameters.RequestBody CreateFamiliaprofesionalDto aEditar, @PathVariable Long id) {
-        return familiaProfesionalService.edit(aEditar, id);
+    public GetFamiliasProfesionalesDemandasDto edit(@RequestBody CreateFamiliaprofesionalDto aEditar, @PathVariable Long id) {
+        FamiliaProfesional familiaProfesional = familiaProfesionalService.edit(aEditar, id);
+        return GetFamiliasProfesionalesDemandasDto.of(familiaProfesional);
+
     }
 
     @Operation(summary = "Elimina una familia profesional")

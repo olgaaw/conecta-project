@@ -40,7 +40,7 @@ public class ContactoService {
         return contactoRepository.findById(id).orElseThrow(() -> new ContactoNotFoundException("No existe ningún contacto con el id"+id));
     }
 
-    public GetContactoDto save(CreateContactoDto dto) {
+    public Contacto save(CreateContactoDto dto) {
 
         Contacto c = new Contacto();
 
@@ -52,12 +52,11 @@ public class ContactoService {
         c.setTrabajador(trabajadorRepository.findById(dto.trabajador().getId())
                 .orElseThrow(() -> new UsuarioNotFoundException(dto.trabajador().getId())));
 
-        contactoRepository.save(c);
+        return contactoRepository.save(c);
 
-        return GetContactoDto.of(c);
     }
 
-    public GetContactoDto edit(CreateContactoDto contacto, ContactoPK id) {
+    public Contacto edit(CreateContactoDto contacto, ContactoPK id) {
         Contacto contactoExistente = contactoRepository.findById(id)
                 .orElseThrow(() -> new ContactoNotFoundException("No se encontró el contacto con id " + id));
 
@@ -69,9 +68,8 @@ public class ContactoService {
         contactoExistente.setTrabajador(trabajadorRepository.findById(contacto.trabajador().getId())
                 .orElseThrow(() -> new UsuarioNotFoundException(contacto.trabajador().getId())));
 
-        contactoRepository.save(contactoExistente);
+        return contactoRepository.save(contactoExistente);
 
-        return GetContactoDto.of(contactoExistente);
     }
 
     public void delete(ContactoPK id) {

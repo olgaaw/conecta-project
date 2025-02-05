@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -74,7 +73,9 @@ public class CursoService {
         cursoRepository.delete(curso);
     }
 
-
+    public List<Curso> findCursosByProfesorId(Long profesorId) {
+        return cursoRepository.findCursosByProfesorId(profesorId);
+    }
 
 
 }
