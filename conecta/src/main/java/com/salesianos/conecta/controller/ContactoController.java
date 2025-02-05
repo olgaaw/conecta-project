@@ -5,6 +5,8 @@ import com.salesianos.conecta.dto.contacto.GetContactoDto;
 import com.salesianos.conecta.dto.convocatoria.CreateConvocatoriaDto;
 import com.salesianos.conecta.dto.convocatoria.GetConvocatoriaDto;
 import com.salesianos.conecta.dto.demanda.GetDemandaDto;
+import com.salesianos.conecta.error.EmpresaNotFoundException;
+import com.salesianos.conecta.error.FamiliaProfesionalNotFoundException;
 import com.salesianos.conecta.model.Contacto;
 import com.salesianos.conecta.model.ContactoPK;
 import com.salesianos.conecta.model.Demanda;
@@ -169,6 +171,41 @@ public class ContactoController {
 
         return ResponseEntity.noContent().build();
 
+    }
+
+    @Operation(summary = "Obtiene todos los contactos de una familia profesional")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado contactos",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Contacto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            [
+                                                  {
+                                                      "fecha": "2025-01-17",
+                                                      "canal": "email",
+                                                      "resumen": "Aceptación del convenio de practicas",
+                                                      "trabajadorNombre": "David",
+                                                      "trabajadorEmpresa": "Empresa de Tecnología S.A."
+                                                  }
+                                              ]                                          
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado ningun contacto con esa familia profesional",
+                    content = @Content),
+    })
+    @GetMapping("/familiaProfesional/{nombreFamilia}")
+    public List<GetContactoDto> getContactosByFamilia(@PathVariable String nombreFamilia) {
+        List<Contacto> contactos = contactoService.findByFamiliaProfesional(nombreFamilia);
+
+        if (contactos.isEmpty()){
+            throw new FamiliaProfesionalNotFoundException(nombreFamilia);
+        }
+
+        return contactos.stream().map(GetContactoDto::of).toList();
     }
 
 

@@ -78,5 +78,9 @@ public class ContactoService {
         contactoRepository.deleteById(id);
     }
 
+    public List<Contacto> findByFamiliaProfesional(String nombreFamilia) {
+        return contactoRepository.findByFamiliaProfesionalNombre(nombreFamilia);
+    }
+
 
 }
