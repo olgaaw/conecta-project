@@ -156,5 +156,19 @@ public class ContactoController {
 
     }
 
+    @DeleteMapping("/{profesorId}/{trabajadorId}")
+    public ResponseEntity<?> delete(@PathVariable Long profesorId,
+                                    @PathVariable Long trabajadorId) {
+
+        ContactoPK id = new ContactoPK();
+        id.setProfesor_id(profesorId);
+        id.setTrabajador_id(trabajadorId);
+
+        contactoService.delete(id);
+
+        return ResponseEntity.noContent().build();
+
+    }
+
 
 }
