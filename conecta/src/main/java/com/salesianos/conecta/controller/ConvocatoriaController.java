@@ -106,7 +106,7 @@ public class ConvocatoriaController {
                     )}),
     })
     @PostMapping
-    public ResponseEntity<GetConvocatoriaDto> create(@RequestBody CreateConvocatoriaDto dto
+    public ResponseEntity<GetConvocatoriaDto> create(@io.swagger.v3.oas.annotations.parameters.RequestBody CreateConvocatoriaDto dto
     ) {
         Convocatoria convocatoria = convocatoriaService.save(dto);
         return ResponseEntity.status(201).body(GetConvocatoriaDto.of(convocatoria));
@@ -133,10 +133,9 @@ public class ConvocatoriaController {
                     content = @Content),
     })
     @PutMapping("/{id}")
-    public GetConvocatoriaDto edit(@RequestBody CreateConvocatoriaDto aEditar, @PathVariable Long id) {
-        Convocatoria convocatoria = convocatoriaService.edit(aEditar, id);
-        return GetConvocatoriaDto.of(convocatoria);
-    }
+    public GetConvocatoriaDto edit(@io.swagger.v3.oas.annotations.parameters.RequestBody CreateConvocatoriaDto aEditar, @PathVariable Long id) {
+            Convocatoria convocatoria = convocatoriaService.edit(aEditar, id);
+            return GetConvocatoriaDto.of(convocatoria);    }
 
     @Operation(summary = "Elimina una convocatoria")
     @ApiResponses(value = {

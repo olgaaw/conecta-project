@@ -124,7 +124,7 @@ public class EmpresaController {
                     )}),
     })
     @PostMapping
-    public ResponseEntity<GetEmpresaStringsDto> create(@RequestBody CreateEmpresaDto dto
+    public ResponseEntity<GetEmpresaStringsDto> create(@io.swagger.v3.oas.annotations.parameters.RequestBody CreateEmpresaDto dto
     ) {
         Empresa empresa = empresaService.save(dto);
         return ResponseEntity.status(201).body(GetEmpresaStringsDto.of(empresa));
@@ -155,7 +155,7 @@ public class EmpresaController {
                     content = @Content),
     })
     @PutMapping("/{id}")
-    public GetEmpresaStringsDto edit(@RequestBody CreateEmpresaDto aEditar, @PathVariable Long id) {
+    public GetEmpresaStringsDto edit(@io.swagger.v3.oas.annotations.parameters.RequestBody CreateEmpresaDto aEditar, @PathVariable Long id) {
         Empresa empresa = empresaService.edit(aEditar, id);
         return GetEmpresaStringsDto.of(empresa);
     }

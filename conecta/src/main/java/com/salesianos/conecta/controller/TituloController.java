@@ -109,7 +109,7 @@ public class TituloController {
                     content = @Content),
     })
     @PostMapping
-    public ResponseEntity<GetTituloDto> create(@Valid @RequestBody CreateTituloDto dto) {
+    public ResponseEntity<GetTituloDto> create(@Valid @io.swagger.v3.oas.annotations.parameters.RequestBody CreateTituloDto dto) {
         return ResponseEntity.status(201).body(tituloService.save(dto));
     }
 
@@ -138,7 +138,7 @@ public class TituloController {
                     content = @Content),
     })
     @PutMapping("/{id}")
-    public GetTituloDto edit(@RequestBody CreateTituloDto aEditar, @PathVariable Long id) {
+    public GetTituloDto edit(@io.swagger.v3.oas.annotations.parameters.RequestBody CreateTituloDto aEditar, @PathVariable Long id) {
         return tituloService.edit(aEditar, id);
     }
 
