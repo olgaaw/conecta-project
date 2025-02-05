@@ -1,4 +1,4 @@
-package com.salesianos.conecta.dto;
+package com.salesianos.conecta.dto.contacto;
 
 import com.salesianos.conecta.model.Profesor;
 import com.salesianos.conecta.model.Trabajador;

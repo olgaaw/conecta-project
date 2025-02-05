@@ -1,23 +1,19 @@
 package com.salesianos.conecta.service;
 
-import com.salesianos.conecta.dto.CreateContactoDto;
+import com.salesianos.conecta.dto.contacto.CreateContactoDto;
 import com.salesianos.conecta.dto.GetContactoDto;
 import com.salesianos.conecta.error.ContactoNotFoundException;
 import com.salesianos.conecta.error.ProfesorNotFoundException;
 import com.salesianos.conecta.error.UsuarioNotFoundException;
 import com.salesianos.conecta.model.Contacto;
 import com.salesianos.conecta.model.ContactoPK;
-import com.salesianos.conecta.model.Profesor;
-import com.salesianos.conecta.model.Trabajador;
 import com.salesianos.conecta.repository.ContactoRepository;
 import com.salesianos.conecta.repository.ProfesorRepository;
 import com.salesianos.conecta.repository.TrabajadorRepository;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Filter;
 import org.hibernate.Session;
-import org.hibernate.TransactionException;
 import org.springframework.stereotype.Service;
 
 import java.time.ZoneId;

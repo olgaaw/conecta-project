@@ -1,9 +1,6 @@
-package com.salesianos.conecta.dto;
+package com.salesianos.conecta.dto.demanda;
 
 import com.salesianos.conecta.model.Demanda;
-
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public record GetDemandaDto(
         String nombreEmpresa,

@@ -1,12 +1,9 @@
 package com.salesianos.conecta.controller;
 
-import com.salesianos.conecta.dto.CreateContactoDto;
-import com.salesianos.conecta.dto.CreateDemandaDto;
+import com.salesianos.conecta.dto.contacto.CreateContactoDto;
 import com.salesianos.conecta.dto.GetContactoDto;
-import com.salesianos.conecta.dto.GetDemandaDto;
 import com.salesianos.conecta.model.Contacto;
 import com.salesianos.conecta.model.ContactoPK;
-import com.salesianos.conecta.model.Convocatoria;
 import com.salesianos.conecta.service.ContactoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;

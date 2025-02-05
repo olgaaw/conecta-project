@@ -1,5 +1,6 @@
-package com.salesianos.conecta.dto;
+package com.salesianos.conecta.dto.titulo;
 
+import com.salesianos.conecta.dto.familiaProfesional.GetFamiliasProfesionalesDto;
 import com.salesianos.conecta.model.Titulo;
 
 public record GetTituloDto(
