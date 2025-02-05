@@ -4,8 +4,10 @@ import com.salesianos.conecta.dto.contacto.CreateContactoDto;
 import com.salesianos.conecta.dto.contacto.GetContactoDto;
 import com.salesianos.conecta.dto.convocatoria.CreateConvocatoriaDto;
 import com.salesianos.conecta.dto.convocatoria.GetConvocatoriaDto;
+import com.salesianos.conecta.dto.demanda.GetDemandaDto;
 import com.salesianos.conecta.model.Contacto;
 import com.salesianos.conecta.model.ContactoPK;
+import com.salesianos.conecta.model.Demanda;
 import com.salesianos.conecta.service.ContactoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -59,6 +61,38 @@ public class ContactoController {
                 .stream()
                 .map(GetContactoDto::of)
                 .toList());
+    }
+
+    @Operation(summary = "Obtiene un contacto")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se ha encontrado un contacto",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Contacto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            {
+                                                "fecha": "2023-10-01",
+                                                "canal": "Email",
+                                                "resumen": "Resumen del contacto",
+                                                "trabajadorNombre": "David",
+                                                "trabajadorEmpresa": "Empresa de Tecnología S.A."
+                                            }                                          
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado ningun contacto",
+                    content = @Content),
+    })
+    @GetMapping(("/{profesorId}/{trabajadorId}"))
+    public GetContactoDto getById(@PathVariable Long profesorId,
+                                 @PathVariable Long trabajadorId) {
+        ContactoPK id = new ContactoPK();
+        id.setProfesor_id(profesorId);
+        id.setTrabajador_id(trabajadorId);
+
+        return GetContactoDto.of(contactoService.findById(id));
     }
 
     @Operation(summary = "Crea un contacto")
