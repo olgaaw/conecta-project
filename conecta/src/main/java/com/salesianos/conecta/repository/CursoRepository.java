@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+
 public interface CursoRepository extends JpaRepository<Curso, Long> {
     @Modifying
     @Transactional
@@ -15,4 +16,9 @@ public interface CursoRepository extends JpaRepository<Curso, Long> {
             WHERE d.curso.id = :cursoId
             """)
     void deleteDemandasByCursoId(@Param("cursoId") Long cursoId);
+
+
+
+
+
 }

@@ -2,6 +2,7 @@ package com.salesianos.conecta.service;
 
 import com.salesianos.conecta.dto.curso.EditCursoCmd;
 import com.salesianos.conecta.dto.curso.CreateCursoDto;
+import com.salesianos.conecta.dto.curso.GetCursoDto;
 import com.salesianos.conecta.error.CursoNotFoundException;
 import com.salesianos.conecta.error.TituloNotFoundException;
 import com.salesianos.conecta.model.Curso;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -71,5 +73,8 @@ public class CursoService {
 
         cursoRepository.delete(curso);
     }
+
+
+
 
 }
