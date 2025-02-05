@@ -135,7 +135,8 @@ public class ConvocatoriaController {
     @PutMapping("/{id}")
     public GetConvocatoriaDto edit(@RequestBody CreateConvocatoriaDto aEditar, @PathVariable Long id) {
             Convocatoria convocatoria = convocatoriaService.edit(aEditar, id);
-            return GetConvocatoriaDto.of(convocatoria);    }
+            return GetConvocatoriaDto.of(convocatoria);
+    }
 
     @Operation(summary = "Elimina una convocatoria")
     @ApiResponses(value = {
