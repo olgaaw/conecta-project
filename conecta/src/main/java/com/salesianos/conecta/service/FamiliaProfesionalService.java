@@ -40,7 +40,23 @@ public class FamiliaProfesionalService {
                 .orElseThrow(() -> new FamiliaProfesionalNotFoundException(id));
     }
 
-    public GetFamiliasProfesionalesDemandasDto save(CreateFamiliaprofesionalDto nueva) {
+    public FamiliaProfesional save(CreateFamiliaprofesionalDto nueva) {
+
+        FamiliaProfesional familiaProfesional = new FamiliaProfesional();
+        familiaProfesional.setNombre(nueva.nombre());
+
+        Set<Empresa> empresas = nueva.empresas().stream()
+                .map(empresa -> empresaRepository.findById(empresa.getId())
+                        .orElseThrow(() -> new EmpresaNotFoundException(empresa.getId())))
+                .collect(Collectors.toSet());
+
+
+        familiaProfesional.setEmpresas(nueva.empresas());
+
+        return familiaProfesionalRepository.save(familiaProfesional);
+
+
+       /*
         FamiliaProfesional f = new FamiliaProfesional();
         f.setNombre(nueva.nombre());
 
@@ -53,6 +69,8 @@ public class FamiliaProfesionalService {
         familiaProfesionalRepository.save(f);
 
         return GetFamiliasProfesionalesDemandasDto.of(f);
+
+        */
     }
 
     public GetFamiliasProfesionalesDemandasDto edit(CreateFamiliaprofesionalDto familiaProfesional, Long id) {

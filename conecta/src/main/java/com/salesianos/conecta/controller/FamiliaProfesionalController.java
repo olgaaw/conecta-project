@@ -115,7 +115,8 @@ public class FamiliaProfesionalController {
     @PostMapping
     public ResponseEntity<GetFamiliasProfesionalesDemandasDto> create(@io.swagger.v3.oas.annotations.parameters.RequestBody CreateFamiliaprofesionalDto dto
     ) {
-        return ResponseEntity.status(201).body(familiaProfesionalService.save(dto));
+        FamiliaProfesional familiaProfesional = familiaProfesionalService.save(dto);
+        return ResponseEntity.status(201).body(GetFamiliasProfesionalesDemandasDto.of(familiaProfesional));
     }
 
     @Operation(summary = "Edita una familia profesional")
