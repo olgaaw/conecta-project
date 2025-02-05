@@ -22,4 +22,10 @@ public interface ContactoRepository extends JpaRepository<Contacto, ContactoPK> 
             )
     List<Contacto> findByFamiliaProfesionalNombre(@Param("nombreFamiliaProfesional") String nombreFamiliaProfesional);
 
+        @Query("""
+                select c from Contacto c 
+                where c.trabajador.empresa.id = :empresaId
+                """)
+        List<Contacto> findByEmpresaId(@Param("empresaId") Long empresaId);
+
 }

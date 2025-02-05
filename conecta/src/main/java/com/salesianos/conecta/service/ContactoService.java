@@ -82,5 +82,9 @@ public class ContactoService {
         return contactoRepository.findByFamiliaProfesionalNombre(nombreFamilia);
     }
 
+    public List<Contacto> findByEmpresa(Long empresaId) {
+        return contactoRepository.findByEmpresaId(empresaId);
+    }
+
 
 }

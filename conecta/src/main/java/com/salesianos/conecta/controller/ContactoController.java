@@ -2,14 +2,10 @@ package com.salesianos.conecta.controller;
 
 import com.salesianos.conecta.dto.contacto.CreateContactoDto;
 import com.salesianos.conecta.dto.contacto.GetContactoDto;
-import com.salesianos.conecta.dto.convocatoria.CreateConvocatoriaDto;
-import com.salesianos.conecta.dto.convocatoria.GetConvocatoriaDto;
-import com.salesianos.conecta.dto.demanda.GetDemandaDto;
 import com.salesianos.conecta.error.EmpresaNotFoundException;
 import com.salesianos.conecta.error.FamiliaProfesionalNotFoundException;
 import com.salesianos.conecta.model.Contacto;
 import com.salesianos.conecta.model.ContactoPK;
-import com.salesianos.conecta.model.Demanda;
 import com.salesianos.conecta.service.ContactoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -203,6 +199,41 @@ public class ContactoController {
 
         if (contactos.isEmpty()){
             throw new FamiliaProfesionalNotFoundException(nombreFamilia);
+        }
+
+        return contactos.stream().map(GetContactoDto::of).toList();
+    }
+
+    @Operation(summary = "Obtiene todos los contactos de una empresa")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado contactos",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Contacto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            [
+                                                {
+                                                    "fecha": "2025-01-15",
+                                                    "canal": "llamada",
+                                                    "resumen": "Cerrada fecha inicio de practicas primero daw",
+                                                    "trabajadorNombre": "Olga",
+                                                    "trabajadorEmpresa": "Salud y Vida S.L."
+                                                }
+                                            ]                                          
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado ningun contacto con esa empresa",
+                    content = @Content),
+    })
+    @GetMapping("/empresa/{empresaId}")
+    public List<GetContactoDto> getContactosByEmpresaId(@PathVariable Long empresaId) {
+        List<Contacto> contactos = contactoService.findByEmpresa(empresaId);
+
+        if (contactos.isEmpty()) {
+            throw new EmpresaNotFoundException(empresaId);
         }
 
         return contactos.stream().map(GetContactoDto::of).toList();
