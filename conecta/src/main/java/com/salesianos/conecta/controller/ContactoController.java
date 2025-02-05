@@ -142,9 +142,7 @@ public class ContactoController {
                     content = @Content),
     })
     @PutMapping("/{profesorId}/{trabajadorId}")
-    public GetContactoDto edit(@RequestBody CreateContactoDto aEditar,
-                                               @PathVariable Long profesorId,
-                                               @PathVariable Long trabajadorId) {
+    public GetContactoDto edit(@RequestBody CreateContactoDto aEditar, @PathVariable Long profesorId, @PathVariable Long trabajadorId) {
         ContactoPK id = new ContactoPK();
         id.setProfesor_id(profesorId);
         id.setTrabajador_id(trabajadorId);
@@ -156,9 +154,7 @@ public class ContactoController {
     }
 
     @DeleteMapping("/{profesorId}/{trabajadorId}")
-    public ResponseEntity<?> delete(@PathVariable Long profesorId,
-                                    @PathVariable Long trabajadorId) {
-
+    public ResponseEntity<?> delete(@PathVariable Long profesorId, @PathVariable Long trabajadorId) {
         ContactoPK id = new ContactoPK();
         id.setProfesor_id(profesorId);
         id.setTrabajador_id(trabajadorId);
@@ -237,6 +233,15 @@ public class ContactoController {
         }
 
         return contactos.stream().map(GetContactoDto::of).toList();
+    }
+
+
+    @GetMapping("/profesor/{profesorId}")
+    public List<GetContactoDto> getContactosByProfesorId(@PathVariable Long profesorId) {
+        return contactoService.findContactosByProfesorId(profesorId)
+                .stream()
+                .map(GetContactoDto::of)
+                .toList();
     }
 
 

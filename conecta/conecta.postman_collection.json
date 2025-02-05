@@ -3,52 +3,13 @@
 		"_postman_id": "790708c0-362c-4847-b246-aa50753764e6",
 		"name": "conecta",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "38370956",
-		"_collection_link": "https://conecta-3186.postman.co/workspace/Conecta-Workspace~d1735a27-ce6b-4c64-b540-2c00490f20d3/collection/38689358-790708c0-362c-4847-b246-aa50753764e6?action=share&source=collection_link&creator=38370956"
+		"_exporter_id": "38689358",
+		"_collection_link": "https://conecta-3186.postman.co/workspace/Conecta-Workspace~d1735a27-ce6b-4c64-b540-2c00490f20d3/collection/38689358-790708c0-362c-4847-b246-aa50753764e6?action=share&source=collection_link&creator=38689358"
 	},
 	"item": [
 		{
-			"name": "usuario",
+			"name": "Usuario",
 			"item": [
-				{
-					"name": "CreateUsuario",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"juianperez\",\r\n    \"password\": \"12345678\",\r\n    \"profesor\": {\r\n        \"nombre\": \"Juan\",\r\n        \"apellidos\": \"Perez Perz\",\r\n        \"email\": \"juan.perez@example.com\",\r\n        \"telefono\": 678901234\r\n    }\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{BASE_URL}}/usuario/",
-							"host": [
-								"{{BASE_URL}}"
-							],
-							"path": [
-								"usuario",
-								""
-							]
-						}
-					},
-					"response": []
-				},
 				{
 					"name": "getAll Usuario",
 					"request": {
@@ -86,10 +47,58 @@
 					"response": []
 				},
 				{
-					"name": "delete usuario",
+					"name": "CreateUsuario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
-						"method": "DELETE",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"aaa\",\r\n    \"password\": \"12345678\",\r\n    \"profesor\": {\r\n        \"nombre\": \"Juan\",\r\n        \"apellidos\": \"Perez Perz\",\r\n        \"email\": \"juan.perez@example.com\",\r\n        \"telefono\": 678901234\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/usuario/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"usuario",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit usuario",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"aaa\",\r\n    \"password\": \"12345678\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{BASE_URL}}/usuario/1",
 							"host": [
@@ -104,19 +113,10 @@
 					"response": []
 				},
 				{
-					"name": "edit usuario",
+					"name": "delete usuario",
 					"request": {
-						"method": "PUT",
+						"method": "DELETE",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"id\" : 1,\r\n    \"username\": \"aaa\",\r\n    \"password\": \"12345678\",\r\n    \"role\" : \"profesor\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "{{BASE_URL}}/usuario/1",
 							"host": [
@@ -152,6 +152,156 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "GetById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/contacto/1/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"contacto",
+								"1",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fecha\": \"2023-10-01T00:00:00Z\",\r\n    \"canal\": \"Email\",\r\n    \"resumen\": \"Resumen del contacto\", \r\n    \"trabajador\": {\r\n        \"id\": 51\r\n    },\r\n    \"profesor\": {\r\n        \"id\": 51\r\n    }\r\n    \r\n    \r\n}\r\n    ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/contacto/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"contacto",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fecha\": \"2023-10-01T00:00:00Z\",\r\n    \"canal\": \"Email\",\r\n    \"resumen\": \"Resumen del contacto\", \r\n    \"trabajador\": {\r\n        \"id\": 1\r\n    },\r\n    \"profesor\": {\r\n        \"id\": 1\r\n    }\r\n    \r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/contacto/1/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"contacto",
+								"1",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getContactosByProfesorId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/contacto/profesor/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"contacto",
+								"profesor",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetContactosByFamilia",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/contacto/familiaProfesional/Tecnología",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"contacto",
+								"familiaProfesional",
+								"Tecnología"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getContactosByEmpresaId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/contacto/empresa/51",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"contacto",
+								"empresa",
+								"51"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/contacto/51/51",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"contacto",
+								"51",
+								"51"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -182,24 +332,6 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/empresa/3",
-							"host": [
-								"{{BASE_URL}}"
-							],
-							"path": [
-								"empresa",
-								"3"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "DeleteById",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
 							"raw": "{{BASE_URL}}/empresa/1",
 							"host": [
 								"{{BASE_URL}}"
@@ -213,13 +345,13 @@
 					"response": []
 				},
 				{
-					"name": "Save",
+					"name": "Create",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"nombre\": \"Nombre de la Empresa\",\r\n    \"direccion\": \"Dirección de la Empresa\",\r\n    \"familiasProfesionales\": [\r\n        {\r\n            \"id\": 1\r\n        },\r\n        {\r\n            \"id\": 51\r\n        }\r\n    ],\r\n    \"demandas\": [\r\n        {\r\n            \"requisitos\": \"awdas\"\r\n        },\r\n        {\r\n            \"requisitos\": \"312aefsf\"\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"nombre\": \"Nombre de la Empresa\",\r\n    \"direccion\": \"Dirección de la Empresa\",\r\n    \"familiasProfesionales\": [\r\n        {\r\n            \"id\": 1\r\n        },\r\n        {\r\n            \"id\": 51\r\n        }\r\n    ],\r\n    \"demandas\": [\r\n        {\r\n            \"id\": 1\r\n        },\r\n        {\r\n            \"id\": 51\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -234,6 +366,69 @@
 							"path": [
 								"empresa",
 								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"souhisvdoiuhj de la Empresa\",\r\n    \"direccion\": \"svnuipdjsodilnjv de la Empresa\",\r\n    \"familiasProfesionales\": [\r\n        {\r\n            \"id\": 51\r\n        },\r\n        {\r\n            \"id\": 1\r\n        }\r\n    ],\r\n    \"demandas\": [\r\n        {\r\n            \"id\": 1\r\n        },\r\n        {\r\n            \"id\": 51\r\n        },\r\n        {\r\n            \"id\": 51\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/empresa/151",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"empresa",
+								"151"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetEmpresaVariasDemandas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/empresa/demandas",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"empresa",
+								"demandas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/empresa/152",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"empresa",
+								"152"
 							]
 						}
 					},
@@ -281,10 +476,46 @@
 					"response": []
 				},
 				{
-					"name": "Delete",
+					"name": "Create",
 					"request": {
-						"method": "DELETE",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"empresa\": {\r\n        \"id\": 1\r\n    },\r\n    \"curso\": {\r\n        \"id\": 51\r\n    },\r\n    \"cantidadAlumnos\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/demanda/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"demanda",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"empresa\": {\r\n        \"id\": 1\r\n    },\r\n    \"curso\": {\r\n        \"id\": 51\r\n    },\r\n    \"cantidadAlumnos\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{BASE_URL}}/demanda/1",
 							"host": [
@@ -293,6 +524,43 @@
 							"path": [
 								"demanda",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getDemandasByEmpresaId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/demanda/empresa/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"demanda",
+								"empresa",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/demanda/102",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"demanda",
+								"102"
 							]
 						}
 					},
@@ -340,10 +608,46 @@
 					"response": []
 				},
 				{
-					"name": "Delete",
+					"name": "Create",
 					"request": {
-						"method": "DELETE",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cursoEscolar\": \"2025/2026\",\r\n    \"nombre\": \"Diciembre\",\r\n    \"demandas\": [\r\n        {\r\n            \"id\": 1\r\n        },\r\n        {\r\n            \"id\": 51\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/convocatoria/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"convocatoria",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cursoEscolar\": \"2024/2025\",\r\n    \"nombre\": \"Diciembre\",\r\n    \"demandas\": [\r\n        {\r\n            \"id\": 1\r\n        },\r\n        {\r\n            \"id\": 51\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{BASE_URL}}/convocatoria/1",
 							"host": [
@@ -352,6 +656,24 @@
 							"path": [
 								"convocatoria",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/convocatoria/52",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"convocatoria",
+								"52"
 							]
 						}
 					},
@@ -399,10 +721,46 @@
 					"response": []
 				},
 				{
-					"name": "DeleteById",
+					"name": "Create",
 					"request": {
-						"method": "DELETE",
+						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Veterinaria\",\r\n    \"empresas\": [\r\n        {\r\n            \"id\": 1\r\n        },\r\n        {\r\n            \"id\": 51\r\n        }\r\n    ]\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/familiaProfesional/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"familiaProfesional",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Veterinaria\",\r\n    \"empresas\": [\r\n        {\r\n            \"id\": 1\r\n        },\r\n        {\r\n            \"id\": 51\r\n        }\r\n    ]\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{BASE_URL}}/familiaProfesional/1",
 							"host": [
@@ -411,6 +769,496 @@
 							"path": [
 								"familiaProfesional",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/familiaProfesional/52",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"familiaProfesional",
+								"52"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Curso",
+			"item": [
+				{
+					"name": "GetAll curso",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/curso/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"curso",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetById curso",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/curso/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"curso",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create curso",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"Desarrollo Web\",\r\n  \"horasEmpresa\": 350,\r\n  \"tituloId\": 1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/curso/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"curso",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit curso",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nombre\": \"Segundo\",\r\n  \"horasEmpresa\": 350,\r\n  \"tituloId\": 1\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/curso/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"curso",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete curso",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/curso/102",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"curso",
+								"102"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getCursosByProfesorId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/curso/profesor/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"curso",
+								"profesor",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Titulo",
+			"item": [
+				{
+					"name": "GetAll titulo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/titulo/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"titulo",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetById titulo",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/titulo/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"titulo",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Laboratorio Clínico y Biomédico\",\r\n    \"duracion\": 2000,\r\n    \"grado\": \"Grado Superior\",\r\n    \"familiaProfesional\": {\r\n        \"id\": 51\r\n    },\r\n    \"curso\": [\r\n        {\r\n            \"id\": 1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/titulo/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"titulo",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit titulo",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Técnico en Desarrollo de Aplicaciones Web\",\r\n    \"duracion\": 2000,\r\n    \"grado\": \"Grado Superior\",\r\n    \"familiaProfesional\": {\r\n        \"id\": 1\r\n    },\r\n    \"curso\": [\r\n        {\r\n            \"id\": 1\r\n        },\r\n        {\r\n            \"id\": 51\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/titulo/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"titulo",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/titulo/102",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"titulo",
+								"102"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profesor",
+			"item": [
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/profesor/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"profesor",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/profesor/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"profesor",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"profesorjuan\",\r\n    \"password\": \"12345678\",\r\n    \"profesor\": {\r\n        \"nombre\": \"Juan Antonio\",\r\n        \"apellidos\": \"Gonzalez Ruiz\",\r\n        \"email\": \"juanangoru@example.com\",\r\n        \"telefono\": 612438950\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/profesor/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"profesor",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\" : \"María\",\r\n    \"apellidos\": \"Vega López\",\r\n    \"email\" : \"mariavl23@gmail.com\",\r\n    \"telefono\" : 677885431\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/profesor/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"profesor",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Trabajador",
+			"item": [
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/trabajador/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"trabajador",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/trabajador/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"trabajador",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\" : \"Belen\",\r\n    \"apellidos\" : \"López Vázquez\",\r\n    \"email\" : \"belenlv@outlook.com\",\r\n    \"telefono\" : 633449811,\r\n    \"area\" : \"RRHH\",\r\n    \"puesto\": \"Recruiter\",\r\n    \"empresaId\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/trabajador/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"trabajador",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\" : \"Mauricio\",\r\n    \"apellidos\" : \"Hidalgo Fernández\",\r\n    \"email\" : \"maauri@outlook.com\",\r\n    \"telefono\" : 633449811,\r\n    \"area\" : \"RRHH\",\r\n    \"puesto\": \"Recruiter\",\r\n    \"empresaId\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/trabajador/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"trabajador",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/trabajador/52",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"trabajador",
+								"52"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getTrabajadoresByArea",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/trabajador/area/RRHH",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"trabajador",
+								"area",
+								"RRHH"
 							]
 						}
 					},

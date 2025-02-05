@@ -1,10 +1,8 @@
 package com.salesianos.conecta.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import lombok.extern.java.Log;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.hibernate.proxy.HibernateProxy;

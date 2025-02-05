@@ -108,13 +108,42 @@ public class GlobalErrorController
         ProblemDetail result = ProblemDetail
                 .forStatusAndDetail(HttpStatus.NOT_FOUND,
                         ex.getMessage());
-        result.setTitle("Curso no encontrada");
+        result.setTitle("Curso no encontrado");
         result.setType(URI.create("https://www.salesianos-triana.edu/errors/curso-not-found"));
         result.setProperty("author", "Olga");
 
         return result;
 
     }
+
+    @ExceptionHandler(TituloNotFoundException.class)
+    public ProblemDetail handleTituloNotFound(TituloNotFoundException ex) {
+        ProblemDetail result = ProblemDetail
+                .forStatusAndDetail(HttpStatus.NOT_FOUND,
+                        ex.getMessage());
+        result.setTitle("Titulo no encontrado");
+        result.setType(URI.create("https://www.salesianos-triana.edu/errors/titulo-not-found"));
+        result.setProperty("author", "Olga");
+
+        return result;
+
+    }
+
+    @ExceptionHandler(TrabajadorNotFoundException.class)
+    public ProblemDetail handleTrabajadorNotFound(TrabajadorNotFoundException ex) {
+        ProblemDetail result = ProblemDetail
+                .forStatusAndDetail(HttpStatus.NOT_FOUND,
+                        ex.getMessage());
+        result.setTitle("Trabajador no encontrado");
+        result.setType(URI.create("https://www.salesianos-triana.edu/errors/trabajador-not-found"));
+        result.setProperty("author", "Olga");
+
+        return result;
+
+    }
+
+
+
 
 
 

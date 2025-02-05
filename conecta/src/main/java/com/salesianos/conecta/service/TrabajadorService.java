@@ -7,7 +7,6 @@ import com.salesianos.conecta.model.Empresa;
 import com.salesianos.conecta.model.Trabajador;
 import com.salesianos.conecta.repository.EmpresaRepository;
 import com.salesianos.conecta.repository.TrabajadorRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -53,6 +52,14 @@ public class TrabajadorService {
 
     public void delete(Long id) {
         trabajadorRepository.deleteById(id);
+    }
+
+    public List<Trabajador> findTrabajadoresByArea(String area) {
+        List<Trabajador> trabajadores = trabajadorRepository.findTrabajadoresByArea(area);
+        if (trabajadores.isEmpty()) {
+            throw new TrabajadorNotFoundException("No se encontraron trabajadores para el área: "+area);
+        }
+        return trabajadores;
     }
 
 
