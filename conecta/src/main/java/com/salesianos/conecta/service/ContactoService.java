@@ -1,7 +1,6 @@
 package com.salesianos.conecta.service;
 
 import com.salesianos.conecta.dto.contacto.CreateContactoDto;
-import com.salesianos.conecta.dto.contacto.GetContactoDto;
 import com.salesianos.conecta.error.ContactoNotFoundException;
 import com.salesianos.conecta.error.ProfesorNotFoundException;
 import com.salesianos.conecta.error.UsuarioNotFoundException;
@@ -76,6 +75,14 @@ public class ContactoService {
         contactoRepository.findById(id)
                 .orElseThrow(() -> new ContactoNotFoundException());
         contactoRepository.deleteById(id);
+    }
+
+    public List<Contacto> findContactosByProfesorId(Long profesorId) {
+        List<Contacto> contactos = contactoRepository.findContactosByProfesorId(profesorId);
+        if (contactos.isEmpty()) {
+            throw new ContactoNotFoundException("No se encontraron contactos para el profesor con id: " +profesorId);
+        }
+        return contactos;
     }
 
 

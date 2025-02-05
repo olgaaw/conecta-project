@@ -2,7 +2,6 @@ package com.salesianos.conecta.service;
 
 import com.salesianos.conecta.dto.curso.EditCursoCmd;
 import com.salesianos.conecta.dto.curso.CreateCursoDto;
-import com.salesianos.conecta.dto.curso.GetCursoDto;
 import com.salesianos.conecta.error.CursoNotFoundException;
 import com.salesianos.conecta.error.TituloNotFoundException;
 import com.salesianos.conecta.model.Curso;
@@ -76,6 +75,8 @@ public class CursoService {
     public List<Curso> findCursosByProfesorId(Long profesorId) {
         return cursoRepository.findCursosByProfesorId(profesorId);
     }
+
+
 
 
 }

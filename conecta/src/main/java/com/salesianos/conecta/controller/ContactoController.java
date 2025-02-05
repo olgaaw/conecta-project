@@ -5,6 +5,7 @@ import com.salesianos.conecta.dto.contacto.GetContactoDto;
 import com.salesianos.conecta.dto.convocatoria.CreateConvocatoriaDto;
 import com.salesianos.conecta.dto.convocatoria.GetConvocatoriaDto;
 import com.salesianos.conecta.dto.demanda.GetDemandaDto;
+import com.salesianos.conecta.dto.trabajador.GetTrabajadorDto;
 import com.salesianos.conecta.model.Contacto;
 import com.salesianos.conecta.model.ContactoPK;
 import com.salesianos.conecta.model.Demanda;
@@ -144,9 +145,7 @@ public class ContactoController {
                     content = @Content),
     })
     @PutMapping("/{profesorId}/{trabajadorId}")
-    public GetContactoDto edit(@RequestBody CreateContactoDto aEditar,
-                                               @PathVariable Long profesorId,
-                                               @PathVariable Long trabajadorId) {
+    public GetContactoDto edit(@RequestBody CreateContactoDto aEditar, @PathVariable Long profesorId, @PathVariable Long trabajadorId) {
         ContactoPK id = new ContactoPK();
         id.setProfesor_id(profesorId);
         id.setTrabajador_id(trabajadorId);
@@ -158,9 +157,7 @@ public class ContactoController {
     }
 
     @DeleteMapping("/{profesorId}/{trabajadorId}")
-    public ResponseEntity<?> delete(@PathVariable Long profesorId,
-                                    @PathVariable Long trabajadorId) {
-
+    public ResponseEntity<?> delete(@PathVariable Long profesorId, @PathVariable Long trabajadorId) {
         ContactoPK id = new ContactoPK();
         id.setProfesor_id(profesorId);
         id.setTrabajador_id(trabajadorId);
@@ -169,6 +166,15 @@ public class ContactoController {
 
         return ResponseEntity.noContent().build();
 
+    }
+
+
+    @GetMapping("/profesor/{profesorId}")
+    public List<GetContactoDto> getContactosByProfesorId(@PathVariable Long profesorId) {
+        return contactoService.findContactosByProfesorId(profesorId)
+                .stream()
+                .map(GetContactoDto::of)
+                .toList();
     }
 
 
