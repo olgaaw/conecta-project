@@ -111,24 +111,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "delete usuario",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{BASE_URL}}/usuario/1",
-							"host": [
-								"{{BASE_URL}}"
-							],
-							"path": [
-								"usuario",
-								"1"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
