@@ -55,6 +55,14 @@ public class TrabajadorService {
         trabajadorRepository.deleteById(id);
     }
 
+    public List<Trabajador> findTrabajadoresByArea(String area) {
+        List<Trabajador> trabajadores = trabajadorRepository.findTrabajadoresByArea(area);
+        if (trabajadores.isEmpty()) {
+            throw new TrabajadorNotFoundException("No se encontraron trabajadores para el área: "+area);
+        }
+        return trabajadores;
+    }
+
 
 
 
