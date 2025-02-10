@@ -10,7 +10,9 @@ public record CreateUsuarioDto(
         @NotNull(message = "El username no puede ser nulo")
         String username,
         @NotNull(message = "La contraseña no puede ser nula")
-        String password
+        String password,
+        @NotNull
+        String role
 
 ) {
 
@@ -19,7 +21,7 @@ public record CreateUsuarioDto(
         return Usuario.builder()
                 .username(this.username)
                 .password(this.password)
-                .role("profesor")
+                .role(this.role)
                 .profesor(this.profesor)
                 .build();
     }
