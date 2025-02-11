@@ -1,7 +1,6 @@
 package com.salesianos.conecta.service;
 
 import com.salesianos.conecta.dto.demanda.CreateDemandaDto;
-import com.salesianos.conecta.dto.demanda.GetDemandaDto;
 import com.salesianos.conecta.error.CursoNotFoundException;
 import com.salesianos.conecta.error.DemandaNotFoundException;
 import com.salesianos.conecta.error.EmpresaNotFoundException;

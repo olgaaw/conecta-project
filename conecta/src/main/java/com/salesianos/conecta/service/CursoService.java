@@ -2,7 +2,6 @@ package com.salesianos.conecta.service;
 
 import com.salesianos.conecta.dto.curso.EditCursoCmd;
 import com.salesianos.conecta.dto.curso.CreateCursoDto;
-import com.salesianos.conecta.dto.curso.GetCursoDto;
 import com.salesianos.conecta.error.CursoNotFoundException;
 import com.salesianos.conecta.error.TituloNotFoundException;
 import com.salesianos.conecta.model.Curso;
@@ -34,7 +33,7 @@ public class CursoService {
                 .orElseThrow(() -> new CursoNotFoundException());
     }
 
-    public GetCursoDto edit(EditCursoCmd curso, Long id) {
+    public Curso edit(EditCursoCmd curso, Long id) {
         return cursoRepository.findById(id)
                 .map(old -> {
                     if (curso.nombre() != null) {
@@ -44,17 +43,17 @@ public class CursoService {
                     if (curso.titulo() != null) {
                         old.setTitulo(curso.titulo());
                     }
-                    return GetCursoDto.of(cursoRepository.save(old));
+                    return cursoRepository.save(old);
                 })
                 .orElseThrow(() -> new CursoNotFoundException(id));
     }
 
-    public GetCursoDto save(CreateCursoDto dto) {
+
+    public Curso save(CreateCursoDto dto) {
         Titulo titulo = tituloRepository.findById(dto.tituloId())
                 .orElseThrow(() -> new TituloNotFoundException(dto.tituloId()));
 
-        Curso curso = cursoRepository.save(dto.toCurso(titulo));
-        return GetCursoDto.of(curso);
+        return cursoRepository.save(dto.toCurso(titulo));
     }
 
     public void delete(Long id) {
@@ -69,10 +68,15 @@ public class CursoService {
             curso.getTitulo().getCursos().remove(curso);
         }
         cursoRepository.deleteDemandasByCursoId(id);
+
         cursoRepository.delete(curso);
     }
 
     public List<Curso> findCursosByProfesorId(Long profesorId) {
         return cursoRepository.findCursosByProfesorId(profesorId);
     }
+
+
+
+
 }

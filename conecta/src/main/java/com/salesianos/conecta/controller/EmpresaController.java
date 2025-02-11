@@ -4,7 +4,6 @@ import com.salesianos.conecta.dto.empresa.CreateEmpresaDto;
 import com.salesianos.conecta.dto.empresa.GetEmpresaDto;
 import com.salesianos.conecta.dto.empresa.GetEmpresaStringsDto;
 import com.salesianos.conecta.error.EmpresaNotFoundException;
-import com.salesianos.conecta.model.Demanda;
 import com.salesianos.conecta.model.Empresa;
 import com.salesianos.conecta.service.EmpresaService;
 import io.swagger.v3.oas.annotations.Operation;

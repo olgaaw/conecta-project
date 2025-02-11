@@ -1,9 +1,7 @@
 package com.salesianos.conecta.controller;
 
-import com.salesianos.conecta.dto.convocatoria.GetConvocatoriaDto;
 import com.salesianos.conecta.dto.trabajador.CreateTrabajadorDto;
 import com.salesianos.conecta.dto.trabajador.GetTrabajadorDto;
-import com.salesianos.conecta.model.Convocatoria;
 import com.salesianos.conecta.model.Trabajador;
 import com.salesianos.conecta.service.TrabajadorService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -154,7 +152,7 @@ public class TrabajadorController {
     }
 
 
-    @Operation(summary = "Elimina un curso por su id")
+    @Operation(summary = "Elimina un trabajador por su id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204",
                     description = "Curso eliminado",
@@ -168,6 +166,46 @@ public class TrabajadorController {
     }
 
 
+    @Operation(summary = "Obtiene todos los trabajadores de un área por su nombre")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado trabajadores",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = GetTrabajadorDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            [
+                                               {
+                                                   "nombre": "David",
+                                                   "apellidos": "Sevillano Dominguez",
+                                                   "email": "dvd.sevi@gmail.com",
+                                                   "telefono": 65479023,
+                                                   "area": "Desarrollo",
+                                                   "puesto": "Mobile",
+                                                   "empresaDto": {
+                                                       "nombre": "Empresa de Tecnología S.A.",
+                                                       "direccion": "Calle Falsa 123",
+                                                       "familiaProfesionales": [
+                                                           {
+                                                               "nombre": "Tecnología"
+                                                           }
+                                                       ],
+                                                       "demandas": 1
+                                                   }
+                                               }
+                                           ]                      
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404", description = "No se encontraron trabajadores para el área especificada")
+    })
+    @GetMapping("/area/{area}")
+    public List<GetTrabajadorDto> getTrabajadoresByArea(@PathVariable String area) {
+        return trabajadorService.findTrabajadoresByArea(area)
+                .stream()
+                .map(GetTrabajadorDto::of)
+                .toList();
+    }
 
 
 

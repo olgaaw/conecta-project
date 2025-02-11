@@ -1,9 +1,13 @@
 package com.salesianos.conecta.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import lombok.extern.java.Log;
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.hibernate.proxy.HibernateProxy;
 
 import java.util.Objects;
 
@@ -15,6 +19,7 @@ import java.util.Objects;
 @Builder
 @Entity
 @Table(name = "usuario")
+@SQLDelete(sql = "UPDATE contacto SET deleted = true WHERE profesor_id = ? AND trabajador_id = ?")
 @Where(clause = "deleted = false")
 public class Usuario {
     @Id
@@ -50,4 +55,6 @@ public class Usuario {
     public final int hashCode() {
         return Objects.hash(getId());
     }
+
+
 }

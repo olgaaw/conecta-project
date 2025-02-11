@@ -131,6 +131,7 @@ public class UsuarioController {
         return GetUsuarioDto.of(usuario);
     }
 
+
     @Operation(summary = "Elimina un usuario por su id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204",
@@ -138,8 +139,9 @@ public class UsuarioController {
                     content = @Content)
     })
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteById(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         usuarioService.delete(id);
-        return ResponseEntity.noContent().build();
     }
+
+
 }
