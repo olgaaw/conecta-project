@@ -29,10 +29,11 @@ public class Profesor extends Persona{
     @Builder.Default
     private Set<Curso> cursos = new HashSet<>();
 
-    @OneToMany(mappedBy = "profesor", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "profesor", fetch = FetchType.LAZY)
     @Builder.Default
     @ToString.Exclude
     private List<Contacto> contactos = new ArrayList<>();
+
 
 
     //helpers

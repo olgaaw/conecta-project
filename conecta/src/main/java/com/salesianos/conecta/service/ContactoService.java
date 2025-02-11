@@ -86,5 +86,9 @@ public class ContactoService {
         return contactoRepository.findByEmpresaId(empresaId);
     }
 
+    public List<Contacto> findByProfesor(Long profesorId) {
+        return contactoRepository.findByProfesorId(profesorId);
+    }
+
 
 }

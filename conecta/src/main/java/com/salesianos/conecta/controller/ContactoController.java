@@ -4,6 +4,7 @@ import com.salesianos.conecta.dto.contacto.CreateContactoDto;
 import com.salesianos.conecta.dto.contacto.GetContactoDto;
 import com.salesianos.conecta.error.EmpresaNotFoundException;
 import com.salesianos.conecta.error.FamiliaProfesionalNotFoundException;
+import com.salesianos.conecta.error.ProfesorNotFoundException;
 import com.salesianos.conecta.model.Contacto;
 import com.salesianos.conecta.model.ContactoPK;
 import com.salesianos.conecta.service.ContactoService;
@@ -238,6 +239,51 @@ public class ContactoController {
 
         return contactos.stream().map(GetContactoDto::of).toList();
     }
+
+
+    @Operation(summary = "Obtiene todos los contactos de un profesor")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado contactos",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Contacto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            [
+                                                {
+                                                    "fecha": "2025-01-17",
+                                                    "canal": "email",
+                                                    "resumen": "Aceptación del convenio de practicas",
+                                                    "trabajadorNombre": "David",
+                                                    "trabajadorEmpresa": "Empresa de Tecnología S.A."
+                                                },
+                                                {
+                                                    "fecha": "2025-01-15",
+                                                    "canal": "llamada",
+                                                    "resumen": "Cerrada fecha inicio de practicas primero daw",
+                                                    "trabajadorNombre": "Olga",
+                                                    "trabajadorEmpresa": "Salud y Vida S.L."
+                                                }
+                                            ]                                        
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado ningun contacto con ese profesor",
+                    content = @Content),
+    })
+    @GetMapping("/profesor/{profesorId}")
+    public List<GetContactoDto> getContactosByProfesorId(@PathVariable Long profesorId) {
+        List<Contacto> contactos = contactoService.findByProfesor(profesorId);
+
+        if (contactos.isEmpty()) {
+            throw new ProfesorNotFoundException(profesorId);
+        }
+
+        return contactos.stream().map(GetContactoDto::of).toList();
+    }
+
+
 
 
 }

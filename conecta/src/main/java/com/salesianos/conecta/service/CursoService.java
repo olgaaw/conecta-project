@@ -71,4 +71,8 @@ public class CursoService {
         cursoRepository.deleteDemandasByCursoId(id);
         cursoRepository.delete(curso);
     }
+
+    public List<Curso> findCursosByProfesorId(Long profesorId) {
+        return cursoRepository.findCursosByProfesorId(profesorId);
+    }
 }

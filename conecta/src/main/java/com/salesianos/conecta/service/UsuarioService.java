@@ -7,6 +7,7 @@ import com.salesianos.conecta.error.UsuarioNotFoundException;
 import com.salesianos.conecta.model.Contacto;
 import com.salesianos.conecta.model.Profesor;
 import com.salesianos.conecta.model.Usuario;
+import com.salesianos.conecta.repository.ContactoRepository;
 import com.salesianos.conecta.repository.ProfesorRepository;
 import com.salesianos.conecta.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
@@ -20,6 +21,7 @@ import java.util.List;
 public class UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final ProfesorRepository profesorRepository;
+    private final ContactoRepository contactoRepository;
 
     public List<Usuario> findAll() {
         List<Usuario> result = usuarioRepository.findAll();
@@ -71,12 +73,17 @@ public class UsuarioService {
                 .orElseThrow(() -> new UsuarioNotFoundException(id));
 
         if (usuario.getProfesor() != null) {
-            for (Contacto contacto : usuario.getProfesor().getContactos()) {
-                contacto.removeFromProfesor(usuario.getProfesor());
+            Profesor profesor = usuario.getProfesor();
+
+            List<Contacto> contactos = contactoRepository.findByProfesorId(profesor.getId());
+            for (Contacto contacto : contactos) {
+                contacto.setDeleted(true);
+                contactoRepository.save(contacto);
             }
+
+            profesorRepository.delete(profesor);
         }
 
-        usuario.setProfesor(null);
         usuarioRepository.delete(usuario);
     }
 }

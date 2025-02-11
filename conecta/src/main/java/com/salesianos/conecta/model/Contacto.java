@@ -5,7 +5,6 @@ import lombok.*;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
-import org.hibernate.annotations.SQLDelete;
 
 import java.time.LocalDate;
 
@@ -18,7 +17,6 @@ import java.time.LocalDate;
 @Builder
 @Entity
 @Table(name = "contacto")
-@SQLDelete(sql = "UPDATE contacto SET deleted = true WHERE profesor_id = ? AND trabajador_id = ?")
 @FilterDef(name = "deletedContactoFilter", parameters = @ParamDef(name = "isDeleted", type = Boolean.class))
 @Filter(name = "deletedContactoFilter", condition = "deleted = :isDeleted")
 public class Contacto {

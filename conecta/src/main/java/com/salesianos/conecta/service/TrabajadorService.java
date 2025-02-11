@@ -3,11 +3,13 @@ package com.salesianos.conecta.service;
 import com.salesianos.conecta.dto.trabajador.CreateTrabajadorDto;
 import com.salesianos.conecta.error.EmpresaNotFoundException;
 import com.salesianos.conecta.error.TrabajadorNotFoundException;
+import com.salesianos.conecta.model.Contacto;
 import com.salesianos.conecta.model.Empresa;
 import com.salesianos.conecta.model.Trabajador;
+import com.salesianos.conecta.repository.ContactoRepository;
 import com.salesianos.conecta.repository.EmpresaRepository;
 import com.salesianos.conecta.repository.TrabajadorRepository;
-import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,7 @@ import java.util.List;
 public class TrabajadorService {
     private final TrabajadorRepository trabajadorRepository;
     private final EmpresaRepository empresaRepository;
+    private final ContactoRepository contactoRepository;
 
     public List<Trabajador> findAll() {
         List<Trabajador> result = trabajadorRepository.findAll();
@@ -51,8 +54,18 @@ public class TrabajadorService {
                 }).orElseThrow(() -> new TrabajadorNotFoundException(id));
     }
 
+    @Transactional
     public void delete(Long id) {
-        trabajadorRepository.deleteById(id);
+        Trabajador trabajador = trabajadorRepository.findById(id)
+                .orElseThrow(() -> new TrabajadorNotFoundException(id));
+
+        List<Contacto> contactos = contactoRepository.findByTrabajadorId(trabajador.getId());
+        for (Contacto contacto : contactos) {
+            contacto.setDeleted(true);
+            contactoRepository.save(contacto);
+        }
+
+        trabajadorRepository.delete(trabajador);
     }
 
 
